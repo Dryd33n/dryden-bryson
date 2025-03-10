@@ -10,7 +10,7 @@ const LetterGlitch = ({
 }) => {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
-  const letters = useRef([]);
+  const letters = useRef<Letter[]>([]);
   const grid = useRef({ columns: 0, rows: 0 });
   const context = useRef(null);
   const lastGlitchTime = useRef(Date.now());
@@ -35,7 +35,13 @@ const LetterGlitch = ({
     return glitchColors[Math.floor(Math.random() * glitchColors.length)];
   };
 
-  const hexToRgb = (hex) => {
+  interface RGB {
+    r: number;
+    g: number;
+    b: number;
+  }
+
+  const hexToRgb = (hex: string): RGB | null => {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, (m, r, g, b) => {
       return r + r + g + g + b + b;
@@ -49,8 +55,14 @@ const LetterGlitch = ({
     } : null;
   };
 
-  const interpolateColor = (start, end, factor) => {
-    const result = {
+  interface RGB {
+    r: number;
+    g: number;
+    b: number;
+  }
+
+  const interpolateColor = (start: RGB, end: RGB, factor: number): string => {
+    const result: RGB = {
       r: Math.round(start.r + (end.r - start.r) * factor),
       g: Math.round(start.g + (end.g - start.g) * factor),
       b: Math.round(start.b + (end.b - start.b) * factor),
@@ -58,13 +70,25 @@ const LetterGlitch = ({
     return `rgb(${result.r}, ${result.g}, ${result.b})`;
   };
 
-  const calculateGrid = (width, height) => {
+  interface Grid {
+    columns: number;
+    rows: number;
+  }
+
+  const calculateGrid = (width: number, height: number): Grid => {
     const columns = Math.ceil(width / charWidth);
     const rows = Math.ceil(height / charHeight);
     return { columns, rows };
   };
 
-  const initializeLetters = (columns, rows) => {
+  interface Letter {
+    char: string;
+    color: string;
+    targetColor: string;
+    colorProgress: number;
+  }
+
+  const initializeLetters = (columns: number, rows: number): void => {
     grid.current = { columns, rows };
     const totalLetters = columns * rows;
     letters.current = Array.from({ length: totalLetters }, () => ({
@@ -78,7 +102,7 @@ const LetterGlitch = ({
   const resizeCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const parent = canvas.parentElement;
+    const parent = (canvas as HTMLCanvasElement).parentElement;
     if (!parent) return;
 
     const dpr = window.devicePixelRatio || 1;
