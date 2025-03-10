@@ -1,4 +1,6 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 'use client'
+
 
 import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'

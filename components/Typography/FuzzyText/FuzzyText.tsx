@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 'use client'
 /*
 	Installed from https://reactbits.dev/ts/tailwind/
