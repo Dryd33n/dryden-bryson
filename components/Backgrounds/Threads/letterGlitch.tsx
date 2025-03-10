@@ -1,4 +1,3 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { useRef, useEffect } from 'react';
 import { CSSProperties } from 'react';
 const LetterGlitch = ({
