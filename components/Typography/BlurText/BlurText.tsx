@@ -1,11 +1,8 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-'use client'
-/*
-	Installed from https://reactbits.dev/ts/tailwind/
-*/
+import React, { useRef, useEffect, useState } from 'react';
+import { useSprings, animated, SpringValue, AnimatedProps } from '@react-spring/web';
 
-import { useRef, useEffect, useState } from 'react';
-import { useSprings, animated, SpringValue } from '@react-spring/web';
+const AnimatedSpan = animated.span as React.FC<React.HTMLAttributes<HTMLSpanElement>>;
+
 
 interface BlurTextProps {
   text?: string;
@@ -41,8 +38,8 @@ const BlurText: React.FC<BlurTextProps> = ({
 
   // Default animations based on direction
   const defaultFrom: Record<string, any> = direction === 'top'
-    ? { filter: 'blur(10px)', opacity: 0, transform: 'translate3d(0,-50px,0)' }
-    : { filter: 'blur(10px)', opacity: 0, transform: 'translate3d(0,50px,0)' };
+    ? { filter: 'blur(10px)', opacity: 0, transform: 'translate3d(0,-10px,0)' }
+    : { filter: 'blur(10px)', opacity: 0, transform: 'translate3d(0,10px,0)' };
   
   const defaultTo: Record<string, any>[] = [
     {
@@ -96,15 +93,17 @@ const BlurText: React.FC<BlurTextProps> = ({
   return (
     <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
       {springs.map((props, index) => (
-        <animated.span
+        <AnimatedSpan
           key={index}
           style={props}
-          className="inline-block transition-transform will-change-[transform,filter,opacity]"
-          fontSize="0.5rem"
         >
-          {elements[index] === ' ' ? '\u00A0' : elements[index]}
-          {animateBy === 'words' && index < elements.length - 1 && '\u00A0'}
-        </animated.span>
+          
+            <span className="inline-block transition-transform will-change-[transform,filter,opacity]">
+              {elements[index] === ' ' ? '\u00A0' : elements[index]}
+              {animateBy === 'words' && index < elements.length - 1 && '\u00A0'}
+            </span>
+          
+        </AnimatedSpan>
       ))}
     </p>
   );

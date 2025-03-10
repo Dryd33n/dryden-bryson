@@ -64,7 +64,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         </div>
                     </>
                 ) : (
-                    <p className="text-lg ">{mainMenuItem.title}</p>
+                    <p className="text-lg text-gray-400">{mainMenuItem.title}</p>
                 )
             )}
         </div>
