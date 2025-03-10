@@ -28,8 +28,8 @@ uniform vec2 uMouse;
 
 #define PI 3.141
 
-const int u_line_count = 8;
-const float u_line_width = 7.0;
+const int u_line_count = 30;
+const float u_line_width = 5.0;
 const float u_line_blur = 1.0;
 
 float pixel(float count, vec2 resolution) {
@@ -174,9 +174,6 @@ const Threads = ({
         }
         window.addEventListener("resize", resize);
         resize();
-
-        let currentMouse = [0.5, 0.5];
-        let targetMouse = [0.5, 0.5];
 
         function update(t: number) {
             program.uniforms.uMouse.value = [0.5,0.5];

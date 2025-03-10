@@ -7,8 +7,8 @@ import Threads from "@/components/Backgrounds/Threads/Threads";
 import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
 import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
 import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
-import { WavyBackground } from "@/components/Backgrounds/Threads/wavy-background";
-import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
+// import { WavyBackground } from "@/components/Backgrounds/Threads/wavy-background";
+// import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 
 export default function Home() {
   const portfolioItems: MenuItem[] = [{
@@ -81,22 +81,22 @@ export default function Home() {
 
 
           {/* THREADS BACKGROUND */}
-          <div className="w-full h-full absolute inset-0 -z-50 pb-[22vh]">
-            {/* <Threads
+          <div className="w-full h-full absolute inset-0 -z-50 my-auto">
+            <Threads
               amplitude={3}
               distance={0}
-            /> */}
+            />
 
           </div>
           {/* GLITCHTEXT BACKGROUND */}
           <div className="w-full h-full absolute inset-0 -z-50 opacity-10">
-          <LetterGlitch
-  glitchSpeed={100}
-  centerVignette={true}
-  outerVignette={true}
-  glitchColors={["#ffffff"]}
-  smooth={true}
-/>
+            {/*<LetterGlitch
+              glitchSpeed={100}
+              centerVignette={true}
+              outerVignette={true}
+              glitchColors={["#ffffff"]}
+              smooth={true}
+            />*/}
 
           </div>
           <div className="inset-0 flex flex-col items-center justify-center h-full">
