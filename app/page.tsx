@@ -1,13 +1,14 @@
 'use client'
 
-import FuzzyText from "@/src/react-bits/TextAnimations/FuzzyText/FuzzyText";
-import Threads from "@/src/react-bits/Backgrounds/Threads/Threads";
-import BlurText from "@/src/react-bits/TextAnimations/BlurText/BlurText";
-import BlurTextButton from "@/src/react-bits/TextAnimations/BlurText/BlurTextButton";
-import { FaGithubSquare } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import TiltedCard from "@/src/react-bits/Components/TiltedCard/TiltedCard";
-import { MenuItem } from "@/src/react-bits/TextAnimations/BlurText/BlurTextButton";
+
+
+import FuzzyText from "@/components/Typography/FuzzyText/FuzzyText";
+import Threads from "@/components/Backgrounds/Threads/Threads";
+import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
+import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
+import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
+import { WavyBackground } from "@/components/Backgrounds/Threads/wavy-background";
+import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 
 export default function Home() {
   const portfolioItems: MenuItem[] = [{
@@ -66,24 +67,37 @@ export default function Home() {
           </div>
 
           <div className="absolute bottom-0 right-2 flex flex-row gap-2">
-            <div className="h-[60] w-[60] overflow-hidden">
+            <div className="h-[60] w-[60] overflow-hidden mt-3">
               <TiltedCard
                 imageSrc="github.svg"
               />
             </div>
-            <div className="h-[60] w-[60] overflow-hidden">
+            <div className="h-[60] w-[60] overflow-hidden mt-3">
               <TiltedCard
                 imageSrc="linkedin.svg"
               />
             </div>
           </div>
 
+
+          {/* THREADS BACKGROUND */}
           <div className="w-full h-full absolute inset-0 -z-50 pb-[22vh]">
-            <Threads
+            {/* <Threads
               amplitude={3}
               distance={0}
-              enableMouseInteraction={false}
-            />
+            /> */}
+
+          </div>
+          {/* GLITCHTEXT BACKGROUND */}
+          <div className="w-full h-full absolute inset-0 -z-50 opacity-10">
+          <LetterGlitch
+  glitchSpeed={100}
+  centerVignette={true}
+  outerVignette={true}
+  glitchColors={["#ffffff"]}
+  smooth={true}
+/>
+
           </div>
           <div className="inset-0 flex flex-col items-center justify-center h-full">
             <FuzzyText

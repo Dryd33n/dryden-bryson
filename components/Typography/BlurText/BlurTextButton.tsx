@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import BlurText from "@/src/react-bits/TextAnimations/BlurText/BlurText";
+import BlurText from "../BlurText/BlurText";
 import DecryptedText from "../DecryptedText/DecryptedText";
 
 
@@ -38,7 +38,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         delay={20}
                         animateBy="letters"
                         direction="bottom"
-                        className={`text-lg mb-8 text-gray-400`}
+                        className={`text-lg text-gray-400`}
                         onAnimationComplete={() => setAnimationComplete(true)}
 
                     />
@@ -46,8 +46,8 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
             ) : (
                 hovered ? (
                     <>
-                        <p onClick={mainMenuItem.clickFn} className="text-lg mb-8 txt-clip" style={{ scale: 1.1, msTransitionProperty: 'scale', transitionDuration: '300ms', msTransitionTimingFunction: "ease-out" }}>{mainMenuItem.title}</p>
-                        <div className="absolute left-0 top-full mt-2 flex flex-col bg-white shadow-lg p-2 rounded" style={{ width: "50vw" }}>
+                        <p onClick={mainMenuItem.clickFn} className="text-lg text-gradient-1" style={{ scale: 1.1, msTransitionProperty: 'scale', transitionDuration: '300ms', msTransitionTimingFunction: "ease-out" }}>{mainMenuItem.title}</p>
+                        <div className="absolute left-0 top-full flex flex-col shadow-lg rounded" style={{ width: "50vw" }}>
                             {subMenuItems.map((item, index) => (
                                 <div key={index} 
                                 onClick={item.clickFn}
@@ -64,7 +64,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         </div>
                     </>
                 ) : (
-                    <p className="text-lg mb-8">{mainMenuItem.title}</p>
+                    <p className="text-lg ">{mainMenuItem.title}</p>
                 )
             )}
         </div>

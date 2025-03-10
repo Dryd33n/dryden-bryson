@@ -43,8 +43,8 @@ export default function DecryptedText({
   const containerRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    let interval: number
-    let timeout: number
+    let interval: ReturnType<typeof setInterval>
+    let timeout: ReturnType<typeof setTimeout>
     let currentIteration = 0
 
     const getNextIndex = (revealedSet: Set<number>): number => {
