@@ -1,6 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { useRef, useEffect } from 'react';
-
+import { CSSProperties } from 'react';
 const LetterGlitch = ({
   glitchColors = ['#2b4539', '#61dca3', '#61b3dc'],
   glitchSpeed = 50,
@@ -8,11 +8,11 @@ const LetterGlitch = ({
   outerVignette = true,
   smooth = true,
 }) => {
-  const canvasRef = useRef(null);
-  const animationRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const animationRef = useRef<number | null>(null);
   const letters = useRef<Letter[]>([]);
   const grid = useRef({ columns: 0, rows: 0 });
-  const context = useRef(null);
+  const context = useRef<CanvasRenderingContext2D | null>(null);
   const lastGlitchTime = useRef(Date.now());
 
   const fontSize = 16;
@@ -100,7 +100,9 @@ const LetterGlitch = ({
   };
 
   const resizeCanvas = () => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as HTMLCanvasElement | null;
+    if (!canvas) return;
+    if (!canvas) return;
     if (!canvas) return;
     const parent = (canvas as HTMLCanvasElement).parentElement;
     if (!parent) return;
@@ -127,7 +129,9 @@ const LetterGlitch = ({
   const drawLetters = () => {
     if (!context.current || letters.current.length === 0) return;
     const ctx = context.current;
-    const { width, height } = canvasRef.current.getBoundingClientRect();
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const { width, height } = (canvas as HTMLCanvasElement).getBoundingClientRect();
     ctx.clearRect(0, 0, width, height);
     ctx.font = `${fontSize}px monospace`;
     ctx.textBaseline = 'top';
@@ -205,12 +209,14 @@ const LetterGlitch = ({
     resizeCanvas();
     animate();
 
-    let resizeTimeout;
+    let resizeTimeout: NodeJS.Timeout;
 
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        cancelAnimationFrame(animationRef.current); // Stop animation loop during resize
+        if (animationRef.current !== null) {
+          cancelAnimationFrame(animationRef.current); // Stop animation loop during resize
+        }
         resizeCanvas();
         animate(); // Restart after resizing
       }, 100);
@@ -219,13 +225,17 @@ const LetterGlitch = ({
     window.addEventListener('resize', handleResize);
 
     return () => {
-      cancelAnimationFrame(animationRef.current);
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
       window.removeEventListener('resize', handleResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [glitchSpeed, smooth]);
 
-  const containerStyle = {
+
+
+  const containerStyle: CSSProperties = {
     position: 'relative',
     width: '100%',
     height: '100%',
@@ -239,7 +249,7 @@ const LetterGlitch = ({
     height: '100%',
   };
 
-  const outerVignetteStyle = {
+  const outerVignetteStyle: CSSProperties = {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -249,7 +259,7 @@ const LetterGlitch = ({
     background: 'radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%)',
   };
 
-  const centerVignetteStyle = {
+  const centerVignetteStyle: CSSProperties = {
     position: 'absolute',
     top: 0,
     left: 0,
