@@ -3,7 +3,7 @@ import React from 'react';
 
 const Page: React.FC = () => {
     const languageImages = ["java.svg", "python.svg", "typescript.svg", "c.svg", "c-sharp.svg", "r.svg","assembly.svg"];
-    const socialImages = ["github.svg", "linkedin.svg", "window.svg"];
+    const socialImages = ["html.svg", "css.svg", "tailwind.svg", "react.svg", "next.svg", "scenebuilder.svg"];
     const repeatedImages1 = ["github.svg", "linkedin.svg", "window.svg"];
     const repeatedImages2 = ["github.svg", "linkedin.svg", "window.svg"];
 
