@@ -1,0 +1,62 @@
+.infinite-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .scrolling-row-left {
+    display: flex;
+    animation: scrollLeft 80s linear infinite;
+  }
+  
+  .scrolling-row-right {
+    animation: scrollRight 80s linear infinite;
+  }
+  
+  .scrolling-image {
+    height: 50px;
+    margin-right: 15px; /* Adjust spacing between images */
+    margin-left: 15px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
+
+  .infinite-scroll-container::before,
+.infinite-scroll-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15vw; /* Adjust width for vignette size */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.infinite-scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.9), transparent);
+}
+
+.infinite-scroll-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.9), transparent);
+}
+  
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes scrollRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  

@@ -28,7 +28,7 @@ uniform vec2 uMouse;
 
 #define PI 3.141
 
-const int u_line_count = 30;
+const int u_line_count = 40;
 const float u_line_width = 5.0;
 const float u_line_blur = 1.0;
 

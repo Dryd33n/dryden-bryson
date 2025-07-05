@@ -32,6 +32,13 @@ body {
 -webkit-background-clip: text;
 }
 
+.text-gradient-2{
+  background-image: linear-gradient(90deg,#7334d8,#56dbd7);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+-webkit-background-clip: text;
+}
+
 
 @font-face {
   font-family: "Arame-Mono";

@@ -44,6 +44,8 @@ export default function DecryptedText({
   const [isVisible, setIsVisible] = useState<boolean>(false) // Add state to control visibility
   const containerRef = useRef<HTMLSpanElement>(null)
 
+  const [hovered, setHovered] = useState(false);
+
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>
     let timeout: ReturnType<typeof setTimeout>
@@ -213,7 +215,12 @@ export default function DecryptedText({
       : {}
 
   return (
-    <motion.span
+              <div
+            className="relative cursor-pointer"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+    {!hovered? (<motion.span
       ref={containerRef}
       className={`inline-block whitespace-pre-wrap ${parentClassName}`}
       {...hoverProps}
@@ -235,6 +242,6 @@ export default function DecryptedText({
           )
         })}
       </span>
-    </motion.span>
-  )
+    </motion.span>) : <span className='text-gradient-2 font-bold'>{text}</span>}
+    </div>)
 }

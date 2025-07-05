@@ -33,8 +33,8 @@ export default function Home() {
     title: "├─ BIO",
     clickFn: () => { console.log("BIO"); }
   }, {
-    title: "├─ MY SKILLS",
-    clickFn: () => { console.log("MY SKILLS"); }
+    title: "├─ SKILLS",
+    clickFn: () => { window.location.href = "/skills"; }
   }, {
     title: "├─ RESUME",
     clickFn: () => { console.log("RESUME"); }
@@ -65,19 +65,22 @@ export default function Home() {
             <BlurTextButton menuItems={contactItems} />
 
           </div>
-
-          <div className="absolute bottom-0 right-2 flex flex-row gap-2">
+            <div className="absolute bottom-0 right-2 flex flex-row gap-2">
             <div className="h-[60] w-[60] overflow-hidden mt-3">
+              <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
               <TiltedCard
                 imageSrc="github.svg"
               />
+              </a>
             </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
+              <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
               <TiltedCard
                 imageSrc="linkedin.svg"
               />
+              </a>
             </div>
-          </div>
+            </div>
 
 
           {/* THREADS BACKGROUND */}
