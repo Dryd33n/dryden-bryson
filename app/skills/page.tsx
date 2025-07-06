@@ -6,7 +6,7 @@ const Page: React.FC = () => {
     const languageImages = ["java.svg", "python.svg", "typescript.svg", "c.svg", "c-sharp.svg", "r.svg","assembly.svg"];
     const socialImages = ["html.svg", "css.svg", "tailwind.svg", "react.svg", "next.svg", "scenebuilder.svg", "pyqt.svg", "javafx.svg", "unity.svg"];
     const backendImages = ["postgresql.svg", "neon.svg", "drizzle.svg", "nodejs.svg", "github.svg"];
-    const repeatedImages2 = ["illustrator.svg", "photoshop.svg", "premiere.svg", "blender.svg", "latex.svg", "vscode.svg", "jetbrains.svg"];
+    const designImages = ["illustrator.svg", "photoshop.svg", "premiere.svg", "blender.svg", "latex.svg", "vscode.svg", "jetbrains.svg"];
 
     return (<>
         <div className="inset-0 flex flex-col items-center justify-center h-full">
@@ -32,7 +32,7 @@ const Page: React.FC = () => {
                 <InfiniteImageGallery direction={"right"} imageHrefs={languageImages} imageHeight={65} />
                 <InfiniteImageGallery direction={"left"} imageHrefs={socialImages} imageHeight={65} />
                 <InfiniteImageGallery direction={"right"} imageHrefs={backendImages} imageHeight={65} />
-                <InfiniteImageGallery direction={"left"} imageHrefs={repeatedImages2} imageHeight={65} />
+                <InfiniteImageGallery direction={"left"} imageHrefs={designImages} imageHeight={65} />
             </div>
         </div>
         <div className='w-[90%] h-[0.5] my-2 bg-white mx-auto opacity-30'></div>
