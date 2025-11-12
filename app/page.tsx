@@ -13,7 +13,7 @@ import { div } from "framer-motion/client";
 // import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 
 export default function Home() {
-  const width = useScreenWidth();
+  const width = useScreenWidth(); // screen width
 
   const portfolioItems: MenuItem[] = [{
     title: "/PORTFOLIO",
