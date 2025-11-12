@@ -8,7 +8,7 @@ import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
 import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
 import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
 import { useScreenWidth } from "./hooks/ScreenWidthProvider";
-import { div } from "framer-motion/client";
+//import { div } from "framer-motion/client";
 // import { WavyBackground } from "@/components/Backgrounds/Threads/wavy-background";
 // import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 

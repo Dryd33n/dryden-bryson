@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ScreenWidthProvider } from "./hooks/ScreenWidthProvider";
-// @ts-ignore: allow side-effect css import without type declarations
+// @ts-expect-error: allow side-effect css import without type declarations
 import "./globals.css";
 
 const geistSans = Geist({
