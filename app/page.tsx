@@ -8,52 +8,54 @@ import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
 import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
 import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
 import { useScreenWidth } from "./hooks/ScreenWidthProvider";
+import { useRouter } from 'next/navigation';
 //import { div } from "framer-motion/client";
 // import { WavyBackground } from "@/components/Backgrounds/Threads/wavy-background";
-// import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
+import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 
 export default function Home() {
   const width = useScreenWidth(); // screen width
+  const router = useRouter();
 
   const portfolioItems: MenuItem[] = [{
     title: "/PORTFOLIO",
-    clickFn: () => { console.log("PORTFOLIO"); }
+    clickFn: () => { router.push('/portfolio'); }
   }, {
     title: "├─ CODE",
-    clickFn: () => { console.log("CODE"); }
+    clickFn: () => { router.push('/portfolio?tab=code'); }
   }, {
     title: "├─ RENDERING",
-    clickFn: () => { console.log("RENDERING"); }
+    clickFn: () => { router.push('/portfolio?tab=rendering'); }
   }, {
     title: "├─ SCHOOLWORK",
-    clickFn: () => { console.log("SCHOOLWORK"); }
+    clickFn: () => { router.push('/portfolio?tab=schoolwork'); }
   }
   ];
 
   const aboutItems: MenuItem[] = [{
     title: "/ABOUT-ME",
-    clickFn: () => { console.log("ABOUT-ME"); }
+    clickFn: () => { router.push('/about'); }
   }, {
     title: "├─ BIO",
-    clickFn: () => { console.log("BIO"); }
+    clickFn: () => { router.push('/about#bio'); }
   }, {
     title: "├─ SKILLS",
-    clickFn: () => { window.location.href = "/skills"; }
+    clickFn: () => { router.push('/skills'); }
   }, {
     title: "├─ RESUME",
-    clickFn: () => { console.log("RESUME"); }
+    clickFn: () => { router.push('/resume'); }
   }
   ];
 
   const contactItems: MenuItem[] = [{
     title: "/CONTACT",
-    clickFn: () => { console.log("ABOUT-ME"); }
+    clickFn: () => { router.push('/contact'); }
   }, {
     title: "├─ SOCIAL MEDIA",
-    clickFn: () => { console.log("BIO"); }
+    clickFn: () => { router.push('/contact#social'); }
   }, {
     title: "├─ EMAIL FORM",
-    clickFn: () => { console.log("RESUME"); }
+    clickFn: () => { router.push('/contact#email'); }
   }
   ];
 
@@ -93,22 +95,22 @@ export default function Home() {
 
 
           {/* THREADS BACKGROUND */}
-          <div className="w-full h-full absolute inset-0 -z-50 my-auto">
-            <Threads
+          <div className="w-full h-full absolute inset-0 -z-150 my-auto">
+            {/* <Threads
               amplitude={3}
               distance={0}
-            />
+            /> */}
 
           </div>
           {/* GLITCHTEXT BACKGROUND */}
           <div className="w-full h-full absolute inset-0 -z-50 opacity-10">
-            {/*<LetterGlitch
+            <LetterGlitch
               glitchSpeed={100}
               centerVignette={true}
               outerVignette={true}
               glitchColors={["#ffffff"]}
               smooth={true}
-            />*/}
+            />
 
           </div>
 
