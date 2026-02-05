@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 import BlurText from "../BlurText/BlurText";
 import DecryptedText from "../DecryptedText/DecryptedText";
 import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
@@ -49,7 +50,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                 hovered ? (
                     <>
                         <p onClick={mainMenuItem.clickFn} className="text-lg text-gradient-1"  style={
-    width > 712
+    width > DESKTOP_MOBILE_BREAKPOINT
       ? {
           transform: "scale(1.1)",
           transitionProperty: "transform",
@@ -58,7 +59,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
         }
       : {}
   }>{mainMenuItem.title}</p>
-                        <div className={` ${width >= 712 ? "absolute" : ""} left-0 top-full flex flex-col shadow-lg rounded`} style={{ width: "50vw" }}>
+                        <div className={` ${width >= DESKTOP_MOBILE_BREAKPOINT ? "absolute" : ""} left-0 top-full flex flex-col shadow-lg rounded`} style={{ width: "50vw" }}>
                             {subMenuItems.map((item, index) => (
                                 <div key={index} 
                                 onClick={item.clickFn}

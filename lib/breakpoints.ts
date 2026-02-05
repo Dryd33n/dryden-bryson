@@ -1,0 +1,1 @@
+export const DESKTOP_MOBILE_BREAKPOINT = 1024;
