@@ -10,7 +10,7 @@ interface InfiniteScrollGalleryProps {
 
 const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: InfiniteScrollGalleryProps) => {
   const [images, setImages] = useState<string[]>([]);
-  const [imageWidth, setImageWidth] = useState(25); // Default width for images
+  const [imageWidth] = useState(25); // Default width for images
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
