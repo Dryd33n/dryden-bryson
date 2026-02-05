@@ -43,10 +43,10 @@ export default function Home() {
     title: "/CONTACT",
     clickFn: () => {  window.location.href = "/contact";  }
   }, {
-    title: "├─ SOCIAL MEDIA",
+    title: "├─ EMAIL FORM",
     clickFn: () => { window.location.href = "/contact"; }
   }, {
-    title: "├─ EMAIL FORM",
+    title: "├─ SOCIAL MEDIA",
     clickFn: () => { window.location.href = "/contact"; }
   }
   ];
