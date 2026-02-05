@@ -3,53 +3,51 @@
 
 
 import FuzzyText from "@/components/Typography/FuzzyText/FuzzyText";
-import Threads from "@/components/Backgrounds/Threads/Threads";
 import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
 import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
 import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
-// import { WavyBackground } from "@/components/Backgrounds/Threads/wavy-background";
-// import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
+import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 
 export default function Home() {
   const portfolioItems: MenuItem[] = [{
     title: "/PORTFOLIO",
-    clickFn: () => { console.log("PORTFOLIO"); }
+    clickFn: () => { window.location.href = "/portfolio"; }
   }, {
     title: "├─ CODE",
-    clickFn: () => { console.log("CODE"); }
+    clickFn: () => { window.location.href = "/portfolio"; }
   }, {
     title: "├─ RENDERING",
-    clickFn: () => { console.log("RENDERING"); }
+    clickFn: () => { window.location.href = "/portfolio"; }
   }, {
     title: "├─ SCHOOLWORK",
-    clickFn: () => { console.log("SCHOOLWORK"); }
+    clickFn: () => {  window.location.href = "/portfolio"; }
   }
   ];
 
   const aboutItems: MenuItem[] = [{
     title: "/ABOUT-ME",
-    clickFn: () => { console.log("ABOUT-ME"); }
+    clickFn: () => {  window.location.href = "/about"; }
   }, {
     title: "├─ BIO",
-    clickFn: () => { console.log("BIO"); }
+    clickFn: () => { window.location.href = "/about"; }
   }, {
     title: "├─ SKILLS",
     clickFn: () => { window.location.href = "/skills"; }
   }, {
     title: "├─ RESUME",
-    clickFn: () => { console.log("RESUME"); }
+    clickFn: () => { window.location.href = "/about"; }
   }
   ];
 
   const contactItems: MenuItem[] = [{
     title: "/CONTACT",
-    clickFn: () => { console.log("ABOUT-ME"); }
+    clickFn: () => {  window.location.href = "/contact";  }
   }, {
     title: "├─ SOCIAL MEDIA",
-    clickFn: () => { console.log("BIO"); }
+    clickFn: () => { window.location.href = "/contact"; }
   }, {
     title: "├─ EMAIL FORM",
-    clickFn: () => { console.log("RESUME"); }
+    clickFn: () => { window.location.href = "/contact"; }
   }
   ];
 
@@ -85,35 +83,36 @@ export default function Home() {
 
           {/* THREADS BACKGROUND */}
           <div className="w-full h-full absolute inset-0 -z-50 my-auto">
-            <Threads
+            {/* <Threads
               amplitude={3}
               distance={0}
-            />
+            /> */}
 
           </div>
           {/* GLITCHTEXT BACKGROUND */}
-          <div className="w-full h-full absolute inset-0 -z-50 opacity-10">
-            {/*<LetterGlitch
-              glitchSpeed={100}
+          <div className="w-full h-full absolute inset-0 -z-50 opacity-[12%]">
+            <LetterGlitch
+              glitchSpeed={50}
               centerVignette={true}
               outerVignette={true}
-              glitchColors={["#ffffff"]}
+              glitchColors={["#ffffff","#f76855","ffffff","ffffff","ffffff","ffffff"]}
               smooth={true}
-            />*/}
+            />
 
           </div>
           <div className="inset-0 flex flex-col items-center justify-center h-full">
             <FuzzyText
-              baseIntensity={0.05}
+              baseIntensity={0.00}
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"5rem"}
+              color="#f76855"
             >
               Dryden Bryson
             </FuzzyText>
             <div className="h-3"></div>
             <FuzzyText
-              baseIntensity={0.025}
+              baseIntensity={0.00}
               hoverIntensity={0.05}
               enableHover={true}
               fontSize={"3rem"}

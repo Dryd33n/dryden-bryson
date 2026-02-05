@@ -54,6 +54,8 @@ body {
   }
   p {
     font-family: "Arame-Mono", monospace;
+    font-size: 13pt;
+    color: #a3a3a3;
   }
   span {
     font-family: "Arame-Mono", monospace;
