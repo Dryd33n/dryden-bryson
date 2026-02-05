@@ -3,7 +3,6 @@
 
 
 import FuzzyText from "@/components/Typography/FuzzyText/FuzzyText";
-import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
 import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
 
 export default function Home() {
