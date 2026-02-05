@@ -8,7 +8,7 @@ return (<>
             <h1 className="text-6xl font-bold text-[#f76855]">/</h1><h1 className="text-6xl font-bold">CONTACT</h1>
     </div>
 
-    <p className="mt-10">Have a project in mind or just want to chat? Feel free to reach out. I'm always open to discussing new opportunities, collaborations, or answering questions.</p>
+    <p className="mt-10">Have a project in mind or just want to chat? Feel free to reach out. I&apos;m always open to discussing new opportunities, collaborations, or answering questions.</p>
 
 </div>
 
