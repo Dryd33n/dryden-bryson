@@ -21,18 +21,22 @@ const Page: React.FC = () => {
                 </FuzzyText>
             </span>
         </div>
+
         <div className='w-[90%] h-[0.5] my-2 bg-white mx-auto opacity-30'></div>
+        
         <div className="relative mx-[20vw]">
             {/* Glowing circle */}
             <div className="absolute inset-0 flex justify-center items-center">
                 <div className="w-[50%] h-[50%] rounded-full bg-gradient-to-r from-white to-transparent opacity-30 blur-3xl"></div>
             </div>
             {/* Image galleries */}
+            
             <div className="relative">
                 <InfiniteImageGallery direction={"right"} imageHrefs={languageImages} imageHeight={65} />
                 <InfiniteImageGallery direction={"left"} imageHrefs={socialImages} imageHeight={65} />
                 <InfiniteImageGallery direction={"right"} imageHrefs={backendImages} imageHeight={65} />
                 <InfiniteImageGallery direction={"left"} imageHrefs={designImages} imageHeight={65} />
+                
             </div>
         </div>
         <div className='w-[90%] h-[0.5] my-2 bg-white mx-auto opacity-30'></div>

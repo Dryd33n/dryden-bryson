@@ -2,6 +2,7 @@
 import { useState } from "react";
 import BlurText from "../BlurText/BlurText";
 import DecryptedText from "../DecryptedText/DecryptedText";
+import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
 
 
 export interface MenuItem {
@@ -16,6 +17,7 @@ interface BlurTextButtonProps {
 export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
     const [animationComplete, setAnimationComplete] = useState(false);
     const [hovered, setHovered] = useState(false);
+    const width = useScreenWidth();
 
     if (menuItems.length < 1) {
         throw new Error("menuItems must be at least one item long");
@@ -46,8 +48,17 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
             ) : (
                 hovered ? (
                     <>
-                        <p onClick={mainMenuItem.clickFn} className="text-lg text-gradient-1" style={{ scale: 1.1, msTransitionProperty: 'scale', transitionDuration: '300ms', msTransitionTimingFunction: "ease-out" }}>{mainMenuItem.title}</p>
-                        <div className="absolute left-0 top-full flex flex-col shadow-lg rounded" style={{ width: "50vw" }}>
+                        <p onClick={mainMenuItem.clickFn} className="text-lg text-gradient-1"  style={
+    width > 712
+      ? {
+          transform: "scale(1.1)",
+          transitionProperty: "transform",
+          transitionDuration: "300ms",
+          transitionTimingFunction: "ease-out",
+        }
+      : {}
+  }>{mainMenuItem.title}</p>
+                        <div className={` ${width >= 712 ? "absolute" : ""} left-0 top-full flex flex-col shadow-lg rounded`} style={{ width: "50vw" }}>
                             {subMenuItems.map((item, index) => (
                                 <div key={index} 
                                 onClick={item.clickFn}
