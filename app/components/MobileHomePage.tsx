@@ -2,9 +2,13 @@ import FuzzyText from "@/components/Typography/FuzzyText/FuzzyText";
 import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
 import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
 import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
+import DarkModeToggle from "./global/DarkModeToggle";
 import { portfolioItems, aboutItems, contactItems } from "@/lib/menuItems";
+import { useColorScheme } from "@/lib/colorScheme";
 
 export default function MobileHomePage() {
+  const { glitchTextColors, titleColor, iconColor } = useColorScheme();
+
   return (
     <>
       <div className="w-screen h-screen p-2">
@@ -16,14 +20,15 @@ export default function MobileHomePage() {
           </div>
 
           <div className="absolute bottom-2 right-2 flex flex-col gap-2">
+            <DarkModeToggle />
             <div className="h-[50] w-[50] overflow-hidden">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="github.svg" rotateAmplitude={1.3} />
+                <TiltedCard imageSrc="github.svg" color={iconColor} rotateAmplitude={1.3} />
               </a>
             </div>
             <div className="h-[50] w-[50] overflow-hidden">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="linkedin.svg" rotateAmplitude={1.3} />
+                <TiltedCard imageSrc="linkedin.svg" color={iconColor} rotateAmplitude={1.3} />
               </a>
             </div>
           </div>
@@ -42,7 +47,9 @@ export default function MobileHomePage() {
               glitchSpeed={50}
               centerVignette={true}
               outerVignette={true}
-              glitchColors={["#ffffff", "#f76855", "ffffff", "ffffff", "ffffff", "ffffff"]}
+              glitchColors={glitchTextColors[1]}
+              vignetteColor={glitchTextColors[0][0]}
+              backgroundColor={glitchTextColors[0][1]}
               smooth={true}
             />
           </div>
@@ -53,7 +60,7 @@ export default function MobileHomePage() {
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"2.5rem"}
-              color="#f76855"
+              color={titleColor[0]}
             >
               Dryden Bryson
             </FuzzyText>
@@ -63,6 +70,7 @@ export default function MobileHomePage() {
               hoverIntensity={0.05}
               enableHover={true}
               fontSize={"1.5rem"}
+              color={titleColor[1]}
             >
               Student & Developer
             </FuzzyText>

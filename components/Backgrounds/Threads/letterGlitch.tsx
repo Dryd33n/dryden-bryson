@@ -6,6 +6,8 @@ const LetterGlitch = ({
   centerVignette = false,
   outerVignette = true,
   smooth = true,
+  backgroundColor = '#000000',
+  vignetteColor = '#000000',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -230,7 +232,7 @@ const LetterGlitch = ({
       window.removeEventListener('resize', handleResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [glitchSpeed, smooth]);
+  }, [glitchSpeed, smooth, backgroundColor, vignetteColor, glitchColors]);
 
 
 
@@ -238,7 +240,7 @@ const LetterGlitch = ({
     position: 'relative',
     width: '100%',
     height: '100%',
-    backgroundColor: '#000000',
+    backgroundColor,
     overflow: 'hidden',
   };
 
@@ -248,6 +250,9 @@ const LetterGlitch = ({
     height: '100%',
   };
 
+  const vignetteRgb = hexToRgb(vignetteColor);
+  const vignetteRgbString = vignetteRgb ? `${vignetteRgb.r}, ${vignetteRgb.g}, ${vignetteRgb.b}` : '0, 0, 0';
+
   const outerVignetteStyle: CSSProperties = {
     position: 'absolute',
     top: 0,
@@ -255,7 +260,7 @@ const LetterGlitch = ({
     width: '100%',
     height: '100%',
     pointerEvents: 'none',
-    background: 'radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%)',
+    background: `radial-gradient(circle, rgba(${vignetteRgbString},0) 60%, rgba(${vignetteRgbString},1) 100%)`,
   };
 
   const centerVignetteStyle: CSSProperties = {
@@ -265,7 +270,7 @@ const LetterGlitch = ({
     width: '100%',
     height: '100%',
     pointerEvents: 'none',
-    background: 'radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%)',
+    background: `radial-gradient(circle, rgba(${vignetteRgbString},0.8) 0%, rgba(${vignetteRgbString},0) 60%)`,
   };
 
   return (

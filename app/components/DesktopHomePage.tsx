@@ -2,9 +2,18 @@ import FuzzyText from "@/components/Typography/FuzzyText/FuzzyText";
 import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
 import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
 import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
+import DarkModeToggle from "./global/DarkModeToggle";
 import { portfolioItems, aboutItems, contactItems } from "@/lib/menuItems";
+import { useColorScheme } from "@/lib/colorScheme";
 
 export default function DesktopHomePage() {
+  
+  const { glitchTextColors, titleColor, iconColor } = useColorScheme();
+
+  
+
+
+
   return (
     <>
       <div className="w-screen h-screen p-6">
@@ -16,14 +25,17 @@ export default function DesktopHomePage() {
           </div>
 
           <div className="absolute bottom-0 right-2 flex flex-row gap-2">
+            <div className="flex items-end mt-3">
+              <DarkModeToggle />
+            </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="github.svg" />
+                <TiltedCard imageSrc="github.svg" color={iconColor} />
               </a>
             </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="linkedin.svg" />
+                <TiltedCard imageSrc="linkedin.svg" color={iconColor} />
               </a>
             </div>
           </div>
@@ -42,7 +54,9 @@ export default function DesktopHomePage() {
               glitchSpeed={50}
               centerVignette={true}
               outerVignette={true}
-              glitchColors={["#ffffff", "#f76855", "ffffff", "ffffff", "ffffff", "ffffff"]}
+              glitchColors={glitchTextColors[1]}
+              vignetteColor={glitchTextColors[0][0]}
+              backgroundColor = {glitchTextColors[0][1]}
               smooth={true}
             />
           </div>
@@ -53,7 +67,7 @@ export default function DesktopHomePage() {
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"5rem"}
-              color="#f76855"
+              color={titleColor[0]}
             >
               Dryden Bryson
             </FuzzyText>
@@ -63,6 +77,7 @@ export default function DesktopHomePage() {
               hoverIntensity={0.05}
               enableHover={true}
               fontSize={"3rem"}
+              color={titleColor[1]}
             >
               Student & Developer
             </FuzzyText>

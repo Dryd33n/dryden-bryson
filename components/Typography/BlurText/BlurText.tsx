@@ -1,6 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import React, { useRef, useEffect, useState } from 'react';
 import { useSprings, animated, SpringValue } from '@react-spring/web';
+import { useColorScheme } from "@/lib/colorScheme";
 
 const AnimatedSpan = animated.span as React.FC<React.HTMLAttributes<HTMLSpanElement>>;
 
@@ -91,8 +92,12 @@ const BlurText: React.FC<BlurTextProps> = ({
     }))
   );
 
+  const { textColors } = useColorScheme();
+
   return (
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
+    
+
+    <p ref={ref} className={`blur-text ${className} flex flex-wrap`} style={{ color: textColors.body }}>
       {springs.map((props, index) => (
         <AnimatedSpan
           key={index}

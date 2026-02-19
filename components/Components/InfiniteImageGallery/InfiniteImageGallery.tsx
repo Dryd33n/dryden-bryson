@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import './InfiniteImageGallery.css';
 
 interface InfiniteScrollGalleryProps {
@@ -27,12 +28,14 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
       <div className={direction === "left" ? `scrolling-row-left` : `scrolling-row-right`}>
         <div className='flex flex-row -translate-x-[100vw]'>
           {images.map((href, index) => (
-            <img
+            <Image
               key={index}
               src={href}
               alt={`Image ${index}`}
+              width={imageWidth}
+              height={imageHeight}
               className="scrolling-image drop-shadow-[0_0_5px_rgba(255,255,255,0.25)]"
-              style={{ height: `${imageHeight}px` }} // Apply the image height
+              style={{ height: `${imageHeight}px`, width: 'auto' }} // Apply the image height with auto width
             />
           ))}
         </div>

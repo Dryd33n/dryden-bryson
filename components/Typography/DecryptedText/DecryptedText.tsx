@@ -222,7 +222,7 @@ export default function DecryptedText({
         >
     {!hovered? (<motion.span
       ref={containerRef}
-      className={`inline-block whitespace-pre-wrap ${parentClassName}`}
+      className={`inline-block whitespace-nowrap ${parentClassName}`}
       {...hoverProps}
       {...props}
       style={{ visibility: isVisible ? 'visible' : 'hidden' }} // Control visibility with inline style

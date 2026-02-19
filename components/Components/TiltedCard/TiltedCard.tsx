@@ -16,8 +16,7 @@ interface TiltedCardProps {
   showMobileWarning?: boolean;
   showTooltip?: boolean;
   overlayContent?: React.ReactNode;
-  displayOverlayContent?: boolean;
-}
+  displayOverlayContent?: boolean;  color?: string;}
 
 const springValues = {
   damping: 30,
@@ -38,6 +37,7 @@ export default function TiltedCard({
   showTooltip = false,
   overlayContent = null,
   displayOverlayContent = false,
+  color = "#000000",
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
   const x = useMotionValue(0);
@@ -118,13 +118,22 @@ export default function TiltedCard({
           scale,
         }}
       >
-        <motion.img
-          src={imageSrc}
-          alt={altText}
-          className="absolute top-0 left-0 object-cover rounded-[10px] will-change-transform [transform:translateZ(0)]"
+        <motion.div
+          role="img"
+          aria-label={altText}
+          className="absolute top-0 left-0 rounded-[10px] will-change-transform [transform:translateZ(0)]"
           style={{
             width: imageWidth,
             height: imageHeight,
+            backgroundColor: color,
+            maskImage: `url(${imageSrc})`,
+            WebkitMaskImage: `url(${imageSrc})`,
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center',
           }}
         />
 

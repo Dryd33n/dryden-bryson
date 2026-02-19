@@ -4,6 +4,8 @@ import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 import BlurText from "../BlurText/BlurText";
 import DecryptedText from "../DecryptedText/DecryptedText";
 import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
+import { useColorScheme } from "@/lib/colorScheme";
+
 
 
 export interface MenuItem {
@@ -19,6 +21,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
     const [animationComplete, setAnimationComplete] = useState(false);
     const [hovered, setHovered] = useState(false);
     const width = useScreenWidth();
+    const { textColors } = useColorScheme();
 
     if (menuItems.length < 1) {
         throw new Error("menuItems must be at least one item long");
@@ -41,7 +44,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         delay={20}
                         animateBy="letters"
                         direction="bottom"
-                        className={`text-lg text-gray-400`}
+                        className={`text-lg`}
                         onAnimationComplete={() => setAnimationComplete(true)}
 
                     />
@@ -59,10 +62,11 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
         }
       : {}
   }>{mainMenuItem.title}</p>
-                        <div className={` ${width >= DESKTOP_MOBILE_BREAKPOINT ? "absolute" : ""} left-0 top-full flex flex-col shadow-lg rounded`} style={{ width: "50vw" }}>
+                        <div className={` ${width >= DESKTOP_MOBILE_BREAKPOINT ? "absolute" : ""} left-0 top-full flex flex-col rounded`}>
                             {subMenuItems.map((item, index) => (
                                 <div key={index} 
                                 onClick={item.clickFn}
+                                className="whitespace-nowrap"
                                 >
                                     <DecryptedText
                                         text={item.title}
@@ -76,7 +80,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         </div>
                     </>
                 ) : (
-                    <p className="text-lg text-gray-400">{mainMenuItem.title}</p>
+                    <p className="text-lg" style={{ color: textColors.body }}>{mainMenuItem.title}</p>
                 )
             )}
         </div>
