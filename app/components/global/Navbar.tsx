@@ -14,7 +14,7 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
     : 'flex flex-row gap-10';
 
   return (
-    <div className={containerClass}>
+    <div className={`${containerClass} select-none`}>
       {menuItemArrays.map((menuItems, index) => (
         <BlurTextButton key={index} menuItems={menuItems} />
       ))}
