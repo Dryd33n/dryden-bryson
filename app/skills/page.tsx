@@ -1,5 +1,9 @@
+'use client'
+
 import InfiniteImageGallery from '@/app/components/skills/imagecarousel/InfiniteImageGallery';
 import FuzzyText from '@/app/components/typography/FuzzyText/FuzzyText';
+import Navbar from '@/app/components/global/Navbar';
+import { home, portfolioItems, aboutItems, contactItems } from '@/lib/menuItems';
 import React from 'react';
 
 const Page: React.FC = () => {
@@ -9,6 +13,13 @@ const Page: React.FC = () => {
     const designImages = ["illustrator.svg", "photoshop.svg", "premiere.svg", "blender.svg", "latex.svg", "vscode.svg", "jetbrains.svg"];
 
     return (<>
+        {/* HEADER */}
+        <div className="relative mb-8">
+            <div className="absolute top-0 left-6 z-10">
+                <Navbar menuItemArrays={[home, portfolioItems, aboutItems, contactItems]} layout="horizontal" />
+            </div>
+        </div>
+        
         <div className="inset-0 flex flex-col items-center justify-center h-full">
             <span className='mt-10 mb-4'>
                 <FuzzyText

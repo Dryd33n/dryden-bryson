@@ -24,10 +24,12 @@ export default function DesktopHomePage() {
             <Navbar menuItemArrays={[portfolioItems, aboutItems, contactItems]} layout="horizontal" />
           </div>
 
-          <div className="absolute bottom-0 right-2 flex flex-row gap-2">
-            <div className="flex items-end mt-3">
+          <div className="absolute top-3 right-5">
               <DarkModeToggle />
             </div>
+
+          <div className="absolute bottom-0 right-2 flex flex-row gap-2">
+            
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
                 <TiltedCard imageSrc="github.svg" color={iconColor} />
