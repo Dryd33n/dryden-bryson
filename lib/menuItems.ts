@@ -1,5 +1,10 @@
 import { MenuItem } from "@/app/components/typography/BlurText/BlurTextButton";
 
+const scrollToId = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 export const portfolioItems: MenuItem[] = [
   {
     title: "/PORTFOLIO",
@@ -26,15 +31,15 @@ export const aboutItems: MenuItem[] = [
   },
   {
     title: "├─ BIO",
-    clickFn: () => { window.location.href = "/about"; }
+    clickFn: () => { window.location.href = "/about#bio"; }
   },
   {
     title: "├─ SKILLS",
-    clickFn: () => { window.location.href = "/skills"; }
+    clickFn: () => { window.location.href = "/about#skills"; }
   },
   {
-    title: "├─ RESUME",
-    clickFn: () => { window.location.href = "/about"; }
+    title: "├─ EDUCATION",
+    clickFn: () => { window.location.href = "/about#education"; }
   }
 ];
 
@@ -45,11 +50,11 @@ export const contactItems: MenuItem[] = [
   },
   {
     title: "├─ EMAIL FORM",
-    clickFn: () => { window.location.href = "/contact"; }
+    clickFn: () => { window.location.href = "/contact#contact-form"; }
   },
   {
     title: "├─ SOCIAL MEDIA",
-    clickFn: () => { window.location.href = "/contact"; }
+    clickFn: () => { window.location.href = "/contact#social-media"; }
   }
 ];
 

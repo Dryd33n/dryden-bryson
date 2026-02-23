@@ -2,7 +2,7 @@
 
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/Navbar';
-import { home, aboutItems, contactItems } from '@/lib/menuItems';
+import { home, aboutItems, contactItems, portfolioItems } from '@/lib/menuItems';
 import { FaCodeBranch } from "react-icons/fa6";
 import { TbCube3dSphere } from "react-icons/tb";
 import { MdSchool } from "react-icons/md";
@@ -14,7 +14,7 @@ return (<>
 {/* HEADER */}
 <div className="relative">
   <div className="absolute top-6 left-6 z-10">
-    <Navbar menuItemArrays={[home, aboutItems, contactItems]} layout="horizontal" />
+    <Navbar menuItemArrays={[home, portfolioItems, aboutItems, contactItems]} layout="horizontal" />
   </div>
   <PageHeader title="PORTFOLIO" />
 </div>

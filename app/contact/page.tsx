@@ -7,7 +7,7 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { sendContactEmail } from '@/app/hooks/sendEmail';
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/Navbar';
-import { aboutItems, home, portfolioItems } from '@/lib/menuItems';
+import { aboutItems, contactItems, home, portfolioItems } from '@/lib/menuItems';
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -51,86 +51,89 @@ export default function Contact() {
         {/* HEADER */}
         <div className="relative">
             <div className="absolute top-6 left-6 z-10">
-                <Navbar menuItemArrays={[home, portfolioItems, aboutItems]} layout="horizontal" />
+                <Navbar menuItemArrays={[home, portfolioItems, aboutItems, contactItems]} layout="horizontal" />
             </div>
             <PageHeader title="CONTACT" />
         </div>
-        
+
         <div className='py-12 md:py-30 px-4 md:px-10 lg:px-40'>
             <div className="md:mr-[50%]">
                 <p className="mt-10 text-sm md:text-base">Have a project in mind or just want to chat? Feel free to reach out. I&apos;m always open to discussing new opportunities, collaborations, or answering questions.</p>
-
+                <section id="contact-form"></section>
                 <p className="!text-xl md:!text-2xl !font-bold !text-white mt-12 md:mt-20">Send a message</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-6 md:mr-[30%]">
-                {/* Name and Email Row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            
+                <form onSubmit={handleSubmit} className="mt-8 space-y-6 md:mr-[30%]">
+                    {/* Name and Email Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Name<span className="text-[#f76855]">*</span></label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="Edsger Dijkstra"
+                                required
+                                className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Email<span className="text-[#f76855]">*</span></label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                placeholder="Dijkstra@example.com"
+                                required
+                                className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Subject */}
                     <div>
-                        <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Name<span className="text-[#f76855]">*</span></label>
+                        <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Subject<span className="text-[#f76855]">*</span></label>
                         <input
                             type="text"
-                            name="name"
-                            value={formData.name}
+                            name="subject"
+                            value={formData.subject}
                             onChange={handleChange}
-                            placeholder="Edsger Dijkstra"
+                            placeholder="Project Inquiry"
                             required
                             className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
                         />
                     </div>
+
+                    {/* Message */}
                     <div>
-                        <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Email<span className="text-[#f76855]">*</span></label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
+                        <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Message<span className="text-[#f76855]">*</span></label>
+                        <textarea
+                            name="message"
+                            value={formData.message}
                             onChange={handleChange}
-                            placeholder="Dijkstra@example.com"
+                            placeholder="Tell me about your project..."
                             required
-                            className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
+                            rows={8}
+                            className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition resize-none"
                         />
                     </div>
-                </div>
 
-                {/* Subject */}
-                <div>
-                    <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Subject<span className="text-[#f76855]">*</span></label>
-                    <input
-                        type="text"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        placeholder="Project Inquiry"
-                        required
-                        className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
-                    />
-                </div>
+                    {error && <p className="text-[#f76855] text-sm">{error}</p>}
 
-                {/* Message */}
-                <div>
-                    <label className="block text-[#a3a3a3] text-xs md:text-sm mb-2">Message<span className="text-[#f76855]">*</span></label>
-                    <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Tell me about your project..."
-                        required
-                        rows={8}
-                        className="w-full px-4 py-3 bg-transparent border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition resize-none"
-                    />
-                </div>
-
-                {error && <p className="text-[#f76855] text-sm">{error}</p>}
-
-                {/* Submit Button */}
-                <button
-                    type="submit"
-                    disabled={loading || !isFormComplete}
-                    className="w-full px-6 py-3 bg-white text-black font-semibold rounded hover:bg-gray-200 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <span><BsSend /></span> {loading ? 'Sending...' : 'Send Message'}
-                </button>
-            </form>
+                    {/* Submit Button */}
+                    <button
+                        type="submit"
+                        disabled={loading || !isFormComplete}
+                        className="w-full px-6 py-3 bg-white text-black font-semibold rounded hover:bg-gray-200 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <span><BsSend /></span> {loading ? 'Sending...' : 'Send Message'}
+                    </button>
+                </form>
+            
 
             <p className="!text-xl md:!text-2xl !font-bold !text-white mt-12 md:mt-20">Let&apos;s Connect!</p>
 
@@ -138,7 +141,7 @@ export default function Contact() {
                 {/* Contact Information */}
                 <div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-8">Contact Information</h3>
-                    
+
                     <div className="mb-6 flex items-start gap-4">
                         <FiMail className="text-[#f76855] text-xl md:text-2xl mt-1 flex-shrink-0" />
                         <div>
@@ -162,9 +165,10 @@ export default function Contact() {
                 </div>
 
                 {/* Connect With Me */}
+                <section id="social-media"></section>
                 <div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-8">Connect With Me</h3>
-                    
+
                     <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer" className="mb-6 flex items-start gap-4 p-4 border border-gray-600 rounded hover:border-[#f76855] hover:bg-gray-900 transition">
                         <FaGithub className="text-[#f76855] text-xl md:text-2xl mt-1 flex-shrink-0" />
                         <div>
