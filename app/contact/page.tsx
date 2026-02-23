@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { BsSend } from "react-icons/bs";
 import { FiMail, FiMapPin } from "react-icons/fi";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { sendContactEmail } from '@/app/actions/sendEmail';
-import PageHeader from '../components/PageHeader';
+import { sendContactEmail } from '@/app/hooks/sendEmail';
+import PageHeader from '../components/global/PageHeader';
+import Navbar from '../components/global/Navbar';
+import { aboutItems, home, portfolioItems } from '@/lib/menuItems';
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -47,7 +49,12 @@ export default function Contact() {
     return (<>
 
         {/* HEADER */}
-        <PageHeader title="CONTACT" />
+        <div className="relative">
+            <div className="absolute top-6 left-6 z-10">
+                <Navbar menuItemArrays={[home, portfolioItems, aboutItems]} layout="horizontal" />
+            </div>
+            <PageHeader title="CONTACT" />
+        </div>
         
         <div className='py-12 md:py-30 px-4 md:px-10 lg:px-40'>
             <div className="md:mr-[50%]">

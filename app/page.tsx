@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { DESKTOP_MOBILE_BREAKPOINT } from '@/lib/breakpoints';
-import DesktopHomePage from './components/DesktopHomePage';
-import MobileHomePage from './components/MobileHomePage';
+import DesktopHomePage from './components/home/DesktopHomePage';
+import MobileHomePage from './components/home/MobileHomePage';
 
 export default function Home() {
   const [isDesktop, setIsDesktop] = useState(true);

@@ -1,8 +1,10 @@
-import FuzzyText from "@/components/Typography/FuzzyText/FuzzyText";
-import BlurTextButton from "@/components/Typography/BlurText/BlurTextButton";
-import TiltedCard from "@/components/Components/TiltedCard/TiltedCard";
-import LetterGlitch from "@/components/Backgrounds/Threads/letterGlitch";
-import DarkModeToggle from "./global/DarkModeToggle";
+'use client'
+
+import FuzzyText from "@/app/components/typography/FuzzyText/FuzzyText";
+import Navbar from "@/app/components/global/Navbar";
+import TiltedCard from "@/app/components/global/TiltedIcon";
+import LetterGlitch from "@/app/components/backgrounds/letterGlitch";
+import DarkModeToggle from "../global/DarkModeToggle";
 import { portfolioItems, aboutItems, contactItems } from "@/lib/menuItems";
 import { useColorScheme } from "@/lib/colorScheme";
 
@@ -18,10 +20,8 @@ export default function DesktopHomePage() {
     <>
       <div className="w-screen h-screen p-6">
         <div className="w-full h-full border relative">
-          <div className="absolute top-3 left-5 flex flex-row gap-10">
-            <BlurTextButton menuItems={portfolioItems} />
-            <BlurTextButton menuItems={aboutItems} />
-            <BlurTextButton menuItems={contactItems} />
+          <div className="absolute top-3 left-5">
+            <Navbar menuItemArrays={[portfolioItems, aboutItems, contactItems]} layout="horizontal" />
           </div>
 
           <div className="absolute bottom-0 right-2 flex flex-row gap-2">

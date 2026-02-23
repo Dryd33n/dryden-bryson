@@ -93,11 +93,16 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 
   const { textColors } = useColorScheme();
+  const [textColor, setTextColor] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    setTextColor(textColors.body);
+  }, [textColors.body]);
 
   return (
     
 
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`} style={{ color: textColors.body }}>
+    <p ref={ref} className={`blur-text ${className} flex flex-wrap`} style={{ color: textColor }}>
       {springs.map((props, index) => (
         <AnimatedSpan
           key={index}

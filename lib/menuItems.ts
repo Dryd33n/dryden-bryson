@@ -1,4 +1,4 @@
-import { MenuItem } from "@/components/Typography/BlurText/BlurTextButton";
+import { MenuItem } from "@/app/components/typography/BlurText/BlurTextButton";
 
 export const portfolioItems: MenuItem[] = [
   {
@@ -50,5 +50,12 @@ export const contactItems: MenuItem[] = [
   {
     title: "├─ SOCIAL MEDIA",
     clickFn: () => { window.location.href = "/contact"; }
+  }
+];
+
+export const home: MenuItem[] = [
+  {
+    title: "/HOME",
+    clickFn: () => { window.location.href = "/"; }
   }
 ];

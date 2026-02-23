@@ -1,5 +1,5 @@
-import InfiniteImageGallery from '@/components/Components/InfiniteImageGallery/InfiniteImageGallery';
-import FuzzyText from '@/components/Typography/FuzzyText/FuzzyText';
+import InfiniteImageGallery from '@/app/components/skills/imagecarousel/InfiniteImageGallery';
+import FuzzyText from '@/app/components/typography/FuzzyText/FuzzyText';
 import React from 'react';
 
 const Page: React.FC = () => {

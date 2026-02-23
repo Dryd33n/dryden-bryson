@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import './InfiniteImageGallery.css';
+import { useTheme } from "next-themes";
 
 interface InfiniteScrollGalleryProps {
   imageHrefs: string[];
@@ -12,7 +13,13 @@ interface InfiniteScrollGalleryProps {
 const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: InfiniteScrollGalleryProps) => {
   const [images, setImages] = useState<string[]>([]);
   const [imageWidth] = useState(25); // Default width for images
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const containerWidth = containerRef.current?.offsetWidth;
@@ -24,7 +31,7 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
   }, [imageHrefs, imageWidth]);
 
   return (
-    <div className="infinite-scroll-container" ref={containerRef}>
+    <div className={`infinite-scroll-container ${mounted && theme === 'light' ? 'light-theme' : ''}`} ref={containerRef}>
       <div className={direction === "left" ? `scrolling-row-left` : `scrolling-row-right`}>
         <div className='flex flex-row -translate-x-[100vw]'>
           {images.map((href, index) => (
@@ -34,8 +41,8 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
               alt={`Image ${index}`}
               width={imageWidth}
               height={imageHeight}
-              className="scrolling-image drop-shadow-[0_0_5px_rgba(255,255,255,0.25)]"
-              style={{ height: `${imageHeight}px`, width: 'auto' }} // Apply the image height with auto width
+              className="scrolling-image drop-shadow-[0_0_5px_rgba(255,255,255,0.25)] pointer-events-none"
+              style={{ height: `${imageHeight}px`, width: 'auto', filter: mounted && theme === 'light' ? 'invert(1)' : 'none' }} // Apply the image height with auto width
             />
           ))}
         </div>

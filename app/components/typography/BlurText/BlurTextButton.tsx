@@ -1,7 +1,8 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
-import BlurText from "../BlurText/BlurText";
+import BlurText from "./BlurText";
 import DecryptedText from "../DecryptedText/DecryptedText";
 import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
 import { useColorScheme } from "@/lib/colorScheme";
@@ -20,8 +21,10 @@ interface BlurTextButtonProps {
 export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
     const [animationComplete, setAnimationComplete] = useState(false);
     const [hovered, setHovered] = useState(false);
+    const [textColor, setTextColor] = useState<string | undefined>(undefined);
     const width = useScreenWidth();
     const { textColors } = useColorScheme();
+    const pathname = usePathname();
 
     if (menuItems.length < 1) {
         throw new Error("menuItems must be at least one item long");
@@ -29,6 +32,26 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
 
     const mainMenuItem = menuItems[0];
     const subMenuItems = menuItems.slice(1);
+
+    useEffect(() => {
+        setTextColor(textColors.body);
+    }, [textColors.body]);
+
+    useEffect(() => {
+        setHovered(false);
+    }, [pathname]);
+
+    useEffect(() => {
+        const handlePageShow = () => {
+            setHovered(false);
+        };
+
+        window.addEventListener("pageshow", handlePageShow);
+
+        return () => {
+            window.removeEventListener("pageshow", handlePageShow);
+        };
+    }, []);
 
 
     return (
@@ -80,7 +103,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         </div>
                     </>
                 ) : (
-                    <p className="text-lg" style={{ color: textColors.body }}>{mainMenuItem.title}</p>
+                    <p className="text-lg" style={{ color: textColor }}>{mainMenuItem.title}</p>
                 )
             )}
         </div>
