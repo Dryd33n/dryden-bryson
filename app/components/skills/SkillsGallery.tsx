@@ -5,10 +5,9 @@ import InfiniteImageGallery from '@/app/components/skills/imagecarousel/Infinite
 interface SkillsGalleryProps {
     images: string[][];
     alternateDirection: boolean;
-    justification?: 'left' | 'center';
 }
 
-export default function SkillsGallery({ images, alternateDirection, justification }: SkillsGalleryProps) {
+export default function SkillsGallery({ images, alternateDirection }: SkillsGalleryProps) {
     const { theme } = useTheme();
 
     return (
