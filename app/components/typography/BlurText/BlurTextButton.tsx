@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
@@ -25,6 +25,7 @@ export default function BlurTextButton({ menuItems, isExpanded = false, onExpand
     const [animationComplete, setAnimationComplete] = useState(false);
     const [hovered, setHovered] = useState(false);
     const [textColor, setTextColor] = useState<string | undefined>(undefined);
+    const onExpandedChangeRef = useRef(onExpandedChange);
     const width = useScreenWidth();
     const { textColors } = useColorScheme();
     const pathname = usePathname();
@@ -44,14 +45,18 @@ export default function BlurTextButton({ menuItems, isExpanded = false, onExpand
     }, [textColors.body]);
 
     useEffect(() => {
+        onExpandedChangeRef.current = onExpandedChange;
+    }, [onExpandedChange]);
+
+    useEffect(() => {
         setHovered(false);
-        onExpandedChange?.(false);
-    }, [pathname, onExpandedChange]);
+        onExpandedChangeRef.current?.(false);
+    }, [pathname]);
 
     useEffect(() => {
         const handlePageShow = () => {
             setHovered(false);
-            onExpandedChange?.(false);
+            onExpandedChangeRef.current?.(false);
         };
 
         window.addEventListener("pageshow", handlePageShow);
@@ -59,7 +64,7 @@ export default function BlurTextButton({ menuItems, isExpanded = false, onExpand
         return () => {
             window.removeEventListener("pageshow", handlePageShow);
         };
-    }, [onExpandedChange]);
+    }, []);
 
     const handleMainButtonClick = () => {
         if (!isMobile || !hasSubMenu) {
