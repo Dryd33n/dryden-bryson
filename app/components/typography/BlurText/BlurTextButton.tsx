@@ -46,7 +46,7 @@ export default function BlurTextButton({ menuItems, isExpanded = false, onExpand
     useEffect(() => {
         setHovered(false);
         onExpandedChange?.(false);
-    }, [pathname]);
+    }, [pathname, onExpandedChange]);
 
     useEffect(() => {
         const handlePageShow = () => {
@@ -59,7 +59,7 @@ export default function BlurTextButton({ menuItems, isExpanded = false, onExpand
         return () => {
             window.removeEventListener("pageshow", handlePageShow);
         };
-    }, []);
+    }, [onExpandedChange]);
 
     const handleMainButtonClick = () => {
         if (!isMobile || !hasSubMenu) {

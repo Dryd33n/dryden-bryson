@@ -53,11 +53,9 @@ export default function TiltedCard({
   });
 
   const [lastY, setLastY] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const [renderedColor, setRenderedColor] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    setMounted(true);
     setRenderedColor(color);
   }, [color]);
 
