@@ -1,11 +1,14 @@
-'use client'
-
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/Navbar';
 import { home, aboutItems, contactItems, portfolioItems } from '@/lib/menuItems';
 import { FaCodeBranch } from "react-icons/fa6";
 import { TbCube3dSphere } from "react-icons/tb";
 import { MdSchool } from "react-icons/md";
+
+export const metadata = {
+  title: "Portfolio",
+  description: "Explore the portfolio of Dryden Bryson, showcasing his software development projects, 3D design work, and school assignments. Discover his skills and creativity in various domains.",
+};
 
 export default function Portfolio(){
 

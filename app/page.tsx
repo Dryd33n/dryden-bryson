@@ -1,26 +1,18 @@
-'use client'
-
-import { useState, useEffect } from 'react';
-import { DESKTOP_MOBILE_BREAKPOINT } from '@/lib/breakpoints';
 import DesktopHomePage from './components/home/DesktopHomePage';
 import MobileHomePage from './components/home/MobileHomePage';
 
+export const metadata = {
+  title: "Home | Dryden Bryson",
+  description: "Welcome to the portfolio of Dryden Bryson, a computer science student and programmer based in Canada. Explore his projects, skills, and get in touch to discuss opportunities.",
+};
+
 export default function Home() {
-  const [isDesktop, setIsDesktop] = useState(true);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= DESKTOP_MOBILE_BREAKPOINT);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  if (!mounted) return null;
-
-  return isDesktop ? <DesktopHomePage /> : <MobileHomePage />;
+  return <>
+      <div className="hidden md:block">
+        <DesktopHomePage />
+      </div>
+      <div className="block md:hidden">
+        <MobileHomePage />
+      </div>
+  </>
 }

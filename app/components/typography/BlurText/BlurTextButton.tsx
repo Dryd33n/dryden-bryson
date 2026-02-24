@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 import BlurText from "./BlurText";
@@ -11,7 +12,7 @@ import { useColorScheme } from "@/lib/colorScheme";
 
 export interface MenuItem {
     title: string;
-    clickFn: () => void;
+    href: string;
 }
 
 interface BlurTextButtonProps {
@@ -61,7 +62,7 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
             onMouseLeave={() => setHovered(false)}
         >
             {!animationComplete ? (
-                <div onClick={mainMenuItem.clickFn}>
+                <Link href={mainMenuItem.href} className="block">
                     <BlurText
                         text={mainMenuItem.title}
                         delay={20}
@@ -69,28 +70,30 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                         direction="bottom"
                         className={`text-lg`}
                         onAnimationComplete={() => setAnimationComplete(true)}
-
                     />
-                </div>
+                </Link>
             ) : (
                 hovered ? (
                     <>
-                        <p onClick={mainMenuItem.clickFn} className="text-lg text-gradient-1"  style={
-    width > DESKTOP_MOBILE_BREAKPOINT
-      ? {
-          transform: "scale(1.1)",
-          transitionProperty: "transform",
-          transitionDuration: "300ms",
-          transitionTimingFunction: "ease-out",
-        }
-      : {}
-  }>{mainMenuItem.title}</p>
+                        <Link
+                            href={mainMenuItem.href}
+                            className="text-lg text-gradient-1"
+                            style={
+                                width > DESKTOP_MOBILE_BREAKPOINT
+                                    ? {
+                                        transform: "scale(1.1)",
+                                        transitionProperty: "transform",
+                                        transitionDuration: "300ms",
+                                        transitionTimingFunction: "ease-out",
+                                    }
+                                    : {}
+                            }
+                        >
+                            {mainMenuItem.title}
+                        </Link>
                         <div className={` ${width >= DESKTOP_MOBILE_BREAKPOINT ? "absolute" : ""} left-0 top-full flex flex-col rounded`}>
                             {subMenuItems.map((item, index) => (
-                                <div key={index} 
-                                onClick={item.clickFn}
-                                className="whitespace-nowrap"
-                                >
+                                <Link key={index} href={item.href} className="whitespace-nowrap">
                                     <DecryptedText
                                         text={item.title}
                                         animateOn="view"
@@ -98,12 +101,14 @@ export default function BlurTextButton({ menuItems }: BlurTextButtonProps) {
                                         speed={50}
                                         delay={index * 150}
                                     />
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </>
                 ) : (
-                    <p className="text-lg" style={{ color: textColor }}>{mainMenuItem.title}</p>
+                    <Link href={mainMenuItem.href} className="text-lg" style={{ color: textColor }}>
+                        {mainMenuItem.title}
+                    </Link>
                 )
             )}
         </div>

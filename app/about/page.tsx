@@ -1,4 +1,3 @@
-'use client'
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/Navbar';
 import SkillsGallery from '@/app/components/skills/SkillsGallery';
@@ -6,6 +5,11 @@ import { IoMdCode } from "react-icons/io";
 import { SiSuperuser } from "react-icons/si";
 import { MdOutlineSchool } from "react-icons/md";
 import { home, aboutItems, portfolioItems, contactItems } from '@/lib/menuItems';
+
+export const metadata = {
+  title: "About",
+  description: "Learn more about Dryden Bryson, a computer science student and programmer based in Canada. Explore his bio, skills, and education background.",
+};
 
 export default function About() {
     const languageImages = ["java.svg", "python.svg", "typescript.svg", "c.svg", "c-sharp.svg", "r.svg", "assembly.svg"];
