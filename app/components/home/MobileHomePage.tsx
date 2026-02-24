@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from "react";
 import FuzzyText from "@/app/components/typography/FuzzyText/FuzzyText";
 import Navbar from "@/app/components/global/Navbar";
 import TiltedCard from "@/app/components/global/TiltedIcon";
@@ -9,7 +10,12 @@ import { portfolioItems, aboutItems, contactItems } from "@/lib/menuItems";
 import { useColorScheme } from "@/lib/colorScheme";
 
 export default function MobileHomePage() {
+  const [mounted, setMounted] = useState(false);
   const { glitchTextColors, titleColor, iconColor } = useColorScheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -42,17 +48,19 @@ export default function MobileHomePage() {
           </div>
 
           {/* GLITCHTEXT BACKGROUND */}
-          <div className="w-full h-full absolute inset-0 -z-50 opacity-[12%]">
-            <LetterGlitch
-              glitchSpeed={50}
-              centerVignette={true}
-              outerVignette={true}
-              glitchColors={glitchTextColors[1]}
-              vignetteColor={glitchTextColors[0][0]}
-              backgroundColor={glitchTextColors[0][1]}
-              smooth={true}
-            />
-          </div>
+          {mounted && (
+            <div className="w-full h-full absolute inset-0 -z-50 opacity-[12%]">
+              <LetterGlitch
+                glitchSpeed={50}
+                centerVignette={true}
+                outerVignette={true}
+                glitchColors={glitchTextColors[1]}
+                vignetteColor={glitchTextColors[0][0]}
+                backgroundColor={glitchTextColors[0][1]}
+                smooth={true}
+              />
+            </div>
+          )}
 
           <div className="inset-0 flex flex-col items-center justify-center h-full">
             <FuzzyText
