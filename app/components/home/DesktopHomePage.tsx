@@ -11,8 +11,7 @@ import { useColorScheme } from "@/lib/colorScheme";
 
 export default function DesktopHomePage() {
   const [mounted, setMounted] = useState(false);
-  
-  const { glitchTextColors, titleColor, iconColor } = useColorScheme();
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     setMounted(true);
@@ -38,12 +37,12 @@ export default function DesktopHomePage() {
             
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="github.svg" color={iconColor} />
+                <TiltedCard imageSrc="github.svg" color={mounted ? colorScheme.iconColor : undefined} />
               </a>
             </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="linkedin.svg" color={iconColor} />
+                <TiltedCard imageSrc="linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} />
               </a>
             </div>
           </div>
@@ -63,9 +62,9 @@ export default function DesktopHomePage() {
                 glitchSpeed={50}
                 centerVignette={true}
                 outerVignette={true}
-                glitchColors={glitchTextColors[1]}
-                vignetteColor={glitchTextColors[0][0]}
-                backgroundColor = {glitchTextColors[0][1]}
+                glitchColors={colorScheme.glitchTextColors[1]}
+                vignetteColor={colorScheme.glitchTextColors[0][0]}
+                backgroundColor = {colorScheme.glitchTextColors[0][1]}
                 smooth={true}
               />
             </div>
@@ -77,7 +76,7 @@ export default function DesktopHomePage() {
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"5rem"}
-              color={titleColor[0]}
+              color={colorScheme.titleColor[0]}
             >
               Dryden Bryson
             </FuzzyText>
@@ -87,7 +86,7 @@ export default function DesktopHomePage() {
               hoverIntensity={0.05}
               enableHover={true}
               fontSize={"3rem"}
-              color={titleColor[1]}
+              color={colorScheme.titleColor[1]}
             >
               Student & Developer
             </FuzzyText>

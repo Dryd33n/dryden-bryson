@@ -11,7 +11,7 @@ import { useColorScheme } from "@/lib/colorScheme";
 
 export default function MobileHomePage() {
   const [mounted, setMounted] = useState(false);
-  const { glitchTextColors, titleColor, iconColor } = useColorScheme();
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     setMounted(true);
@@ -29,12 +29,12 @@ export default function MobileHomePage() {
             <DarkModeToggle />
             <div className="h-[50] w-[50] overflow-hidden">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="github.svg" color={iconColor} rotateAmplitude={1.3} />
+                <TiltedCard imageSrc="github.svg" color={mounted ? colorScheme.iconColor : undefined} rotateAmplitude={1.3} />
               </a>
             </div>
             <div className="h-[50] w-[50] overflow-hidden">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="linkedin.svg" color={iconColor} rotateAmplitude={1.3} />
+                <TiltedCard imageSrc="linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} rotateAmplitude={1.3} />
               </a>
             </div>
           </div>
@@ -54,9 +54,9 @@ export default function MobileHomePage() {
                 glitchSpeed={50}
                 centerVignette={true}
                 outerVignette={true}
-                glitchColors={glitchTextColors[1]}
-                vignetteColor={glitchTextColors[0][0]}
-                backgroundColor={glitchTextColors[0][1]}
+                glitchColors={colorScheme.glitchTextColors[1]}
+                vignetteColor={colorScheme.glitchTextColors[0][0]}
+                backgroundColor={colorScheme.glitchTextColors[0][1]}
                 smooth={true}
               />
             </div>
@@ -68,7 +68,7 @@ export default function MobileHomePage() {
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"2.5rem"}
-              color={titleColor[0]}
+              color={colorScheme.titleColor[0]}
             >
               Dryden Bryson
             </FuzzyText>
@@ -78,7 +78,7 @@ export default function MobileHomePage() {
               hoverIntensity={0.05}
               enableHover={true}
               fontSize={"1.5rem"}
-              color={titleColor[1]}
+              color={colorScheme.titleColor[1]}
             >
               Student & Developer
             </FuzzyText>
