@@ -37,7 +37,7 @@ export default function TiltedCard({
   showTooltip = false,
   overlayContent = null,
   displayOverlayContent = false,
-  color = "#000000",
+  color = "#ffffff",
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
   const x = useMotionValue(0);

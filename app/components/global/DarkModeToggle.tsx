@@ -18,7 +18,7 @@ export default function DarkModeToggle() {
         className="p-3 rounded-lg border border-neutral-700 bg-transparent transition-all duration-300 hover:border-[#f76855] hover:shadow-[0_0_10px_rgba(247,104,85,0.3)]"
         aria-label="Toggle theme"
       >
-        <div className="w-5 h-5" />
+        <FiSun className="w-5 h-5 text-neutral-400" />
       </button>
     );
   }
