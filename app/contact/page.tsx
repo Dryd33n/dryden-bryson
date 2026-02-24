@@ -4,6 +4,8 @@ import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/Navbar';
 import { aboutItems, contactItems, home, portfolioItems } from '@/lib/menuItems';
 import ContactForm from './ContactForm';
+import { MdOutlineMail } from "react-icons/md";
+import { FiUserPlus } from "react-icons/fi";
 
 export const metadata = {
   title: "Contact",
@@ -25,13 +27,14 @@ export default function Contact() {
             <div className="md:mr-[50%]">
                 <p className="mt-10 text-sm md:text-base">Have a project in mind or just want to chat? Feel free to reach out. I&apos;m always open to discussing new opportunities, collaborations, or answering questions.</p>
                 <section id="contact-form"></section>
-                <p className="!text-xl md:!text-2xl !font-bold !text-white mt-12 md:mt-20">Send a message</p>
+                <p className="!text-xl md:!text-2xl !font-bold !text-white mt-12 md:mt-20"><span><MdOutlineMail className="inline-block text-red-500 mr-2"/></span>Send a message</p>
             </div>
 
             <ContactForm />
 
-            <p className="!text-xl md:!text-2xl !font-bold !text-white mt-12 md:mt-20">Let&apos;s Connect!</p>
+            <p className="!text-xl md:!text-2xl !font-bold !text-white mt-12 md:mt-20"><span><FiUserPlus className="inline-block text-red-500 mr-2"/></span>Let&apos;s Connect!</p>
 
+            <section id="social-media"></section>
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:mr-[30%] mb-70">
                 {/* Contact Information */}
                 <div>
@@ -60,7 +63,6 @@ export default function Contact() {
                 </div>
 
                 {/* Connect With Me */}
-                <section id="social-media"></section>
                 <div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-8">Connect With Me</h3>
 

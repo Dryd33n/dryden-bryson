@@ -46,7 +46,7 @@ export default function About() {
             {/* SKILLS */}
             <section id="skills"></section>
             <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><IoMdCode className="text-red-500" />SKILLS</h1>
-            <p className="mb-4 md:mr-[40%]">With many years of experience in programming and software development, I have developed skills ranging from the front end to the back end of software development, design and more. </p>
+            <p className="mb-4 md:mr-[40%] cursor-default">With many years of experience in programming and software development, I have developed skills ranging from the front end to the back end of software development, design and more. </p>
             <SkillsGallery 
                 images={[languageImages, socialImages, backendImages, designImages]}
                 alternateDirection={true}

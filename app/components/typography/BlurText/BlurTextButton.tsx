@@ -87,16 +87,14 @@ export default function BlurTextButton({ menuItems, isExpanded = false, onExpand
             onMouseLeave={() => !isMobile && setHovered(false)}
         >
             {!animationComplete ? (
-                <Link href={mainMenuItem.href} className="block">
                     <BlurText
                         text={mainMenuItem.title}
                         delay={20}
                         animateBy="letters"
                         direction="bottom"
-                        className={`text-lg`}
+                        className={`text-lg pointer-events-none cursor-default`}
                         onAnimationComplete={() => setAnimationComplete(true)}
                     />
-                </Link>
             ) : isMobile ? (
                 // Mobile behavior: expand on first click if there's a submenu, navigate on second click
                 hasSubMenu ? (
