@@ -42,12 +42,9 @@ body {
 
 @font-face {
   font-family: "Arame-Mono";
-  src: url("https://db.onlinewebfonts.com/t/5dc6fc5a874b27ff1c287c19dc30bf1b.eot");
-  src: url("https://db.onlinewebfonts.com/t/5dc6fc5a874b27ff1c287c19dc30bf1b.eot?#iefix")format("embedded-opentype"),
-  url("https://db.onlinewebfonts.com/t/5dc6fc5a874b27ff1c287c19dc30bf1b.woff2")format("woff2"),
-  url("https://db.onlinewebfonts.com/t/5dc6fc5a874b27ff1c287c19dc30bf1b.woff")format("woff"),
-  url("https://db.onlinewebfonts.com/t/5dc6fc5a874b27ff1c287c19dc30bf1b.ttf")format("truetype"),
-  url("https://db.onlinewebfonts.com/t/5dc6fc5a874b27ff1c287c19dc30bf1b.svg#Arame-Mono")format("svg");
+  font-display: swap;
+  src: url("/fonts/arame-mono.woff2") format("woff2"),
+       url("/fonts/arame-mono.woff") format("woff");
 }
   h1, h2, h3, h4, h5, h6 {
     font-family: "Arame-Mono", monospace;
