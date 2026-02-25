@@ -22,12 +22,20 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
   }, []);
 
   useEffect(() => {
-    const containerWidth = containerRef.current?.offsetWidth;
-    if (containerWidth) {
-      // Calculate the number of images that fit in the container based on image size
-      const imagesToDisplay = Math.ceil(containerWidth / imageWidth);
-      setImages(Array(imagesToDisplay * 2).fill(imageHrefs).flat()); // Double the list and adjust for full width
-    }
+    const container = containerRef.current;
+    if (!container) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      const containerWidth = container.offsetWidth;
+      if (containerWidth) {
+        // Calculate the number of images that fit in the container based on image size
+        const imagesToDisplay = Math.ceil(containerWidth / imageWidth);
+        setImages(Array(imagesToDisplay * 2).fill(imageHrefs).flat()); // Double the list and adjust for full width
+      }
+    });
+
+    resizeObserver.observe(container);
+    return () => resizeObserver.disconnect();
   }, [imageHrefs, imageWidth]);
 
   return (
