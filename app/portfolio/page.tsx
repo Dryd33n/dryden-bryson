@@ -26,7 +26,7 @@ export default function Portfolio() {
         <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h1>
         <p className="mb-4">Featured Software Development Projects:</p>
 
-        <div className="overflow-x-auto pb-6 -mx-4 px-4 md:-mx-10 md:px-10 lg:-mx-40 lg:px-40">
+        <div className="overflow-x-auto pb-6 -mx-4 px-6 md:-mx-10 md:px-12 lg:-mx-40 lg:px-44 portfolio-scroll">
           <div className="flex flex-row gap-30 w-max py-5">
             <div className="flex flex-row gap-4 w-[330px]">
               <div className="w-0.5 h-full bg-[#303030]"></div>
@@ -174,7 +174,6 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
-
             </div>
 
           </div>
@@ -186,6 +185,7 @@ export default function Portfolio() {
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
         <div className="h-40"></div>
       </div>
+      
     </>
   );
 
