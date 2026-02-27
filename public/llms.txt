@@ -1,0 +1,15 @@
+# Dryden Bryson Website
+
+This site may be indexed by LLMs and AI assistants.
+
+## Allowed
+- Public pages and static assets.
+
+## Disallowed
+- Private data, credentials, hidden/admin routes, and any non-public endpoints.
+
+## Source
+- Canonical content is served from this website's public pages.
+
+## Contact
+- Use the contact form on /contact for permission requests or attribution questions.

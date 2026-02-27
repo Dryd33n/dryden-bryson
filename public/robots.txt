@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dryd3n.ca/sitemap.xml
