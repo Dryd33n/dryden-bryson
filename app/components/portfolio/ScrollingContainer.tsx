@@ -1,77 +1,12 @@
 'use client';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, ReactNode } from 'react';
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import ProjectCard from './ProjectCard';
 
-interface ProjectData {
-  name: string;
-  techBadges: string[];
-  codeStats: { language: string; percentage: string }[];
-  links: { href: string; label: string }[];
+interface ScrollingContainerProps {
+  children: ReactNode;
 }
 
-const projects: ProjectData[] = [
-  {
-    name: 'Spotimasher',
-    techBadges: ['OAuth 2.0', 'SPOTIFY API', 'HTML / CSS', 'JavaScript'],
-    codeStats: [
-      { language: 'Javascript', percentage: '65.0%' },
-      { language: 'HTML', percentage: '18.2%' },
-      { language: 'CSS', percentage: '16.8%' }
-    ],
-    links: [
-      { href: 'https://spotimasher.web.app', label: 'View Live Demo' },
-      { href: 'https://github.com/Dryd33n/Spotimasher', label: 'View Code' }
-    ]
-  },
-  {
-    name: 'Sudoku',
-    techBadges: ['Java', 'JavaFX', 'Backtracking', 'OOP'],
-    codeStats: [
-      { language: 'Java', percentage: '82.1%' },
-      { language: 'CSS', percentage: '17.9%' }
-    ],
-    links: [
-      { href: 'https://github.com/Dryd33n/sudoku', label: 'View Code' }
-    ]
-  },
-  {
-    name: 'Music-Map',
-    techBadges: ['Python', 'Spotify API', 'Pandas', 'Data Viz'],
-    codeStats: [
-      { language: 'Python', percentage: '100%' }
-    ],
-    links: [
-      { href: 'https://github.com/Dryd33n/spotifyDataView', label: 'View Code' }
-    ]
-  },
-  {
-    name: 'Portfolio',
-    techBadges: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
-    codeStats: [
-      { language: 'TypeScript', percentage: '96.4%' },
-      { language: 'CSS', percentage: '3.2%' },
-      { language: 'Javascript', percentage: '0.4%' }
-    ],
-    links: [
-      { href: 'https://github.com/Dryd33n/drydenbryson', label: 'View Code' }
-    ]
-  },
-  {
-    name: 'Ludum-Dare-46',
-    techBadges: ['Unity', 'C#', '3D Modelling', 'Game Jam'],
-    codeStats: [
-      { language: 'C#', percentage: '100%' }
-    ],
-    links: [
-      { href: 'https://drydenexe.itch.io/protectorsofthecore', label: 'Play Game' },
-      { href: 'https://ldjam.com/events/ludum-dare/46/protectors-of-the-core', label: 'View Results' },
-      { href: 'https://github.com/Dryd33n/Ludum-Dare-46', label: 'View Code' }
-    ]
-  }
-];
-
-export default function ScrollingProjects() {
+export default function ScrollingContainer({ children }: ScrollingContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -198,15 +133,7 @@ export default function ScrollingProjects() {
         className="overflow-x-auto pb-2 -mx-4 px-6 md:-mx-10 md:px-12 lg:-mx-40 lg:px-44 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         <div className="flex flex-row gap-30 w-max py-5">
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              name={project.name}
-              techBadges={project.techBadges}
-              codeStats={project.codeStats}
-              links={project.links}
-            />
-          ))}
+          {children}
         </div>
       </div>
 

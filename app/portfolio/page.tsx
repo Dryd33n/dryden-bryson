@@ -4,7 +4,9 @@ import { home, aboutItems, contactItems, portfolioItems } from '@/lib/menuItems'
 import { FaCodeBranch } from "react-icons/fa6";
 import { TbCube3dSphere } from "react-icons/tb";
 import { MdSchool } from "react-icons/md";
-import ScrollingProjects from '../components/portfolio/ScrollingProjects';
+import ScrollingContainer from '../components/portfolio/ScrollingContainer';
+import ProjectCard from '../components/portfolio/ProjectCard';
+import { spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
 
 export const metadata = {
   title: "Portfolio",
@@ -12,6 +14,7 @@ export const metadata = {
 };
 
 export default function Portfolio() {
+  const softwareProjects = [spotimasher, sudoku, ludumDare46, musicMap, portfolio];
 
   return (
     <>
@@ -27,7 +30,17 @@ export default function Portfolio() {
         <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h1>
         <p className="mb-4">Featured Software Development Projects:</p>
 
-        <ScrollingProjects />
+        <ScrollingContainer>
+          {softwareProjects.map((project, index) => (
+            <ProjectCard
+              key={index}
+              name={project.name}
+              techBadges={project.techBadges}
+              codeStats={project.codeStats}
+              links={project.links}
+            />
+          ))}
+        </ScrollingContainer>
 
         <div className="h-10"></div>
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><TbCube3dSphere className="text-red-500" />3D DESIGN</h1>
