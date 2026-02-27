@@ -1,7 +1,75 @@
 'use client';
 import { useRef, useEffect } from 'react';
-import { MdArrowOutward, MdChevronLeft, MdChevronRight } from "react-icons/md";
-import TechBadge from './TechBadge';
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import ProjectCard from './ProjectCard';
+
+interface ProjectData {
+  name: string;
+  techBadges: string[];
+  codeStats: { language: string; percentage: string }[];
+  links: { href: string; label: string }[];
+}
+
+const projects: ProjectData[] = [
+  {
+    name: 'Spotimasher',
+    techBadges: ['OAuth 2.0', 'SPOTIFY API', 'HTML / CSS', 'JavaScript'],
+    codeStats: [
+      { language: 'Javascript', percentage: '65.0%' },
+      { language: 'HTML', percentage: '18.2%' },
+      { language: 'CSS', percentage: '16.8%' }
+    ],
+    links: [
+      { href: 'https://spotimasher.web.app', label: 'View Live Demo' },
+      { href: 'https://github.com/Dryd33n/Spotimasher', label: 'View Code' }
+    ]
+  },
+  {
+    name: 'Sudoku',
+    techBadges: ['Java', 'JavaFX', 'Backtracking', 'OOP'],
+    codeStats: [
+      { language: 'Java', percentage: '82.1%' },
+      { language: 'CSS', percentage: '17.9%' }
+    ],
+    links: [
+      { href: 'https://github.com/Dryd33n/sudoku', label: 'View Code' }
+    ]
+  },
+  {
+    name: 'Music-Map',
+    techBadges: ['Python', 'Spotify API', 'Pandas', 'Data Viz'],
+    codeStats: [
+      { language: 'Python', percentage: '100%' }
+    ],
+    links: [
+      { href: 'https://github.com/Dryd33n/spotifyDataView', label: 'View Code' }
+    ]
+  },
+  {
+    name: 'Portfolio',
+    techBadges: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    codeStats: [
+      { language: 'TypeScript', percentage: '96.4%' },
+      { language: 'CSS', percentage: '3.2%' },
+      { language: 'Javascript', percentage: '0.4%' }
+    ],
+    links: [
+      { href: 'https://github.com/Dryd33n/drydenbryson', label: 'View Code' }
+    ]
+  },
+  {
+    name: 'Ludum-Dare-46',
+    techBadges: ['Unity', 'C#', '3D Modelling', 'Game Jam'],
+    codeStats: [
+      { language: 'C#', percentage: '100%' }
+    ],
+    links: [
+      { href: 'https://drydenexe.itch.io/protectorsofthecore', label: 'Play Game' },
+      { href: 'https://ldjam.com/events/ludum-dare/46/protectors-of-the-core', label: 'View Results' },
+      { href: 'https://github.com/Dryd33n/Ludum-Dare-46', label: 'View Code' }
+    ]
+  }
+];
 
 export default function ScrollingProjects() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -130,154 +198,15 @@ export default function ScrollingProjects() {
         className="overflow-x-auto pb-2 -mx-4 px-6 md:-mx-10 md:px-12 lg:-mx-40 lg:px-44 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         <div className="flex flex-row gap-30 w-max py-5">
-          {/* SPOTIMASHER */}
-          <div className="flex flex-row gap-4 w-[330px]">
-            <div className="w-0.5 h-full bg-[#303030]"></div>
-            <div className="pt-1 pb-4 flex flex-col h-full">
-              <h1 className="text-2xl mb-10 cursor-default"><span className="inline text-red-500 text-xl">/</span>Spotimasher</h1>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <TechBadge label="OAuth 2.0" />
-                <TechBadge label="SPOTIFY API" />
-                <TechBadge label="HTML / CSS" />
-                <TechBadge label="JavaScript" />
-              </div>
-              <div className="w-full cursor-default space-y-2">
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">Javascript</span>
-                  <span className="text-white/60">65.0%</span>
-                </div>
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">HTML</span>
-                  <span className="text-white/60">18.2%</span>
-                </div>
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">CSS</span>
-                  <span className="text-white/60">16.8%</span>
-                </div>
-              </div>
-              <div className="w-full flex flex-col items-start gap-3 mt-auto pt-10">
-                <a
-                  href="https://spotimasher.web.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-left rounded-sm border border-white px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full"
-                >
-                <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> View Live Demo
-                </a>
-                <a
-                  href="https://github.com/Dryd33n/Spotimasher"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-left rounded-sm border border-white px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full"
-                >
-                <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />  View Code
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* SUDOKU */}
-          <div className="flex flex-row gap-4 w-[330px]">
-            <div className="w-0.5 h-full bg-[#303030]"></div>
-            <div className="pt-1 pb-4 flex flex-col h-full">
-              <h1 className="text-2xl mb-10 cursor-default"><span className="inline text-red-500 text-xl">/</span>Sudoku</h1>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <TechBadge label="Java" />
-                <TechBadge label="JavaFX" />
-                <TechBadge label="Backtracking" />
-                <TechBadge label="OOP" />
-              </div>
-              <div className="w-full cursor-default space-y-2">
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">Java</span>
-                  <span className="text-white/60">82.1%</span>
-                </div>
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">CSS</span>
-                  <span className="text-white/60">17.9%</span>
-                </div>
-              </div>
-              <div className="w-full flex flex-col items-start gap-3 mt-auto pt-10">
-                <a
-                  href="https://github.com/Dryd33n/sudoku"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-left rounded-sm border border-white px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full"
-                >
-                  <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> View Code
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* MUSIC MAP */}
-          <div className="flex flex-row gap-4 w-[330px]">
-            <div className="w-0.5 h-full bg-[#303030]"></div>
-            <div className="pt-1 pb-4 flex flex-col h-full">
-              <h1 className="text-2xl mb-10 cursor-default"><span className="inline text-red-500 text-xl">/</span>Music-Map</h1>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <TechBadge label="Python" />
-                <TechBadge label="Spotify API" />
-                <TechBadge label="Pandas" />
-                <TechBadge label="Data Viz" />
-              </div>
-              <div className="w-full cursor-default space-y-2">
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">Python</span>
-                  <span className="text-white/60">100%</span>
-                </div>
-              </div>
-              <div className="w-full flex flex-col items-start gap-3 mt-auto pt-10">
-                <a
-                  href="https://github.com/Dryd33n/spotifyDataView"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-left rounded-sm border border-white px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full"
-                >
-                  <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> View Code
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* PORTFOLIO */}
-          <div className="flex flex-row gap-4 w-[330px]">
-            <div className="w-0.5 h-full bg-[#303030]"></div>
-            <div className="pt-1 pb-4 flex flex-col h-full">
-              <h1 className="text-2xl mb-10 cursor-default"><span className="inline text-red-500 text-xl">/</span>Portfolio</h1>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <TechBadge label="Next.js" />
-                <TechBadge label="React" />
-                <TechBadge label="TypeScript" />
-                <TechBadge label="Tailwind CSS" />
-                <TechBadge label="Vercel" />
-              </div>
-              <div className="w-full cursor-default space-y-2">
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">TypeScript</span>
-                  <span className="text-white/60">96.4%</span>
-                </div>
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">CSS</span>
-                  <span className="text-white/60">3.2%</span>
-                </div>
-                <div className="flex justify-between text-xs tracking-wider">
-                  <span className="text-white/80">Javascript</span>
-                  <span className="text-white/60">0.4%</span>
-                </div>
-              </div>
-              <div className="w-full flex flex-col items-start gap-3 mt-auto pt-10">
-                <a
-                  href="https://github.com/Dryd33n/drydenbryson"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-left rounded-sm border border-white px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full"
-                >
-                  <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> View Code
-                </a>
-              </div>
-            </div>
-          </div>
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={index}
+              name={project.name}
+              techBadges={project.techBadges}
+              codeStats={project.codeStats}
+              links={project.links}
+            />
+          ))}
         </div>
       </div>
 
