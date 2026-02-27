@@ -12,10 +12,10 @@ export const metadata = {
 };
 
 export default function About() {
-    const languageImages = ["java.svg", "python.svg", "typescript.svg", "c.svg", "c-sharp.svg", "r.svg", "assembly.svg"];
-    const socialImages = ["html.svg", "css.svg", "tailwind.svg", "react.svg", "next.svg", "scenebuilder.svg", "pyqt.svg", "javafx.svg", "unity.svg"];
-    const backendImages = ["postgresql.svg", "neon.svg", "drizzle.svg", "nodejs.svg", "github.svg"];
-    const designImages = ["illustrator.svg", "photoshop.svg", "premiere.svg", "blender.svg", "latex.svg", "vscode.svg", "jetbrains.svg"];
+    const languageImages = ["icons/java.svg", "icons/python.svg", "icons/typescript.svg", "icons/c.svg", "icons/c-sharp.svg", "icons/r.svg", "icons/assembly.svg"];
+    const socialImages = ["icons/html.svg", "icons/css.svg", "icons/tailwind.svg", "icons/react.svg", "icons/next.svg", "icons/scenebuilder.svg", "icons/pyqt.svg", "icons/javafx.svg", "icons/unity.svg"];
+    const backendImages = ["icons/postgresql.svg", "icons/neon.svg", "icons/drizzle.svg", "icons/nodejs.svg", "icons/github.svg"];
+    const designImages = ["icons/illustrator.svg", "icons/photoshop.svg", "icons/premiere.svg", "icons/blender.svg", "icons/latex.svg", "icons/vscode.svg", "icons/jetbrains.svg"];
 
 
     return (<>

@@ -37,12 +37,12 @@ export default function DesktopHomePage() {
             
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="github.svg" color={mounted ? colorScheme.iconColor : undefined} />
+                <TiltedCard imageSrc="icons/github.svg" color={mounted ? colorScheme.iconColor : undefined} />
               </a>
             </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} />
+                <TiltedCard imageSrc="icons/linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} />
               </a>
             </div>
           </div>
