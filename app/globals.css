@@ -71,29 +71,26 @@ body {
     caret-color: #ffffff;
   }
 
-  /* Modern portfolio scrollbar styling */
-  .portfolio-scroll::-webkit-scrollbar {
-    height: 6px;
-  }
+ .portfolio-scroll::-webkit-scrollbar {
+  height: 6px;
+}
 
-  .portfolio-scroll::-webkit-scrollbar-track {
-    background: transparent;
-  }
+.portfolio-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin-left: 25vw;
+  margin-right: 25vw;
+}
 
-  .portfolio-scroll::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #f76855, #ff6b3d);
-    border-radius: 10px;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-  }
+.portfolio-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #f76855, #ff6b3d);
+  border-radius: 10px;
+}
 
-  .portfolio-scroll::-webkit-scrollbar-thumb:hover {
-    opacity: 1;
-    box-shadow: 0 0 8px rgba(247, 104, 85, 0.4);
-  }
+.portfolio-scroll::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 8px rgba(247, 104, 85, 0.4);
+}
 
-  /* Firefox support */
-  .portfolio-scroll {
-    scrollbar-color: rgba(247, 104, 85, 0.6) transparent;
-    scrollbar-width: thin;
-  }
+.portfolio-scroll {
+  scrollbar-color: rgba(247, 104, 85, 0.6) transparent;
+  scrollbar-width: thin;
+}
