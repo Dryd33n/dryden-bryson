@@ -31,12 +31,12 @@ const textColors = (theme: string | undefined) => {
 };
 
 export const useColorScheme = () => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   
   return {
-    glitchTextColors: glitchTextColors(theme),
-    titleColor: titleColor(theme),
-    iconColor: iconColor(theme),
-    textColors: textColors(theme),
+    glitchTextColors: glitchTextColors(resolvedTheme),
+    titleColor: titleColor(resolvedTheme),
+    iconColor: iconColor(resolvedTheme),
+    textColors: textColors(resolvedTheme),
   };
 };

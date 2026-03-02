@@ -27,8 +27,8 @@ export default function Portfolio() {
       </div>
 
       <div className='px-4 md:px-10 lg:px-40'>
-        <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h1>
-        <p className="mb-4">Featured Software Development Projects:</p>
+        <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h1>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Software Development Projects:</p>
 
         <ScrollingContainer>
           {softwareProjects.map((project, index) => (
@@ -43,9 +43,9 @@ export default function Portfolio() {
         </ScrollingContainer>
 
         <div className="h-10"></div>
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><TbCube3dSphere className="text-red-500" />3D DESIGN</h1>
+        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><TbCube3dSphere className="text-red-500" />3D DESIGN</h1>
         <div className="h-40"></div>
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
+        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
         <div className="h-40"></div>
       </div>
       

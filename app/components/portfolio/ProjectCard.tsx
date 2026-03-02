@@ -21,9 +21,9 @@ interface ProjectCardProps {
 export default function ProjectCard({ name, techBadges, codeStats, links }: ProjectCardProps) {
   return (
     <div className="flex flex-row gap-4 w-[330px]">
-      <div className="w-0.5 h-full bg-[#303030]"></div>
+      <div className="w-0.5 h-full bg-neutral-300 dark:bg-neutral-700"></div>
       <div className="pt-1 pb-4 flex flex-col h-full">
-        <h1 className="text-2xl mb-10 cursor-default">
+        <h1 className="text-2xl mb-10 cursor-default text-neutral-900 dark:text-neutral-100">
           <span className="inline text-red-500 text-xl">/</span>{name}
         </h1>
         
@@ -36,8 +36,8 @@ export default function ProjectCard({ name, techBadges, codeStats, links }: Proj
         <div className="w-full cursor-default space-y-2">
           {codeStats.map((stat, index) => (
             <div key={index} className="flex justify-between text-xs tracking-wider">
-              <span className="text-white/80">{stat.language}</span>
-              <span className="text-white/60">{stat.percentage}</span>
+              <span className="text-neutral-700 dark:text-white/80">{stat.language}</span>
+              <span className="text-neutral-500 dark:text-white/60">{stat.percentage}</span>
             </div>
           ))}
         </div>
@@ -49,7 +49,7 @@ export default function ProjectCard({ name, techBadges, codeStats, links }: Proj
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-left rounded-sm border border-white px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full"
+              className="group flex items-center justify-left rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full dark:border-white dark:text-white"
             >
               <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> {link.label}
             </a>

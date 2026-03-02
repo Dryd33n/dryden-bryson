@@ -38,11 +38,7 @@
 .infinite-scroll-container::after {
   right: 0;
   width: 30vw;
-  background: linear-gradient(to left, rgba(10, 10, 10, 1),rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.9), transparent);
-}
-
-.infinite-scroll-container.light-theme::after {
-  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9), transparent);
+  background: linear-gradient(to left, var(--background), var(--background), transparent);
 }
   
   @keyframes scrollLeft {

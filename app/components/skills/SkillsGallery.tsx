@@ -1,5 +1,4 @@
 'use client'
-import { useTheme } from "next-themes";
 import InfiniteImageGallery from '@/app/components/skills/imagecarousel/InfiniteImageGallery';
 
 interface SkillsGalleryProps {
@@ -8,12 +7,10 @@ interface SkillsGalleryProps {
 }
 
 export default function SkillsGallery({ images, alternateDirection }: SkillsGalleryProps) {
-    const { theme } = useTheme();
-
     return (
         <div className="relative mr-0 md:mr-[20%] opacity-90 select-none">
             {/* Right Solid Bar for clipping */}
-            <div className={`absolute w-5 h-full z-20 -right-2 ${theme === "light" ? "bg-[#ffffff]" : "bg-[#0a0a0a]"}`}></div>
+            <div className="absolute w-5 h-full z-20 -right-2 bg-[var(--background)]"></div>
             
             {/* Left Glowing Bar */}
             <div className="absolute -left-[3px] top-0 h-full w-[5px] z-20
