@@ -63,61 +63,7 @@ export default function Portfolio() {
                 <circle cx="50" cy="50" r="40" />
               </svg>
             }
-          />
-
-
-
-          <ModelCard
-            name="Seylynn"
-            modelPath="/3D Models/seylynn.glb"
-            techBadges={["GLB", "Blender", "Low Poly"]}
-            modelStats={[
-              { label: "Format", value: "GLB" },
-              { label: "Polygons", value: "~5K" },
-              { label: "Textures", value: "PBR" },
-            ]}
-            cameraPosition={[0, 1, 5]}
-            svgIcon={
-              <svg viewBox="0 0 100 100" fill="currentColor">
-                <circle cx="50" cy="50" r="40" />
-              </svg>
-            }
-          />
-          <ModelCard
-            name="Seylynn"
-            modelPath="/3D Models/seylynn.glb"
-            techBadges={["GLB", "Blender", "Low Poly"]}
-            modelStats={[
-              { label: "Format", value: "GLB" },
-              { label: "Polygons", value: "~5K" },
-              { label: "Textures", value: "PBR" },
-            ]}
-            cameraPosition={[0, 1, 5]}
-            svgIcon={
-              <svg viewBox="0 0 100 100" fill="currentColor">
-                <circle cx="50" cy="50" r="40" />
-              </svg>
-            }
-          />
-          <ModelCard
-            name="Seylynn"
-            modelPath="/3D Models/seylynn.glb"
-            techBadges={["GLB", "Blender", "Low Poly"]}
-            modelStats={[
-              { label: "Format", value: "GLB" },
-              { label: "Polygons", value: "~5K" },
-              { label: "Textures", value: "PBR" },
-            ]}
-            cameraPosition={[0, 1, 5]}
-            svgIcon={
-              <svg viewBox="0 0 100 100" fill="currentColor">
-                <circle cx="50" cy="50" r="40" />
-              </svg>
-            }
-          />
-
-
-          
+          />          
         </ScrollingContainer>
 
         <div className="h-10"></div>
