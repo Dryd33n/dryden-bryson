@@ -6,6 +6,7 @@ import { TbCube3dSphere } from "react-icons/tb";
 import { MdSchool } from "react-icons/md";
 import ScrollingContainer from '../components/portfolio/ScrollingContainer';
 import ProjectCard from '../components/portfolio/ProjectCard';
+import ModelCard from '../components/portfolio/ModelCard';
 import { spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
 
 export const metadata = {
@@ -42,9 +43,84 @@ export default function Portfolio() {
           ))}
         </ScrollingContainer>
 
-        <div className="h-10"></div>
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><TbCube3dSphere className="text-red-500" />3D DESIGN</h1>
         <div className="h-40"></div>
+        <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><TbCube3dSphere className="text-red-500" />3D DESIGN</h1>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured 3D Models:</p>
+
+        <ScrollingContainer>
+          <ModelCard
+            name="Seylynn"
+            modelPath="/3D Models/seylynn.glb"
+            techBadges={["Blender", "Substance Painter"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Polygons", value: "~5K" },
+              { label: "Textures", value: "PBR" },
+            ]}
+            cameraPosition={[0, 1, 5]}
+            svgIcon={
+              <svg viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+            }
+          />
+
+
+
+          <ModelCard
+            name="Seylynn"
+            modelPath="/3D Models/seylynn.glb"
+            techBadges={["GLB", "Blender", "Low Poly"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Polygons", value: "~5K" },
+              { label: "Textures", value: "PBR" },
+            ]}
+            cameraPosition={[0, 1, 5]}
+            svgIcon={
+              <svg viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+            }
+          />
+          <ModelCard
+            name="Seylynn"
+            modelPath="/3D Models/seylynn.glb"
+            techBadges={["GLB", "Blender", "Low Poly"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Polygons", value: "~5K" },
+              { label: "Textures", value: "PBR" },
+            ]}
+            cameraPosition={[0, 1, 5]}
+            svgIcon={
+              <svg viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+            }
+          />
+          <ModelCard
+            name="Seylynn"
+            modelPath="/3D Models/seylynn.glb"
+            techBadges={["GLB", "Blender", "Low Poly"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Polygons", value: "~5K" },
+              { label: "Textures", value: "PBR" },
+            ]}
+            cameraPosition={[0, 1, 5]}
+            svgIcon={
+              <svg viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+            }
+          />
+
+
+          
+        </ScrollingContainer>
+
+        <div className="h-10"></div>
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
         <div className="h-40"></div>
       </div>
