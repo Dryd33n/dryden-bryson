@@ -3,7 +3,6 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment, Center } from '@react-three/drei';
-import * as THREE from 'three';
 
 interface ModelProps {
   modelPath: string;
@@ -29,15 +28,13 @@ interface ThreeDViewerProps {
   cameraPosition?: [number, number, number];
   backgroundColor?: string;
   className?: string;
-  showControls?: boolean;
 }
 
 export default function ThreeDViewer({
   modelPath,
   cameraPosition = [0, 0, 5],
   backgroundColor = '#1a1a1a',
-  className = '',
-  showControls = true
+  className = ''
 }: ThreeDViewerProps) {
   return (
     <div className={className} style={{ width: '100%', height: '100%' }}>

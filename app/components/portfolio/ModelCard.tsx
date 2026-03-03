@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { MdViewInAr } from "react-icons/md";
 import TechBadge from './TechBadge';
 import ThreeDViewer from './3DViewer';
@@ -118,7 +119,6 @@ export default function ModelCard({
                   cameraPosition={cameraPosition}
                   backgroundColor="#1a1a1a"
                   className="w-full h-full"
-                  showControls={false}
                 />
               </div>
             </div>
@@ -158,9 +158,11 @@ export default function ModelCard({
                         key={index}
                         className="flex-shrink-0 w-24 h-24 border border-neutral-600 rounded overflow-hidden bg-neutral-700"
                       >
-                        <img 
+                        <Image 
                           src={imagePath} 
                           alt={`Reference ${index + 1}`}
+                          width={96}
+                          height={96}
                           className="w-full h-full object-cover hover:scale-110 transition-transform cursor-pointer"
                         />
                       </div>
