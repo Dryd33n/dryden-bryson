@@ -50,7 +50,7 @@ export default function Portfolio() {
         <ScrollingContainer>
           <ModelCard
             name="Seylynn"
-            modelPath="/3D Models/seylynn.glb"
+            modelPath="/3D Models/Seylynn.glb"
             techBadges={["Blender", "Substance Painter"]}
             modelStats={[
               { label: "Format", value: "GLB" },
