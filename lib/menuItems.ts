@@ -1,4 +1,4 @@
-import { MenuItem } from "@/app/components/typography/BlurText/BlurTextButton";
+import { MenuItem } from "@/app/components/global/navigation/NavButton";
 
 export const portfolioItems: MenuItem[] = [
   {

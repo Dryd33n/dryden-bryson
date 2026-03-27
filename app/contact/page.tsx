@@ -1,7 +1,7 @@
 import { FiMail, FiMapPin } from "react-icons/fi";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import PageHeader from '../components/global/PageHeader';
-import Navbar from '../components/global/Navbar';
+import Navbar from '../components/global/navigation/Navbar';
 import { aboutItems, contactItems, home, portfolioItems } from '@/lib/menuItems';
 import ContactForm from './ContactForm';
 import { MdOutlineMail } from "react-icons/md";

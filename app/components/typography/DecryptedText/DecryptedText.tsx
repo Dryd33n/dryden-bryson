@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 'use client'
 
-
 import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 
@@ -17,7 +16,7 @@ interface DecryptedTextProps {
   encryptedClassName?: string
   parentClassName?: string
   animateOn?: 'view' | 'hover'
-  delay?: number // Add delay prop
+  delay?: number
   [key: string]: any
 }
 
@@ -33,7 +32,7 @@ export default function DecryptedText({
   parentClassName = '',
   encryptedClassName = '',
   animateOn = 'hover',
-  delay = 0, // Default delay to 0
+  delay = 0,
   ...props
 }: DecryptedTextProps) {
   const [displayText, setDisplayText] = useState<string>(text)
@@ -41,10 +40,9 @@ export default function DecryptedText({
   const [isScrambling, setIsScrambling] = useState<boolean>(false)
   const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set())
   const [hasAnimated, setHasAnimated] = useState<boolean>(false)
-  const [isVisible, setIsVisible] = useState<boolean>(false) // Add state to control visibility
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const [hovered, setHovered] = useState<boolean>(false)
   const containerRef = useRef<HTMLSpanElement>(null)
-
-  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>
@@ -122,7 +120,7 @@ export default function DecryptedText({
     }
 
     const startAnimation = () => {
-      setIsVisible(true) // Make text visible when animation starts
+      setIsVisible(true)
       setIsScrambling(true)
       interval = setInterval(() => {
         setRevealedIndices((prevRevealed) => {
@@ -158,7 +156,7 @@ export default function DecryptedText({
       setDisplayText(text)
       setRevealedIndices(new Set())
       setIsScrambling(false)
-      setIsVisible(false) // Hide text when not hovering
+      setIsVisible(false)
     }
 
     return () => {
@@ -189,43 +187,30 @@ export default function DecryptedText({
       })
     }
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    }
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
+    const observer = new IntersectionObserver(observerCallback, { root: null, rootMargin: '0px', threshold: 0.1 })
     const currentRef = containerRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef)
-    }
+    if (currentRef) observer.observe(currentRef)
+    return () => { if (currentRef) observer.unobserve(currentRef) }
   }, [animateOn, hasAnimated])
 
-  const hoverProps =
-    animateOn === 'hover'
-      ? {
-          onMouseEnter: () => setIsHovering(true),
-          onMouseLeave: () => setIsHovering(false),
-        }
-      : {}
+  const handleMouseEnter = () => {
+    setHovered(true)
+    if (animateOn === 'hover') setIsHovering(true)
+  }
+
+  const handleMouseLeave = () => {
+    setHovered(false)
+    if (animateOn === 'hover') setIsHovering(false)
+  }
 
   return (
-              <div
-            className="relative cursor-pointer"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-        >
-    {!hovered? (<motion.span
+    <motion.span
       ref={containerRef}
-      className={`inline-block whitespace-nowrap ${parentClassName}`}
-      {...hoverProps}
+      className={`inline-block whitespace-nowrap ${parentClassName}${hovered ? ' text-gradient-2 font-bold' : ''}`}
+      style={{ visibility: isVisible ? 'visible' : 'hidden' }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       {...props}
-      style={{ visibility: isVisible ? 'visible' : 'hidden' }} // Control visibility with inline style
     >
       <span aria-hidden="true">
         {displayText.split('').map((char, index) => {
@@ -242,6 +227,6 @@ export default function DecryptedText({
           )
         })}
       </span>
-    </motion.span>) : <span className='text-gradient-2 font-bold'>{text}</span>}
-    </div>)
+    </motion.span>
+  )
 }

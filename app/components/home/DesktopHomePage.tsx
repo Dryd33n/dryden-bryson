@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import FuzzyText from "@/app/components/typography/FuzzyText/FuzzyText";
-import Navbar from "@/app/components/global/Navbar";
+import Navbar from "@/app/components/global/navigation/Navbar";
 import TiltedCard from "@/app/components/global/TiltedIcon";
 import LetterGlitch from "@/app/components/backgrounds/letterGlitch";
 import DarkModeToggle from "../global/DarkModeToggle";

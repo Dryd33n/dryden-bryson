@@ -1,5 +1,5 @@
 import PageHeader from '../components/global/PageHeader';
-import Navbar from '../components/global/Navbar';
+import Navbar from '../components/global/navigation/Navbar';
 import { home, aboutItems, contactItems, portfolioItems } from '@/lib/menuItems';
 import { FaCodeBranch } from "react-icons/fa6";
 import { TbCube3dSphere } from "react-icons/tb";

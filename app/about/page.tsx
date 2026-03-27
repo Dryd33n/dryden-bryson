@@ -1,5 +1,5 @@
 import PageHeader from '../components/global/PageHeader';
-import Navbar from '../components/global/Navbar';
+import Navbar from '../components/global/navigation/Navbar';
 import SkillsGallery from '@/app/components/skills/SkillsGallery';
 import { IoMdCode } from "react-icons/io";
 import { SiSuperuser } from "react-icons/si";
