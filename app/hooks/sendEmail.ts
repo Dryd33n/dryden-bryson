@@ -15,7 +15,7 @@ export async function sendContactEmail(formData: {
             from: 'no-reply@dryd3n.ca',
             to: 'owner@dryd3n.ca',
             replyTo: formData.email,
-            subject: `New dryd3n.ca Contact Form Submission: ${formData.subject}`,
+            subject: `dryd3n.ca Contact Form Submission: ${formData.subject}`,
             html: `
                 <!DOCTYPE html>
                 <html>
@@ -38,7 +38,7 @@ export async function sendContactEmail(formData: {
                 <body>
                     <div class="container">
                         <div class="header">
-                            <h1>📬 New Contact Form Submission</h1>
+                            <h1>📬 dryd3n.ca Contact Form Submission</h1>
                         </div>
                         <div class="content">
                             <div class="field">

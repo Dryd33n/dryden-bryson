@@ -29,12 +29,12 @@ export default function MobileHomePage() {
             <DarkModeToggle />
             <div className="h-[50] w-[50] overflow-hidden">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="icons/github.svg" color={mounted ? colorScheme.iconColor : undefined} rotateAmplitude={1.3} />
+                <TiltedCard imageSrc="icons/github.svg" color={mounted ? colorScheme.iconColor : undefined} rotateAmplitude={0} />
               </a>
             </div>
             <div className="h-[50] w-[50] overflow-hidden">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="icons/linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} rotateAmplitude={1.3} />
+                <TiltedCard imageSrc="icons/linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} rotateAmplitude={0} />
               </a>
             </div>
           </div>

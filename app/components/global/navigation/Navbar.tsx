@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NavButton from "@/app/components/global/navigation/NavButton";
 import { MenuItem } from "@/app/components/global/navigation/NavButton";
 import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
@@ -12,6 +12,7 @@ interface NavbarProps {
 
 export default function Navbar({ menuItemArrays, layout = 'horizontal' }: NavbarProps) {
   const [expandedMenuIndex, setExpandedMenuIndex] = useState<number | null>(null);
+  const navRef = useRef<HTMLElement>(null);
   const screenWidth = useScreenWidth();
   const isMobile = screenWidth > 0 && screenWidth < DESKTOP_MOBILE_BREAKPOINT;
 
@@ -20,8 +21,19 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
     ? 'flex flex-col gap-3'
     : 'flex flex-row gap-10';
 
+  useEffect(() => {
+    if (!isMobile) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setExpandedMenuIndex(null);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [isMobile]);
+
   return (
-    <nav className={`${containerClass} select-none`}>
+    <nav ref={navRef} className={`${containerClass} select-none`}>
       {menuItemArrays.map((menuItems, index) => (
         <NavButton
           key={index}

@@ -128,6 +128,7 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
                     'text-lg transition-transform duration-300 ease-out inline-flex',
                     animationComplete ? '' : 'pointer-events-none',
                     hovered && !isMobile && animationComplete ? 'scale-[1.05] text-gradient-1' : '',
+                    isMobile && isExpanded && animationComplete ? 'text-gradient-1' : '',
                 ].join(' ')}
                 style={{ color: textColors.body }}
             >
