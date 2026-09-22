@@ -9,7 +9,7 @@ import ProjectCard from '../components/portfolio/ProjectCard';
 import ModelCard from '../components/portfolio/ModelCard';
 import CourseCard from '../components/portfolio/CourseCard';
 import { spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
-import { csc305, csc226, seng265, csc230, csc225, math202, math211, math122, stat260 } from '@/lib/schoolworkData';
+import { courses } from '@/lib/schoolworkData';
 
 export const metadata = {
   title: "Portfolio",
@@ -18,7 +18,6 @@ export const metadata = {
 
 export default function Portfolio() {
   const softwareProjects = [spotimasher, sudoku, ludumDare46, musicMap, portfolio];
-  const courses = [csc305, csc226, seng265, csc230, csc225, math202, math211, math122, stat260];
 
   return (
     <>
@@ -75,7 +74,7 @@ export default function Portfolio() {
 
         <ScrollingContainer>
           {courses.map((course) => (
-            <CourseCard key={course.code} {...course} />
+            <CourseCard key={course.slug} course={course} />
           ))}
         </ScrollingContainer>
 
