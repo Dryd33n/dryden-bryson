@@ -17,6 +17,23 @@ export default function About() {
     const backendImages = ["icons/postgresql.svg", "icons/neon.svg", "icons/drizzle.svg", "icons/nodejs.svg", "icons/github.svg"];
     const designImages = ["icons/illustrator.svg", "icons/photoshop.svg", "icons/premiere.svg", "icons/blender.svg", "icons/latex.svg", "icons/vscode.svg", "icons/jetbrains.svg"];
 
+    const education: { school: string; credential: string; dates: string; location: string; detail?: string }[] = [
+        {
+            school: "University of Victoria",
+            credential: "BSc, Computer Science",
+            dates: "Sept 2023 - June 2027 (expected)",
+            location: "Victoria, BC",
+            detail: "Software Systems Specialization"
+        },
+        {
+            school: "Handsworth Secondary",
+            credential: "Dual Dogwood Diploma",
+            dates: "June 2023",
+            location: "North Vancouver, BC",
+            detail: "Academic awards in District Authority and Information Technology.",
+        },
+    ];
+
 
     return (<>
 
@@ -55,8 +72,28 @@ export default function About() {
             <div className="h-40"></div>
             <section id="education"></section>
             <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><MdOutlineSchool  className="text-red-500" />EDUCATION</h1>
-            <div className="h-40"></div>
-            <div className="h-40"></div>
+            <div className="flex flex-col gap-10 md:mr-[40%] cursor-default">
+                {education.map((entry) => (
+                    <div key={entry.school} className="flex flex-row gap-4">
+                        <div className="w-0.5 shrink-0 bg-neutral-300 dark:bg-neutral-700"></div>
+                        <div className="flex-1 py-1">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+                                <h2 className="text-xl md:text-2xl text-neutral-900 dark:text-neutral-100">
+                                    <span className="text-accent">/</span>{entry.school}
+                                </h2>
+                                <div className="text-xs md:text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">{entry.dates}</div>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between gap-1 mt-2 text-sm md:text-base">
+                                <div className="text-neutral-800 dark:text-neutral-200">{entry.credential}</div>
+                                <div className="text-xs md:text-sm text-neutral-500 dark:text-neutral-400">{entry.location}</div>
+                            </div>
+                            {entry.detail && (
+                                <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">{entry.detail}</div>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
             <div className="h-40"></div>
         </div>
 
