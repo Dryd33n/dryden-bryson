@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { MdViewInAr } from "react-icons/md";
-import TechBadge from './TechBadge';
+import ContentCard from './ContentCard';
 import ThreeDViewer from './3DViewer';
 
 interface ModelStat {
@@ -34,49 +34,19 @@ export default function ModelCard({
 
   return (
     <>
-      <div className="flex flex-row gap-4 w-[330px]">
-        <div className="w-0.5 h-full bg-neutral-300 dark:bg-neutral-700"></div>
-        <div className="pt-1 pb-4 flex flex-col h-full flex-1">
-          <h1 className="text-2xl mb-6 cursor-default text-neutral-900 dark:text-neutral-100">
-            <span className="inline text-red-500 text-xl">/</span>{name}
-          </h1>
-          
-          <div className="flex flex-wrap gap-2 mb-4">
-            {techBadges.map((badge, index) => (
-              <TechBadge key={index} label={badge} />
-            ))}
+      <ContentCard
+        name={name}
+        badges={techBadges}
+        stats={modelStats}
+        preview={svgIcon ? (
+          <div className="w-20 h-20 text-neutral-700 dark:text-neutral-300">
+            {svgIcon}
           </div>
-          
-          {/* SVG Icon Display Area */}
-          <div className="w-full h-32 flex items-center justify-center mb-6 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-            {svgIcon ? (
-              <div className="w-20 h-20 text-neutral-700 dark:text-neutral-300">
-                {svgIcon}
-              </div>
-            ) : (
-              <MdViewInAr className="w-20 h-20 text-neutral-400 dark:text-neutral-600" />
-            )}
-          </div>
-          
-          <div className="w-full cursor-default space-y-2">
-            {modelStats.map((stat, index) => (
-              <div key={index} className="flex justify-between text-xs tracking-wider">
-                <span className="text-neutral-700 dark:text-white/80">{stat.label}</span>
-                <span className="text-neutral-500 dark:text-white/60">{stat.value}</span>
-              </div>
-            ))}
-          </div>
-          
-          <div className="w-full flex flex-col items-start gap-3 mt-auto pt-10">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="group flex items-center justify-left rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-accent hover:text-accent-strong hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full dark:border-white dark:text-white"
-            >
-              <MdViewInAr className="inline mr-2 transition-transform group-hover:scale-110" /> View 3D Model
-            </button>
-          </div>
-        </div>
-      </div>
+        ) : (
+          <MdViewInAr className="w-20 h-20 text-neutral-400 dark:text-neutral-600" />
+        )}
+        actions={[{ label: 'View 3D Model', icon: 'model', onClick: () => setIsModalOpen(true) }]}
+      />
 
       {/* Modal */}
       {isModalOpen && (
