@@ -1,42 +1,32 @@
 import { useTheme } from "next-themes";
 
-const glitchTextColors = (theme: string | undefined) => {
-  // Default to dark theme when undefined (during SSR/initial render)
-  return theme === "light" 
-    ? [["#ffffff","#ffffff"],["#000000", "#f76855", "#000000", "#000000", "#000000", "#000000"]]
-    : [["#000000","#000000"],["#ffffff", "#f76855", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]];
+/*
+  Colours for canvas-drawn components (LetterGlitch, FuzzyText), which can't read CSS
+  variables. Everything else should use the tokens in app/globals.css; keep these in sync.
+  Objects are module constants so their references stay stable between renders —
+  the canvas components restart their animation whenever a colour prop changes identity.
+*/
+const palettes = {
+  dark: {
+    glitch: {
+      background: "#000000",
+      vignette: "#000000",
+      letters: ["#ffffff", "#f76855", "#ffffff", "#ffffff", "#ffffff", "#ffffff"],
+    },
+    title: { name: "#f76855", tagline: "#ffffff" },
+  },
+  light: {
+    glitch: {
+      background: "#ffffff",
+      vignette: "#ffffff",
+      letters: ["#000000", "#e5533f", "#000000", "#000000", "#000000", "#000000"],
+    },
+    title: { name: "#e5533f", tagline: "#000000" },
+  },
 };
 
-const titleColor = (theme: string | undefined) => {
-  // Default to dark theme when undefined
-  return theme === "light" 
-    ? ["#f76855", "#000000"]
-    : ["#f76855", "#ffffff"];
-};
-
-const iconColor = (theme: string | undefined) => {
-  // Default to dark theme when undefined
-  return theme === "light" 
-    ? "#000000"
-    : "#ffffff";
-};
-
-const textColors = (theme: string | undefined) => {
-    // Default to dark theme when undefined
-    return theme === "light"
-        ? { heading: "#000000",
-            body: "#474a4e" }
-      : {   heading: "#ffffff", 
-            body: "#9CA3AF" };
-};
-
+// Before mount resolvedTheme is undefined; fall back to dark, the site default.
 export const useColorScheme = () => {
   const { resolvedTheme } = useTheme();
-  
-  return {
-    glitchTextColors: glitchTextColors(resolvedTheme),
-    titleColor: titleColor(resolvedTheme),
-    iconColor: iconColor(resolvedTheme),
-    textColors: textColors(resolvedTheme),
-  };
+  return resolvedTheme === "light" ? palettes.light : palettes.dark;
 };

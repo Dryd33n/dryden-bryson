@@ -7,7 +7,6 @@ import { useSprings, animated, useSpringRef } from "@react-spring/web";
 import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 import DecryptedText from "@/app/components/typography/DecryptedText/DecryptedText";
 import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
-import { useColorScheme } from "@/lib/colorScheme";
 
 export interface MenuItem {
     title: string;
@@ -32,7 +31,6 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
     const hasStarted = useRef(false);
     const springRef = useSpringRef();
     const width = useScreenWidth();
-    const { textColors } = useColorScheme();
     const pathname = usePathname();
     const router = useRouter();
 
@@ -130,7 +128,7 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
                     hovered && !isMobile && animationComplete ? 'scale-[1.05] text-gradient-1' : '',
                     isMobile && isExpanded && animationComplete ? 'text-gradient-1' : '',
                 ].join(' ')}
-                style={{ color: textColors.body }}
+                style={{ color: "var(--text-nav)" }}
             >
                 {springs.map((props, i) => (
                     <animated.span key={i} style={props}>

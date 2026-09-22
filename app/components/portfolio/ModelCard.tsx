@@ -70,7 +70,7 @@ export default function ModelCard({
           <div className="w-full flex flex-col items-start gap-3 mt-auto pt-10">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="group flex items-center justify-left rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full dark:border-white dark:text-white"
+              className="group flex items-center justify-left rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-accent hover:text-accent-strong hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full dark:border-white dark:text-white"
             >
               <MdViewInAr className="inline mr-2 transition-transform group-hover:scale-110" /> View 3D Model
             </button>

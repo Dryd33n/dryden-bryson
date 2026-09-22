@@ -37,7 +37,7 @@ export default function TiltedCard({
   showTooltip = false,
   overlayContent = null,
   displayOverlayContent = false,
-  color = "#ffffff",
+  color = "var(--icon)",
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
   const x = useMotionValue(0);
@@ -53,12 +53,6 @@ export default function TiltedCard({
   });
 
   const [lastY, setLastY] = useState(0);
-  const [renderedColor, setRenderedColor] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    setRenderedColor(color);
-  }, [color]);
-
   useEffect(() => {
     function handleMouse(e: MouseEvent) {
       if (!ref.current) return;
@@ -130,7 +124,7 @@ export default function TiltedCard({
           style={{
             width: imageWidth,
             height: imageHeight,
-            backgroundColor: renderedColor,
+            backgroundColor: color,
             maskImage: `url(${imageSrc})`,
             WebkitMaskImage: `url(${imageSrc})`,
             maskSize: 'contain',

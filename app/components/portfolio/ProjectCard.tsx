@@ -49,7 +49,7 @@ export default function ProjectCard({ name, techBadges, codeStats, links }: Proj
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-left rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-[#f76855] hover:text-[#f76855] hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full dark:border-white dark:text-white"
+              className="group flex items-center justify-left rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-accent hover:text-accent-strong hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] cursor-pointer w-full dark:border-white dark:text-white"
             >
               <MdArrowOutward className="inline mr-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> {link.label}
             </a>

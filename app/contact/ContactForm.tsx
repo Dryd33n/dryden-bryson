@@ -57,7 +57,7 @@ export default function ContactForm() {
             {/* Name and Email Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Name<span className="text-[#f76855]">*</span></label>
+                    <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Name<span className="text-accent-strong">*</span></label>
                     <input
                         type="text"
                         name="name"
@@ -65,11 +65,11 @@ export default function ContactForm() {
                         onChange={handleChange}
                         placeholder="Edsger Dijkstra"
                         required
-                        className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
+                        className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent transition"
                     />
                 </div>
                 <div>
-                    <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Email<span className="text-[#f76855]">*</span></label>
+                    <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Email<span className="text-accent-strong">*</span></label>
                     <input
                         type="email"
                         name="email"
@@ -77,14 +77,14 @@ export default function ContactForm() {
                         onChange={handleChange}
                         placeholder="Dijkstra@example.com"
                         required
-                        className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
+                        className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent transition"
                     />
                 </div>
             </div>
 
             {/* Subject */}
             <div>
-                <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Subject<span className="text-[#f76855]">*</span></label>
+                <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Subject<span className="text-accent-strong">*</span></label>
                 <input
                     type="text"
                     name="subject"
@@ -92,13 +92,13 @@ export default function ContactForm() {
                     onChange={handleChange}
                     placeholder="Project Inquiry"
                     required
-                    className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition"
+                    className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent transition"
                 />
             </div>
 
             {/* Message */}
             <div>
-                <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Message<span className="text-[#f76855]">*</span></label>
+                <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Message<span className="text-accent-strong">*</span></label>
                 <textarea
                     name="message"
                     value={formData.message}
@@ -106,17 +106,17 @@ export default function ContactForm() {
                     placeholder="Tell me about your project..."
                     required
                     rows={8}
-                    className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#f76855] transition resize-none"
+                    className="w-full px-4 py-3 bg-transparent border border-gray-300 dark:border-gray-600 rounded text-neutral-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent transition resize-none"
                 />
             </div>
 
-            {error && <p className="text-[#f76855] text-sm">{error}</p>}
+            {error && <p className="text-accent-strong text-sm">{error}</p>}
 
             {/* Submit Button */}
             <button
                 type="submit"
                 disabled={loading || !isFormComplete}
-                className="w-full px-6 py-3 bg-white text-black font-semibold rounded hover:bg-gray-200 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-white dark:text-black"
+                className="w-full px-6 py-3 bg-neutral-900 text-white font-semibold rounded hover:bg-neutral-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-white dark:text-black dark:hover:bg-gray-200"
             >
                 <span><BsSend /></span> {loading ? 'Sending...' : 'Send Message'}
             </button>

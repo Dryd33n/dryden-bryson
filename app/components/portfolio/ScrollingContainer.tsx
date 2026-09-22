@@ -143,7 +143,7 @@ export default function ScrollingContainer({ children }: ScrollingContainerProps
           onMouseDown={handleLeftMouseDown}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
-          className="text-[#f76855] hover:drop-shadow-[0_0_12px_rgba(247,104,85,0.6)] active:scale-90 transition-all"
+          className="text-accent hover:drop-shadow-[0_0_12px_rgba(247,104,85,0.6)] active:scale-90 transition-all"
           aria-label="Scroll left"
         >
           <MdChevronLeft size={24} />
@@ -160,7 +160,7 @@ export default function ScrollingContainer({ children }: ScrollingContainerProps
           onMouseDown={handleRightMouseDown}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
-          className="text-[#f76855] hover:drop-shadow-[0_0_12px_rgba(247,104,85,0.6)] active:scale-90 transition-all"
+          className="text-accent hover:drop-shadow-[0_0_12px_rgba(247,104,85,0.6)] active:scale-90 transition-all"
           aria-label="Scroll right"
         >
           <MdChevronRight size={24} />

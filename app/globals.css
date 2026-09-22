@@ -1,22 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  font-family: "Arame-Mono", monospace;
-}
+/*
+  Theme: next-themes puts a `dark` or `light` class on <html> (see ThemeProvider).
+  `dark:` utilities follow that class, not the OS setting.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* Dark is the default: these values apply before JS runs and whenever .light is absent. */
 :root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  font-family: "Arame-Mono", monospace;
-}
-
-.dark {
+  color-scheme: dark;
   --background: #0a0a0a;
   --foreground: #ededed;
+  --text-body: #a3a3a3;   /* paragraphs */
+  --text-nav: #9ca3af;    /* nav links */
+  --icon: #ffffff;        /* masked SVG icons */
+  --accent: #f76855;      /* icons, borders, large type */
+  --accent-strong: #f76855; /* small accent text */
+  --success: #00ff00;
+  font-family: "Arame-Mono", monospace;
+}
+
+:root.light {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #171717;
+  --text-body: #525252;
+  --text-nav: #474a4e;
+  --icon: #000000;
+  --accent: #e5533f;
+  --accent-strong: #c93a27;
+  --success: #008236;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-success: var(--success);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Theme switch crossfade (see DarkModeToggle) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 350ms;
+  animation-timing-function: ease-out;
 }
 
 body {
@@ -52,7 +82,7 @@ body {
   p {
     font-family: "Arame-Mono", monospace;
     font-size: 13pt;
-    color: #a3a3a3;
+    color: var(--text-body);
   }
   span {
     font-family: "Arame-Mono", monospace;
@@ -65,10 +95,10 @@ body {
   textarea:-webkit-autofill,
   textarea:-webkit-autofill:hover,
   textarea:-webkit-autofill:focus {
-    -webkit-text-fill-color: #ffffff;
+    -webkit-text-fill-color: var(--foreground);
     transition: background-color 9999s ease-in-out 0s;
     box-shadow: 0 0 0px 1000px transparent inset;
-    caret-color: #ffffff;
+    caret-color: var(--foreground);
   }
 
  .portfolio-scroll::-webkit-scrollbar {

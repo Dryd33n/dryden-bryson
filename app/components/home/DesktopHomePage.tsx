@@ -37,12 +37,12 @@ export default function DesktopHomePage() {
             
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="icons/github.svg" color={mounted ? colorScheme.iconColor : undefined} />
+                <TiltedCard imageSrc="icons/github.svg" color="var(--icon)" />
               </a>
             </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
               <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
-                <TiltedCard imageSrc="icons/linkedin.svg" color={mounted ? colorScheme.iconColor : undefined} />
+                <TiltedCard imageSrc="icons/linkedin.svg" color="var(--icon)" />
               </a>
             </div>
           </div>
@@ -62,9 +62,9 @@ export default function DesktopHomePage() {
                 glitchSpeed={50}
                 centerVignette={true}
                 outerVignette={true}
-                glitchColors={colorScheme.glitchTextColors[1]}
-                vignetteColor={colorScheme.glitchTextColors[0][0]}
-                backgroundColor = {colorScheme.glitchTextColors[0][1]}
+                glitchColors={colorScheme.glitch.letters}
+                vignetteColor={colorScheme.glitch.vignette}
+                backgroundColor={colorScheme.glitch.background}
                 smooth={true}
               />
             </div>
@@ -76,7 +76,7 @@ export default function DesktopHomePage() {
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"5rem"}
-              color={colorScheme.titleColor[0]}
+              color={colorScheme.title.name}
             >
               Dryden Bryson
             </FuzzyText>
@@ -86,7 +86,7 @@ export default function DesktopHomePage() {
               hoverIntensity={0.05}
               enableHover={true}
               fontSize={"3rem"}
-              color={colorScheme.titleColor[1]}
+              color={colorScheme.title.tagline}
             >
               Student & Developer
             </FuzzyText>
