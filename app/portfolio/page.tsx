@@ -7,7 +7,9 @@ import { MdSchool } from "react-icons/md";
 import ScrollingContainer from '../components/portfolio/ScrollingContainer';
 import ProjectCard from '../components/portfolio/ProjectCard';
 import ModelCard from '../components/portfolio/ModelCard';
+import CourseCard from '../components/portfolio/CourseCard';
 import { spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
+import { csc305, csc226, seng265, csc230, csc225, math202, math211, math122, stat260 } from '@/lib/schoolworkData';
 
 export const metadata = {
   title: "Portfolio",
@@ -16,6 +18,7 @@ export const metadata = {
 
 export default function Portfolio() {
   const softwareProjects = [spotimasher, sudoku, ludumDare46, musicMap, portfolio];
+  const courses = [csc305, csc226, seng265, csc230, csc225, math202, math211, math122, stat260];
 
   return (
     <>
@@ -67,7 +70,15 @@ export default function Portfolio() {
         </ScrollingContainer>
 
         <div className="h-10"></div>
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
+        <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured University of Victoria Coursework:</p>
+
+        <ScrollingContainer>
+          {courses.map((course) => (
+            <CourseCard key={course.code} {...course} />
+          ))}
+        </ScrollingContainer>
+
         <div className="h-40"></div>
       </div>
       

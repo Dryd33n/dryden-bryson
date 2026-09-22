@@ -51,7 +51,7 @@ export const portfolio: ProjectData = {
     { language: 'Javascript', percentage: '0.4%' }
   ],
   links: [
-    { href: 'https://github.com/Dryd33n/drydenbryson', label: 'View Code' }
+    { href: 'https://github.com/Dryd33n/dryden-bryson', label: 'View Code' }
   ]
 };
 
