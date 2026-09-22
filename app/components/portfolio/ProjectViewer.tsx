@@ -8,11 +8,12 @@ import { type SchoolProject, githubUrl, isPdf, resolveFile } from '@/lib/schoolw
 interface ProjectViewerProps {
   project: SchoolProject;
   initialFile?: string;
+  initialTab?: 'demo';
   onClose: () => void;
 }
 
-type Tab = 'overview' | 'source' | 'writeups';
-const tabLabels: Record<Tab, string> = { overview: 'Overview', source: 'Source', writeups: 'Write-ups' };
+type Tab = 'overview' | 'demo' | 'source' | 'writeups';
+const tabLabels: Record<Tab, string> = { overview: 'Overview', demo: 'Demo', source: 'Source', writeups: 'Write-ups' };
 
 type Loaded = { html: string } | { error: string };
 
@@ -124,15 +125,21 @@ function FileBrowser({ label, files, active, onSelect, children, toolbarLink }: 
   );
 }
 
-export default function ProjectViewer({ project, initialFile, onClose }: ProjectViewerProps) {
+export default function ProjectViewer({ project, initialFile, initialTab, onClose }: ProjectViewerProps) {
   const sourceFiles = useMemo(() => Object.keys(project.files).filter((f) => !isPdf(f)), [project]);
   const pdfFiles = useMemo(() => Object.keys(project.files).filter(isPdf), [project]);
   const isDesktop = useIsDesktop();
-  const tabs = (['overview', 'source', 'writeups'] as Tab[]).filter(
-    (t) => t === 'overview' || (t === 'source' ? sourceFiles.length > 0 : pdfFiles.length > 0),
-  );
+  const demos = project.demos ?? [];
+  const available: Record<Tab, boolean> = {
+    overview: true,
+    demo: demos.length > 0,
+    source: sourceFiles.length > 0,
+    writeups: pdfFiles.length > 0,
+  };
+  const tabs = (Object.keys(tabLabels) as Tab[]).filter((t) => available[t]);
 
-  const [tab, setTab] = useState<Tab>(initialFile ? (isPdf(initialFile) ? 'writeups' : 'source') : 'overview');
+  const [tab, setTab] = useState<Tab>(initialTab ?? (initialFile ? (isPdf(initialFile) ? 'writeups' : 'source') : 'overview'));
+  const [activeDemo, setActiveDemo] = useState(0);
   const [activeSource, setActiveSource] = useState(initialFile && !isPdf(initialFile) ? initialFile : sourceFiles[0]);
   const [activePdf, setActivePdf] = useState(initialFile && isPdf(initialFile) ? initialFile : pdfFiles[0]);
   const [loaded, setLoaded] = useState<Record<string, Loaded>>({});
@@ -304,6 +311,11 @@ export default function ProjectViewer({ project, initialFile, onClose }: Project
 
                 {tabs.length > 1 && (
                   <div className="flex flex-wrap gap-3">
+                    {demos.length > 0 && (
+                      <button type="button" onClick={() => setTab('demo')} className="rounded-sm border border-white px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-white hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                        Run the demo
+                      </button>
+                    )}
                     {pdfFiles.length > 0 && (
                       <button type="button" onClick={() => setTab('writeups')} className="rounded-sm border border-white px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-white hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
                         {pdfFiles.length === 1 ? 'Read the report' : 'Read the write-ups'}
@@ -317,6 +329,39 @@ export default function ProjectViewer({ project, initialFile, onClose }: Project
                   </div>
                 )}
               </div>
+            </div>
+          )}
+
+          {tab === 'demo' && demos[activeDemo] && (
+            <div className="flex flex-col flex-1 min-h-0">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2 border-b border-neutral-800 text-xs">
+                {demos.length > 1 && (
+                  <div role="group" aria-label="Choose a scene" className="flex flex-wrap gap-2">
+                    {demos.map((d, i) => (
+                      <button
+                        key={d.src}
+                        type="button"
+                        onClick={() => setActiveDemo(i)}
+                        aria-pressed={i === activeDemo}
+                        className={`rounded-sm border px-2 py-1 uppercase tracking-[0.2em] focus-visible:outline-2 focus-visible:outline-accent ${i === activeDemo ? 'border-accent text-accent' : 'border-neutral-600 text-neutral-300 hover:border-white hover:text-white'}`}
+                      >
+                        {d.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {demos[activeDemo].note && <span className="viewer-mono text-neutral-400">{demos[activeDemo].note}</span>}
+                <a href={demos[activeDemo].src} target="_blank" rel="noopener noreferrer" className={`ml-auto shrink-0 ${linkClass}`}>
+                  <OutwardIcon /> Full screen
+                </a>
+              </div>
+              {/* The scene only runs while this tab is open. */}
+              <iframe
+                key={demos[activeDemo].src}
+                src={demos[activeDemo].src}
+                title={`${project.title}: ${demos[activeDemo].label}`}
+                className="flex-1 w-full border-0 bg-neutral-950"
+              />
             </div>
           )}
 

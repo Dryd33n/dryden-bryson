@@ -4,6 +4,21 @@ import type { CardActionIcon } from '@/app/components/portfolio/ContentCard';
 // write-up collections spanning several courses give the repo explicitly.
 export type ProjectFile = string | { repo: string; path: string };
 
+// A live demo page under public/, shown in the viewer's Demo tab.
+export interface ProjectDemo {
+  label: string;
+  src: string;
+  note?: string;
+}
+
+// A card button that opens the viewer somewhere other than the overview.
+export interface ProjectShortcut {
+  label: string;
+  icon?: CardActionIcon;
+  file?: string;
+  tab?: 'demo';
+}
+
 export interface ProjectSection {
   title: string;
   body: string;
@@ -22,10 +37,10 @@ export interface SchoolProject {
   findings?: string[];
   // src is a path under public/ or an image URL (see repoImage).
   hero?: { src: string; alt: string; width: number; height: number; caption?: string };
+  demos?: ProjectDemo[];
   // Viewer files: display path -> file. Code shows under Source, PDFs under Write-ups.
   files: Record<string, ProjectFile>;
-  // Extra card buttons that open the viewer at a specific file.
-  shortcuts?: { label: string; file: string; icon?: CardActionIcon }[];
+  shortcuts?: ProjectShortcut[];
 }
 
 export const githubUrl = (repo: string) => `https://github.com/Dryd33n/${repo}`;
@@ -85,12 +100,23 @@ export const webglScenes: SchoolProject = {
   badges: ['WebGL', 'GLSL', 'JavaScript'],
   highlight: 'Animated rigs, textures, firelight',
   summary:
-    'Two interactive 3D scenes built on raw WebGL, with no 3D engine. The first assembles jointed, animated figures from primitive shapes; the second adds textures, an orbiting camera and a flickering campfire light written as a custom shader.',
+    'Two interactive 3D scenes built on raw WebGL, with no 3D engine. In the first, an astronaut drifts through space past a jellyfish, both built from primitive shapes and animated joint by joint. The second is a campfire on a small island, with textured wood, bark and ground, a circling camera and firelight written as a custom shader.',
   sections: [
     { title: 'Shapes and lighting', body: 'Cubes, cylinders, cones and spheres built from vertex and normal arrays, lit with the Phong model.' },
-    { title: 'Hierarchical animation', body: 'A matrix-stack scene graph drives jointed arms, legs and tentacles, animated in real time.' },
+    { title: 'Hierarchical animation', body: 'A matrix-stack scene graph drives the astronaut’s arms and legs and the jellyfish’s tentacles, animated in real time.' },
     { title: 'Textures and camera', body: 'Five image textures mapped onto scene objects, and a camera that circles a point of interest.' },
     { title: 'Per-pixel lighting', body: 'Lighting moved from the vertex shader to the fragment shader and upgraded to Blinn-Phong, with a campfire acting as a flickering point light.' },
+  ],
+  hero: {
+    src: '/schoolwork/webgl-scenes-hero.jpg',
+    alt: 'Campfire scene: a wooden deck chair, crate, log and tall grass on a small sandy island, lit warmly by a fire pit',
+    width: 880,
+    height: 440,
+    caption: 'A frame from the campfire scene, which runs live in the Demo tab.',
+  },
+  demos: [
+    { label: 'Astronaut and jellyfish', src: '/schoolwork/webgl-scenes/scene-1/index.html', note: 'Press Toggle Animation to start the scene.' },
+    { label: 'Campfire island', src: '/schoolwork/webgl-scenes/scene-2/index.html' },
   ],
   files: {
     'scene-1/main.js': 'Assignments/A1/main.js',
@@ -100,6 +126,7 @@ export const webglScenes: SchoolProject = {
     'scene-2/prefabs.js': 'Assignments/A2/prefabs.js',
     'scene-2/objects.js': 'Assignments/A2/objects.js',
   },
+  shortcuts: [{ label: 'Run Demo', icon: 'play', tab: 'demo' }],
 };
 
 export const shortestPathBenchmark: SchoolProject = {

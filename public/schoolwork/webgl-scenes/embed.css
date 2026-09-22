@@ -1,0 +1,22 @@
+/* Fits the assignment's fixed-size canvas inside the portfolio's demo frame. */
+html {
+  background: #0a0a0a;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+body > br {
+  display: none;
+}
+#gl-canvas {
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 88px);
+}
