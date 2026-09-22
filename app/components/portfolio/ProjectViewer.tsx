@@ -252,15 +252,18 @@ export default function ProjectViewer({ project, initialFile, onClose }: Project
             <div className="flex-1 overflow-auto">
               <div className="viewer-prose max-w-3xl mx-auto px-4 md:px-10 py-6 md:py-10 space-y-8">
                 {project.hero && (
-                  <figure className="rounded-md overflow-hidden border border-neutral-700 bg-white">
+                  <figure>
                     <Image
-                      src={cdnUrl(project.hero.repo, project.hero.path)}
+                      src={project.hero.src}
                       alt={project.hero.alt}
                       width={project.hero.width}
                       height={project.hero.height}
                       sizes="(min-width: 768px) 768px, 100vw"
-                      className="w-full h-auto"
+                      className="w-full h-auto rounded-md border border-neutral-700 bg-neutral-800"
                     />
+                    {project.hero.caption && (
+                      <figcaption className="mt-2 text-xs text-neutral-500">{project.hero.caption}</figcaption>
+                    )}
                   </figure>
                 )}
 
