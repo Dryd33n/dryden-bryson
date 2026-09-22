@@ -126,7 +126,7 @@ body {
 }
 /*
   Project viewer (ProjectViewer.tsx). Always dark, like the 3D model viewer.
-  Code and README prose use Geist Mono: Arame Mono has no lowercase, which makes
+  Code and overview text use Geist Mono: Arame Mono has no lowercase, which makes
   long text and source code hard to read. These selectors are more specific than
   the global p/span rules above, so they win over them.
 */
@@ -158,47 +158,7 @@ body {
   user-select: none;
 }
 
-.viewer-md {
-  max-width: 80ch;
+/* Overview text: Geist Mono for readability; headings keep Arame Mono via the h rule above. */
+.viewer-prose {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #d4d4d4;
 }
-.viewer-md :is(h1, h2, h3, h4) {
-  margin: 1.6em 0 0.6em;
-  line-height: 1.25;
-  color: #ffffff;
-}
-.viewer-md h1 { margin-top: 0; font-size: 1.6rem; }
-.viewer-md h2 { font-size: 1.3rem; }
-.viewer-md h3 { font-size: 1.1rem; }
-.viewer-md h4 { font-size: 1rem; }
-.viewer-md p {
-  margin: 0.75em 0;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-}
-.viewer-md :is(ul, ol) { margin: 0.5em 0; padding-left: 1.5em; }
-.viewer-md ul { list-style: disc; }
-.viewer-md ol { list-style: decimal; }
-.viewer-md li { margin: 0.25em 0; }
-.viewer-md li::marker { color: #737373; }
-.viewer-md a {
-  color: #f76855;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.viewer-md strong { color: #ffffff; }
-.viewer-md code {
-  padding: 0.1em 0.35em;
-  border-radius: 3px;
-  background: #262626;
-  font-family: inherit;
-  font-size: 0.9em;
-}
-.viewer-md hr { margin: 2em 0; border-color: #333333; }
-.viewer-md img { display: inline; vertical-align: middle; }
-/* Tailwind's base styles set img height:auto, which ignores the READMEs' height="25" logos. */
-.viewer-md :is(h1, h2, h3, h4) img { width: auto; height: 1em; margin-right: 0.4em; vertical-align: -0.1em; }

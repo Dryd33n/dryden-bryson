@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHighlighter, type ThemeRegistration } from 'shiki';
-import { marked } from 'marked';
-import { courses } from '@/lib/schoolworkData';
+import { schoolProjects, resolveFile } from '@/lib/schoolworkData';
 
 /*
-  Returns one file from a course repo as ready-to-display HTML: source files are
-  syntax-highlighted, READMEs are rendered from Markdown. Only files listed in
-  lib/schoolworkData.ts can be requested. PDFs are served to the viewer directly
-  from jsDelivr and never pass through here.
+  Returns one source file from a school project as syntax-highlighted HTML.
+  Only files listed in lib/schoolworkData.ts can be requested. PDFs are served
+  to the viewer directly from jsDelivr and never pass through here.
 */
 
 // Site palette: neutral greys with the accent for keywords.
@@ -39,46 +37,28 @@ const getHighlighter = () =>
 const rawUrl = (repo: string, path: string) =>
   `https://raw.githubusercontent.com/Dryd33n/${repo}/HEAD/${path.split('/').map(encodeURIComponent).join('/')}`;
 
-// Grades are kept off the site; the READMEs put them at the end of assignment headings,
-// e.g. "## [Assignment 1](./a1) 147%" or "### [Assignment 1](a1.pdf) 39/40".
-const stripGrades = (markdown: string) =>
-  markdown.replace(/^(#{1,6} .*?)\s+\d+(?:\.\d+)?\s*(?:%|\/\s*\d+)\s*$/gm, '$1');
-
-// Point README links and images at GitHub, and open links in a new tab.
-function renderReadme(markdown: string, repo: string) {
-  const html = marked.parse(stripGrades(markdown), { async: false }) as string;
-  const isAbsolute = (url: string) => /^(https?:|mailto:|#)/.test(url);
-  return html
-    .replace(/<img([^>]*?)src="([^"]+)"/g, (_, attrs, src) => {
-      const url = isAbsolute(src) ? src.replace(/^(https:\/\/github\.com\/[^/]+\/[^/]+)\/blob\//, '$1/raw/') : rawUrl(repo, decodeURIComponent(src));
-      return `<img${attrs}src="${url}"`;
-    })
-    .replace(/<a href="([^"]+)"/g, (_, href) => {
-      const url = isAbsolute(href) ? href : `https://github.com/Dryd33n/${repo}/blob/HEAD/${href.replace(/^\.\//, '')}`;
-      return url.startsWith('#') ? `<a href="${url}"` : `<a target="_blank" rel="noopener noreferrer" href="${url}"`;
-    });
-}
+// Some assignment headers include a student number; keep it off the site.
+const redactStudentId = (source: string) =>
+  source
+    .replace(/^(.*student\s*(?:number|no\.?|id)\s*:?\s*).+$/gim, '$1[removed]')
+    .replace(/\bV0\d{7}\b/g, '[removed]');
 
 export async function GET(request: NextRequest) {
-  const course = courses.find((c) => c.slug === request.nextUrl.searchParams.get('course'));
+  const project = schoolProjects.find((p) => p.slug === request.nextUrl.searchParams.get('project'));
   const file = request.nextUrl.searchParams.get('file') ?? '';
-  const path = course?.files[file];
-  const extension = file.split('.').pop()?.toLowerCase() ?? '';
-  const isReadme = extension === 'md';
+  const location = project && resolveFile(project, file);
+  const language = languages[file.split('.').pop()?.toLowerCase() ?? ''];
 
-  if (!course || !path || (!isReadme && !languages[extension])) {
+  if (!location || !language) {
     return NextResponse.json({ error: 'That file is not part of this project.' }, { status: 404 });
   }
 
-  const upstream = await fetch(rawUrl(course.repo, path), { next: { revalidate: 86400 } });
+  const upstream = await fetch(rawUrl(location.repo, location.path), { next: { revalidate: 86400 } });
   if (!upstream.ok) {
     return NextResponse.json({ error: `GitHub returned ${upstream.status} for this file.` }, { status: 502 });
   }
-  const text = await upstream.text();
-
-  const html = isReadme
-    ? renderReadme(text, course.repo)
-    : (await getHighlighter()).codeToHtml(text.replace(/\r\n/g, '\n'), { lang: languages[extension], theme: 'dryd3n' });
+  const source = redactStudentId((await upstream.text()).replace(/\r\n/g, '\n'));
+  const html = (await getHighlighter()).codeToHtml(source, { lang: language, theme: 'dryd3n' });
 
   return NextResponse.json(
     { html },

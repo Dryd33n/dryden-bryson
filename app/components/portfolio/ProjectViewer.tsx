@@ -1,14 +1,18 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { MdArrowOutward, MdClose } from 'react-icons/md';
-import { type CourseData, githubUrl } from '@/lib/schoolworkData';
+import { type KeyboardEvent as ReactKeyboardEvent, type ReactNode, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import Image from 'next/image';
+import { MdArrowBack, MdArrowOutward, MdClose } from 'react-icons/md';
+import { type SchoolProject, githubUrl, isPdf, resolveFile } from '@/lib/schoolworkData';
 
 interface ProjectViewerProps {
-  course: CourseData;
-  initialFile: string;
+  project: SchoolProject;
+  initialFile?: string;
   onClose: () => void;
 }
+
+type Tab = 'overview' | 'source' | 'writeups';
+const tabLabels: Record<Tab, string> = { overview: 'Overview', source: 'Source', writeups: 'Write-ups' };
 
 type Loaded = { html: string } | { error: string };
 
@@ -43,31 +47,109 @@ function buildTree(paths: string[]): TreeRow[] {
   return rows;
 }
 
-const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/');
+// True on desktop-width screens; false during server render and on phones.
+const desktopQuery = '(min-width: 768px)';
+const useIsDesktop = () => useSyncExternalStore(
+  (onChange) => { const mq = window.matchMedia(desktopQuery); mq.addEventListener('change', onChange); return () => mq.removeEventListener('change', onChange); },
+  () => window.matchMedia(desktopQuery).matches,
+  () => false,
+);
 
-export default function ProjectViewer({ course, initialFile, onClose }: ProjectViewerProps) {
-  const [active, setActive] = useState(initialFile);
+const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/');
+const cdnUrl = (repo: string, path: string) => `https://cdn.jsdelivr.net/gh/Dryd33n/${repo}/${encodePath(path)}`;
+
+const linkClass = "group flex items-center gap-1 uppercase tracking-[0.2em] text-neutral-400 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent rounded-sm px-1";
+const OutwardIcon = () => <MdArrowOutward className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />;
+
+/*
+  A two-pane file browser: tree on the left, the open file on the right.
+  On phones it shows one pane at a time — the list, then the file with a back button.
+  A single file skips the tree entirely.
+*/
+function FileBrowser({ label, files, active, onSelect, children, toolbarLink }: {
+  label: string;
+  files: string[];
+  active: string;
+  onSelect: (file: string) => void;
+  children: ReactNode;
+  toolbarLink: ReactNode;
+}) {
+  const rows = useMemo(() => buildTree(files), [files]);
+  const single = files.length === 1;
+  const [mobileView, setMobileView] = useState<'list' | 'file'>(single ? 'file' : 'list');
+
+  return (
+    <div className="flex flex-1 min-h-0">
+      <nav
+        aria-label={label}
+        className={`${mobileView === 'file' ? 'hidden' : 'flex'} ${single ? 'md:hidden' : 'md:flex'} flex-col w-full md:w-72 shrink-0 overflow-auto md:border-r border-neutral-700 py-3 text-[13px] leading-7 md:leading-6`}
+      >
+        <ul>
+          {rows.map((row, i) => (
+            <li key={i} className="whitespace-pre">
+              {row.file ? (
+                <button
+                  type="button"
+                  onClick={() => { onSelect(row.file!); setMobileView('file'); }}
+                  aria-current={row.file === active ? 'true' : undefined}
+                  className={`w-full text-left px-4 hover:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent ${row.file === active ? 'md:bg-neutral-800 md:text-accent text-neutral-300' : 'text-neutral-300'}`}
+                >
+                  <span className="viewer-mono text-neutral-600">{row.prefix}</span><span className="viewer-mono">{row.name}</span>
+                </button>
+              ) : (
+                <div className="px-4 text-neutral-500 cursor-default">
+                  <span className="viewer-mono text-neutral-600">{row.prefix}</span><span className="viewer-mono">{row.name}</span>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div className={`${mobileView === 'list' ? 'hidden' : 'flex'} md:flex flex-col flex-1 min-w-0 min-h-0`}>
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-neutral-800 text-xs">
+          <button
+            type="button"
+            onClick={() => setMobileView('list')}
+            className={`${single ? 'hidden' : 'md:hidden flex'} items-center gap-1 uppercase tracking-[0.2em] text-neutral-300 focus-visible:outline-2 focus-visible:outline-accent rounded-sm`}
+          >
+            <MdArrowBack /> Files
+          </button>
+          <span className="viewer-mono text-neutral-400 truncate cursor-default">{active}</span>
+          <div className="ml-auto shrink-0">{toolbarLink}</div>
+        </div>
+        <div className="flex-1 min-h-0 overflow-auto bg-neutral-950">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+export default function ProjectViewer({ project, initialFile, onClose }: ProjectViewerProps) {
+  const sourceFiles = useMemo(() => Object.keys(project.files).filter((f) => !isPdf(f)), [project]);
+  const pdfFiles = useMemo(() => Object.keys(project.files).filter(isPdf), [project]);
+  const isDesktop = useIsDesktop();
+  const tabs = (['overview', 'source', 'writeups'] as Tab[]).filter(
+    (t) => t === 'overview' || (t === 'source' ? sourceFiles.length > 0 : pdfFiles.length > 0),
+  );
+
+  const [tab, setTab] = useState<Tab>(initialFile ? (isPdf(initialFile) ? 'writeups' : 'source') : 'overview');
+  const [activeSource, setActiveSource] = useState(initialFile && !isPdf(initialFile) ? initialFile : sourceFiles[0]);
+  const [activePdf, setActivePdf] = useState(initialFile && isPdf(initialFile) ? initialFile : pdfFiles[0]);
   const [loaded, setLoaded] = useState<Record<string, Loaded>>({});
   const closeRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const rows = useMemo(() => buildTree(Object.keys(course.files)), [course]);
+  const tabRefs = useRef<Partial<Record<Tab, HTMLButtonElement | null>>>({});
 
-  const repoPath = course.files[active];
-  const isPdf = active.endsWith('.pdf');
-  const pdfUrl = `https://cdn.jsdelivr.net/gh/Dryd33n/${course.repo}/${encodePath(repoPath)}`;
-  const sourceUrl = `${githubUrl(course.repo)}/blob/HEAD/${encodePath(repoPath)}`;
-  const content = loaded[active];
-
-  // Fetch highlighted code / rendered README once per file.
+  // Fetch highlighted source once per file, when the Source tab shows it.
   useEffect(() => {
-    if (isPdf || loaded[active]) return;
+    if (tab !== 'source' || !activeSource || loaded[activeSource]) return;
     let cancelled = false;
-    fetch(`/api/course-file?course=${course.slug}&file=${encodeURIComponent(active)}`)
+    fetch(`/api/project-file?project=${project.slug}&file=${encodeURIComponent(activeSource)}`)
       .then(async (res) => ((await res.json()) as Loaded))
       .catch(() => ({ error: 'Could not reach the server.' }))
-      .then((result) => { if (!cancelled) setLoaded((prev) => ({ ...prev, [active]: result })); });
+      .then((result) => { if (!cancelled) setLoaded((prev) => ({ ...prev, [activeSource]: result })); });
     return () => { cancelled = true; };
-  }, [active, isPdf, loaded, course.slug]);
+  }, [tab, activeSource, loaded, project.slug]);
 
   // Escape closes; Tab stays inside the dialog; lock page scroll; move focus in and hand it back on close.
   useEffect(() => {
@@ -78,7 +160,8 @@ export default function ProjectViewer({ course, initialFile, onClose }: ProjectV
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
       if (e.key !== 'Tab' || !dialogRef.current) return;
-      const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('a[href], button, iframe, [tabindex]:not([tabindex="-1"])')];
+      const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('a[href], button, iframe, [tabindex]:not([tabindex="-1"])')]
+        .filter((el) => el.offsetParent !== null);
       const first = focusable[0], last = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
@@ -91,17 +174,26 @@ export default function ProjectViewer({ course, initialFile, onClose }: ProjectV
     };
   }, [onClose]);
 
+  // Left/Right arrows move between tabs.
+  const onTabKey = (e: ReactKeyboardEvent) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const next = tabs[(tabs.indexOf(tab) + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    setTab(next);
+    tabRefs.current[next]?.focus();
+  };
+
   const retry = () => setLoaded((prev) => {
     const next = { ...prev };
-    delete next[active];
+    delete next[activeSource];
     return next;
   });
 
+  const source = activeSource ? resolveFile(project, activeSource) : undefined;
+  const pdf = activePdf ? resolveFile(project, activePdf) : undefined;
+  const content = activeSource ? loaded[activeSource] : undefined;
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div
         ref={dialogRef}
         role="dialog"
@@ -111,76 +203,134 @@ export default function ProjectViewer({ course, initialFile, onClose }: ProjectV
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center gap-4 px-4 py-3 border-b border-neutral-700">
-          <h2 id="viewer-title" className="text-white text-xl font-bold cursor-default">
-            <span className="text-accent">/</span>{course.code}
-          </h2>
-          <span className="hidden sm:inline text-xs uppercase tracking-wider text-neutral-400 cursor-default">{course.name}</span>
-          <a
-            href={githubUrl(course.repo)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto group flex items-center gap-1 text-xs uppercase tracking-[0.2em] text-neutral-300 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent rounded-sm px-1"
-          >
-            <MdArrowOutward className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> Repo
-          </a>
+        <div className="flex items-center gap-4 px-4 pt-3">
+          <div className="min-w-0">
+            <h2 id="viewer-title" className="text-white text-lg md:text-2xl font-bold cursor-default break-words">
+              <span className="text-accent">/</span>{project.title}
+            </h2>
+            <div className="text-xs uppercase tracking-wider text-neutral-400 cursor-default truncate">{project.course}: {project.courseName}</div>
+          </div>
+          {project.repo && (
+            <a href={githubUrl(project.repo)} target="_blank" rel="noopener noreferrer" className={`ml-auto text-xs ${linkClass}`}>
+              <OutwardIcon /> Repo
+            </a>
+          )}
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
-            aria-label="Close project viewer"
-            className="text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent"
+            aria-label="Close project"
+            className={`${project.repo ? '' : 'ml-auto'} shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent`}
           >
             <MdClose className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row flex-1 min-h-0">
-          {/* File tree */}
-          <nav aria-label="Project files" className="shrink-0 md:w-72 max-h-40 md:max-h-none overflow-auto border-b md:border-b-0 md:border-r border-neutral-700 py-3 font-mono text-[13px] leading-6">
-            <div className="viewer-mono px-4 text-neutral-500 cursor-default">/{course.slug}</div>
-            <ul>
-              {rows.map((row, i) => (
-                <li key={i} className="whitespace-pre">
-                  {row.file ? (
-                    <button
-                      type="button"
-                      onClick={() => setActive(row.file!)}
-                      aria-current={row.file === active ? 'page' : undefined}
-                      className={`w-full text-left px-4 hover:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent ${row.file === active ? 'bg-neutral-800 text-accent' : 'text-neutral-300'}`}
-                    >
-                      <span className="viewer-mono text-neutral-600">{row.prefix}</span><span className="viewer-mono">{row.name}</span>
-                    </button>
-                  ) : (
-                    <div className="px-4 text-neutral-500 cursor-default">
-                      <span className="viewer-mono text-neutral-600">{row.prefix}</span><span className="viewer-mono">{row.name}</span>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
+        {/* Tabs */}
+        <div role="tablist" aria-label="Project sections" onKeyDown={onTabKey} className="flex gap-6 px-4 mt-3 border-b border-neutral-700">
+          {tabs.map((t) => (
+            <button
+              key={t}
+              ref={(el) => { tabRefs.current[t] = el; }}
+              type="button"
+              role="tab"
+              id={`tab-${t}`}
+              aria-selected={tab === t}
+              aria-controls={`panel-${t}`}
+              tabIndex={tab === t ? 0 : -1}
+              onClick={() => setTab(t)}
+              className={`-mb-px py-2 text-xs uppercase tracking-[0.2em] border-b-2 focus-visible:outline-2 focus-visible:outline-accent ${tab === t ? 'border-accent text-white' : 'border-transparent text-neutral-400 hover:text-white'}`}
+            >
+              {tabLabels[t]}
+            </button>
+          ))}
+        </div>
 
-          {/* Content */}
-          <div className="flex flex-col flex-1 min-w-0 min-h-0">
-            <div className="flex items-center gap-4 px-4 py-2 border-b border-neutral-800 text-xs">
-              <span className="viewer-mono font-mono text-neutral-400 truncate cursor-default">/{course.slug}/{active}</span>
-              <a
-                href={isPdf ? pdfUrl : sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-auto shrink-0 group flex items-center gap-1 uppercase tracking-[0.2em] text-neutral-400 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent rounded-sm px-1"
-              >
-                <MdArrowOutward className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                {isPdf ? 'Open PDF' : 'Open on GitHub'}
-              </a>
+        {/* Panels */}
+        <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`} className="flex flex-col flex-1 min-h-0">
+          {tab === 'overview' && (
+            <div className="flex-1 overflow-auto">
+              <div className="viewer-prose max-w-3xl mx-auto px-4 md:px-10 py-6 md:py-10 space-y-8">
+                {project.hero && (
+                  <figure className="rounded-md overflow-hidden border border-neutral-700 bg-white">
+                    <Image
+                      src={cdnUrl(project.hero.repo, project.hero.path)}
+                      alt={project.hero.alt}
+                      width={project.hero.width}
+                      height={project.hero.height}
+                      sizes="(min-width: 768px) 768px, 100vw"
+                      className="w-full h-auto"
+                    />
+                  </figure>
+                )}
+
+                <div className="space-y-4">
+                  <div className="text-[15px] leading-relaxed text-neutral-200">{project.summary}</div>
+                  <ul className="flex flex-wrap gap-2" aria-label="Built with">
+                    {project.badges.map((b) => (
+                      <li key={b} className="border border-neutral-600 text-neutral-400 py-1 px-2 text-xs rounded-sm uppercase">{b}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <section aria-labelledby="built-heading">
+                  <h3 id="built-heading" className="text-white text-lg mb-3">What I built</h3>
+                  <ul className="space-y-3">
+                    {project.sections.map((s, i) => (
+                      <li key={s.title} className="grid grid-cols-[auto_1fr] gap-x-2">
+                        <span className="viewer-mono text-neutral-600 whitespace-pre" aria-hidden="true">{i === project.sections.length - 1 ? '└─' : '├─'}</span>
+                        <div>
+                          <div className="text-white text-sm">{s.title}</div>
+                          <div className="text-sm leading-relaxed text-neutral-400 mt-1">{s.body}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                {project.findings && (
+                  <section aria-labelledby="findings-heading" className="border-l-2 border-accent pl-4">
+                    <h3 id="findings-heading" className="text-white text-lg mb-3">Findings</h3>
+                    <ul className="space-y-2 list-disc pl-5 marker:text-neutral-500">
+                      {project.findings.map((f) => (
+                        <li key={f} className="text-sm leading-relaxed text-neutral-300">{f}</li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+
+                {tabs.length > 1 && (
+                  <div className="flex flex-wrap gap-3">
+                    {pdfFiles.length > 0 && (
+                      <button type="button" onClick={() => setTab('writeups')} className="rounded-sm border border-white px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-white hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                        {pdfFiles.length === 1 ? 'Read the report' : 'Read the write-ups'}
+                      </button>
+                    )}
+                    {sourceFiles.length > 0 && (
+                      <button type="button" onClick={() => setTab('source')} className="rounded-sm border border-white px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-white hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                        Browse the source
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
+          )}
 
-            <div className="flex-1 min-h-0 overflow-auto bg-neutral-950">
-              {isPdf ? (
-                <iframe key={pdfUrl} src={pdfUrl} title={`${course.code} ${active}`} className="w-full h-full border-0" />
-              ) : !content ? (
-                <div className="viewer-mono p-6 text-sm text-neutral-500 animate-pulse" role="status">Loading {active}…</div>
+          {tab === 'source' && source && (
+            <FileBrowser
+              label="Source files"
+              files={sourceFiles}
+              active={activeSource}
+              onSelect={setActiveSource}
+              toolbarLink={
+                <a href={`${githubUrl(source.repo)}/blob/HEAD/${encodePath(source.path)}`} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  <OutwardIcon /> GitHub
+                </a>
+              }
+            >
+              {!content ? (
+                <div className="viewer-mono p-6 text-sm text-neutral-500 animate-pulse" role="status">Loading {activeSource}…</div>
               ) : 'error' in content ? (
                 <div className="p-6 space-y-3" role="alert">
                   <div className="text-neutral-300">{content.error}</div>
@@ -189,13 +339,36 @@ export default function ProjectViewer({ course, initialFile, onClose }: ProjectV
                   </button>
                 </div>
               ) : (
-                <div
-                  className={active.endsWith('.md') ? 'viewer-md p-6 md:p-10' : 'viewer-code'}
-                  dangerouslySetInnerHTML={{ __html: content.html }}
-                />
+                <div className="viewer-code" dangerouslySetInnerHTML={{ __html: content.html }} />
               )}
-            </div>
-          </div>
+            </FileBrowser>
+          )}
+
+          {tab === 'writeups' && pdf && (
+            <FileBrowser
+              label="Write-ups"
+              files={pdfFiles}
+              active={activePdf}
+              onSelect={setActivePdf}
+              toolbarLink={
+                <a href={cdnUrl(pdf.repo, pdf.path)} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  <OutwardIcon /> Open PDF
+                </a>
+              }
+            >
+              {/* Phone browsers don't reliably show PDFs inside a page, so they get a button instead. */}
+              {isDesktop ? (
+                <iframe key={activePdf} src={cdnUrl(pdf.repo, pdf.path)} title={activePdf} className="w-full h-full border-0" />
+              ) : (
+              <div className="p-6 space-y-4">
+                <div className="viewer-mono text-sm text-neutral-300">{activePdf}</div>
+                <a href={cdnUrl(pdf.repo, pdf.path)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-sm border border-white px-3 py-2 text-xs uppercase tracking-[0.2em] text-white">
+                  <MdArrowOutward /> Open PDF
+                </a>
+              </div>
+              )}
+            </FileBrowser>
+          )}
         </div>
       </div>
     </div>

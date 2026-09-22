@@ -7,9 +7,9 @@ import { MdSchool } from "react-icons/md";
 import ScrollingContainer from '../components/portfolio/ScrollingContainer';
 import ProjectCard from '../components/portfolio/ProjectCard';
 import ModelCard from '../components/portfolio/ModelCard';
-import CourseCard from '../components/portfolio/CourseCard';
+import SchoolProjectCard from '../components/portfolio/SchoolProjectCard';
 import { spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
-import { courses } from '@/lib/schoolworkData';
+import { schoolProjects } from '@/lib/schoolworkData';
 
 export const metadata = {
   title: "Portfolio",
@@ -70,11 +70,11 @@ export default function Portfolio() {
 
         <div className="h-10"></div>
         <h1 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><MdSchool className="text-red-500" />SCHOOLWORK</h1>
-        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured University of Victoria Coursework:</p>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Projects from University of Victoria Courses:</p>
 
         <ScrollingContainer>
-          {courses.map((course) => (
-            <CourseCard key={course.slug} course={course} />
+          {schoolProjects.map((project) => (
+            <SchoolProjectCard key={project.slug} project={project} />
           ))}
         </ScrollingContainer>
 
