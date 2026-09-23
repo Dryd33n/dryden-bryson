@@ -12,19 +12,13 @@ export default function TestPage() {
         <div className="flex flex-wrap gap-8">
           <ModelCard
             name="Seylynn"
-            modelPath="/3D Models/seylynn.glb"
+            modelPath="/3D Models/Seylynn.glb"
             techBadges={["GLB", "Blender", "Low Poly"]}
             modelStats={[
               { label: "Format", value: "GLB" },
               { label: "Polygons", value: "~5K" },
               { label: "Textures", value: "PBR" },
             ]}
-            cameraPosition={[0, 1, 5]}
-            svgIcon={
-              <svg viewBox="0 0 100 100" fill="currentColor">
-                <circle cx="50" cy="50" r="40" />
-              </svg>
-            }
           />
         </div>
       </section>
@@ -34,9 +28,7 @@ export default function TestPage() {
         <h2 className="text-2xl mb-4">Direct 3D Viewer</h2>
         <div className="w-full h-[600px] border-2 border-gray-300 rounded-lg overflow-hidden">
           <ThreeDViewer 
-            modelPath="/3D Models/seylynn.glb"
-            cameraPosition={[0, 0, 5]}
-            backgroundColor="#1a1a1a"
+            modelPath="/3D Models/Seylynn.glb"
           />
         </div>
         <div className="mt-4 text-sm text-gray-600">

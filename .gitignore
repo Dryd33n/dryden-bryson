@@ -44,3 +44,6 @@ next-env.d.ts
 /claude-docs
 /CLAUDE.md
 /.claude
+
+# 3D model sources (Sketchfab exports); kept locally, not committed or deployed
+/3d-sources

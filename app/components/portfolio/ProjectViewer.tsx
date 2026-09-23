@@ -6,6 +6,7 @@ import { MdArrowBack, MdArrowOutward, MdClose } from 'react-icons/md';
 import BenchmarkExplorer from './BenchmarkExplorer';
 import LcdSimulator, { LcdPreview } from './LcdSimulator';
 import { type SchoolProject, githubUrl, isPdf, resolveFile } from '@/lib/schoolworkData';
+import { useDialog } from '@/app/hooks/useDialog';
 
 interface ProjectViewerProps {
   project: SchoolProject;
@@ -198,28 +199,7 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
     return () => { cancelled = true; };
   }, [tab, activeSource, loaded, project.slug]);
 
-  // Escape closes; Tab stays inside the dialog; lock page scroll; move focus in and hand it back on close.
-  useEffect(() => {
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    const { overflow } = document.body.style;
-    document.body.style.overflow = 'hidden';
-    closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key !== 'Tab' || !dialogRef.current) return;
-      const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('a[href], button, iframe, [tabindex]:not([tabindex="-1"])')]
-        .filter((el) => el.offsetParent !== null);
-      const first = focusable[0], last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = overflow;
-      previouslyFocused?.focus();
-    };
-  }, [onClose]);
+  useDialog(dialogRef, closeRef, onClose);
 
   // Left/Right arrows move between tabs.
   const onTabKey = (e: ReactKeyboardEvent) => {

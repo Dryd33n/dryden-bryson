@@ -53,19 +53,57 @@ export default function Portfolio() {
           <ModelCard
             name="Seylynn"
             modelPath="/3D Models/Seylynn.glb"
+            subtitle="Seylynn Bowl skatepark"
+            cameraDirection={[1, 2, 1]}
+            focusMaterials={["Bowl", "Grass", "Seylynn_Sign", "Seylynn_Sign_Shiny"]}
+            environment={{ file: "/3D Models/hdri/misty_pines.hdr" }}
+            previewImage="/3D Models/seylynn-preview.webp"
             techBadges={["Blender", "Substance Painter"]}
             modelStats={[
               { label: "Format", value: "GLB" },
-              { label: "Polygons", value: "~5K" },
-              { label: "Textures", value: "PBR" },
+              { label: "Triangles", value: "35K" },
+              { label: "Textures", value: "4K PBR" },
             ]}
-            cameraPosition={[0, 1, 5]}
-            svgIcon={
-              <svg viewBox="0 0 100 100" fill="currentColor">
-                <circle cx="50" cy="50" r="40" />
-              </svg>
-            }
-          />          
+          />
+          <ModelCard
+            name="Griffin-Bowl"
+            modelPath="/3D Models/GriffinBowl.glb"
+            environment={{ file: "/3D Models/hdri/skate_park.hdr" }}
+            subtitle="Griffin Bowl skatepark"
+            previewImage="/3D Models/griffinbowl-preview.webp"
+            techBadges={["Blender", "Substance Painter"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Triangles", value: "17K" },
+              { label: "Textures", value: "4K PBR" },
+            ]}
+          />
+          <ModelCard
+            name="Backyard-Pool"
+            modelPath="/3D Models/BackyardPool.glb"
+            environment={{ file: "/3D Models/hdri/tiergarten.hdr", intensity: 1.3 }}
+            subtitle="Backyard pool skatepark"
+            previewImage="/3D Models/backyardpool-preview.webp"
+            techBadges={["Blender", "Substance Painter"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Triangles", value: "117K" },
+              { label: "Textures", value: "4K PBR" },
+            ]}
+          />
+          <ModelCard
+            name="VX1000"
+            modelPath="/3D Models/VX1000.glb"
+            environment={{ file: "/3D Models/hdri/studio_small_08.hdr" }}
+            subtitle="Sony VX1000 camcorder"
+            previewImage="/3D Models/vx1000-preview.webp"
+            techBadges={["Blender", "Substance Painter"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Triangles", value: "17K" },
+              { label: "Textures", value: "1K PBR" },
+            ]}
+          />
         </ScrollingContainer>
 
         <div className="h-10"></div>
