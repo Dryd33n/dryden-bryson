@@ -48,7 +48,7 @@ export default function About() {
             {/* BIO */}
             <div className="md:mr-[40%]">
                 <section id="bio"></section>
-                <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><SiSuperuser  className="text-red-500" />BIO</h1>
+                <h2 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><SiSuperuser  className="text-red-500" />BIO</h2>
                 <p className="mt-0 text-sm md:text-base cursor-default">
                     I&#39;m <span className="text-red-600 dark:text-red-500">Dryden Bryson</span>, a computer science student and programmer based in Canada. I like building things that actually work - and work well.
                     <br /><br />
@@ -62,7 +62,7 @@ export default function About() {
 
             {/* SKILLS */}
             <section id="skills"></section>
-            <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><IoMdCode className="text-red-500" />SKILLS</h1>
+            <h2 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><IoMdCode className="text-red-500" />SKILLS</h2>
             <p className="mb-4 md:mr-[40%] cursor-default">With many years of experience in programming and software development, I have developed skills ranging from the front end to the back end of software development, design and more. </p>
             <SkillsGallery 
                 images={[languageImages, socialImages, backendImages, designImages]}
@@ -71,16 +71,16 @@ export default function About() {
 
             <div className="h-40"></div>
             <section id="education"></section>
-            <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><MdOutlineSchool  className="text-red-500" />EDUCATION</h1>
+            <h2 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><MdOutlineSchool  className="text-red-500" />EDUCATION</h2>
             <div className="flex flex-col gap-10 md:mr-[40%] cursor-default">
                 {education.map((entry) => (
                     <div key={entry.school} className="flex flex-row gap-4">
                         <div className="w-0.5 shrink-0 bg-neutral-300 dark:bg-neutral-700"></div>
                         <div className="flex-1 py-1">
                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
-                                <h2 className="text-xl md:text-2xl text-neutral-900 dark:text-neutral-100">
+                                <h3 className="text-xl md:text-2xl text-neutral-900 dark:text-neutral-100">
                                     <span className="text-accent">/</span>{entry.school}
-                                </h2>
+                                </h3>
                                 <div className="text-xs md:text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">{entry.dates}</div>
                             </div>
                             <div className="flex flex-col sm:flex-row sm:justify-between gap-1 mt-2 text-sm md:text-base">

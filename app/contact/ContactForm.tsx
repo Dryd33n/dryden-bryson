@@ -57,10 +57,12 @@ export default function ContactForm() {
             {/* Name and Email Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Name<span className="text-accent-strong">*</span></label>
+                    <label htmlFor="contact-name" className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Name<span className="text-accent-strong">*</span></label>
                     <input
+                        id="contact-name"
                         type="text"
                         name="name"
+                        autoComplete="name"
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Edsger Dijkstra"
@@ -69,10 +71,12 @@ export default function ContactForm() {
                     />
                 </div>
                 <div>
-                    <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Email<span className="text-accent-strong">*</span></label>
+                    <label htmlFor="contact-email" className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Email<span className="text-accent-strong">*</span></label>
                     <input
+                        id="contact-email"
                         type="email"
                         name="email"
+                        autoComplete="email"
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="Dijkstra@example.com"
@@ -84,8 +88,9 @@ export default function ContactForm() {
 
             {/* Subject */}
             <div>
-                <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Subject<span className="text-accent-strong">*</span></label>
+                <label htmlFor="contact-subject" className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Subject<span className="text-accent-strong">*</span></label>
                 <input
+                    id="contact-subject"
                     type="text"
                     name="subject"
                     value={formData.subject}
@@ -98,8 +103,9 @@ export default function ContactForm() {
 
             {/* Message */}
             <div>
-                <label className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Message<span className="text-accent-strong">*</span></label>
+                <label htmlFor="contact-message" className="block text-neutral-600 dark:text-[#a3a3a3] text-xs md:text-sm mb-2">Message<span className="text-accent-strong">*</span></label>
                 <textarea
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}

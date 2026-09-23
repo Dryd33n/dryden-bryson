@@ -19,8 +19,9 @@ export default function MobileHomePage() {
 
   return (
     <>
-      <div className="w-screen h-screen p-2">
-        <div className="w-full h-full border relative">
+      <div className="w-full h-screen p-2">
+        {/* overflow-hidden: FuzzyText pads its canvas past the glyphs, which pushed the page wider than a phone screen. */}
+        <div className="w-full h-full border relative overflow-hidden">
           <div className="absolute top-3 left-3">
             <Navbar menuItemArrays={[portfolioItems, aboutItems, contactItems]} layout="vertical" />
           </div>
@@ -28,12 +29,12 @@ export default function MobileHomePage() {
           <div className="absolute bottom-2 right-2 flex flex-col gap-2">
             <DarkModeToggle />
             <div className="h-[50] w-[50] overflow-hidden">
-              <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <TiltedCard imageSrc="icons/github.svg" color="var(--icon)" rotateAmplitude={0} />
               </a>
             </div>
             <div className="h-[50] w-[50] overflow-hidden">
-              <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <TiltedCard imageSrc="icons/linkedin.svg" color="var(--icon)" rotateAmplitude={0} />
               </a>
             </div>
@@ -62,7 +63,7 @@ export default function MobileHomePage() {
             </div>
           )}
 
-          <div className="inset-0 flex flex-col items-center justify-center h-full">
+          <div aria-hidden="true" className="inset-0 flex flex-col items-center justify-center h-full">
             <FuzzyText
               baseIntensity={0.00}
               hoverIntensity={0.1}

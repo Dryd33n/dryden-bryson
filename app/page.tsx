@@ -8,6 +8,8 @@ export const metadata = {
 
 export default function Home() {
   return <>
+      {/* Both layouts draw the name and tagline on canvases, so the page carries one real heading for crawlers and screen readers. */}
+      <h1 className="sr-only">Dryden Bryson, Student &amp; Developer</h1>
       <div className="hidden md:block">
         <DesktopHomePage />
       </div>

@@ -44,9 +44,9 @@ export default function ContentCard({ name, badges, stats = [], preview, actions
     <div className="flex flex-row gap-4 w-[330px]">
       <div className="w-0.5 h-full bg-neutral-300 dark:bg-neutral-700"></div>
       <div className="pt-1 pb-4 flex flex-col h-full flex-1 min-w-0">
-        <h1 className={`text-2xl cursor-default break-words text-neutral-900 dark:text-neutral-100 ${preview ? 'mb-6' : 'mb-10'}`}>
+        <h3 className={`text-2xl cursor-default break-words text-neutral-900 dark:text-neutral-100 ${preview ? 'mb-6' : 'mb-10'}`}>
           <span className="inline text-red-500 text-xl">/</span>{name}
-        </h1>
+        </h3>
 
         <div className="flex flex-wrap gap-2 mb-4">
           {badges.map((badge) => (

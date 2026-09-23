@@ -21,6 +21,12 @@ interface NavButtonProps {
 
 const letterAnimationFrom = { filter: 'blur(10px)', opacity: 0, transform: 'translate3d(0,10px,0)' };
 
+// Titles render letter by letter (or scrambled), so links carry a readable name: "/ABOUT-ME" -> "About me".
+const linkLabel = (title: string) => {
+    const words = title.replace(/^[/├─\s]+/, '').replace(/-/g, ' ').toLowerCase();
+    return words.charAt(0).toUpperCase() + words.slice(1);
+};
+
 export default function NavButton({ menuItems, isExpanded = false, onExpandedChange }: NavButtonProps) {
     const [animationComplete, setAnimationComplete] = useState(false);
     const [hovered, setHovered] = useState(false);
@@ -121,6 +127,7 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
         >
             <Link
                 href={mainMenuItem.href}
+                aria-label={linkLabel(mainMenuItem.title)}
                 onClick={handleMainButtonClick}
                 className={[
                     'text-lg transition-transform duration-300 ease-out inline-flex',
@@ -146,7 +153,7 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
                     : 'absolute left-0 top-full flex flex-col rounded'
                 }>
                     {subMenuItems.map((item, index) => (
-                        <Link key={index} href={item.href} className="whitespace-nowrap">
+                        <Link key={index} href={item.href} aria-label={linkLabel(item.title)} className="whitespace-nowrap">
                             <DecryptedText
                                 text={item.title}
                                 animateOn="view"

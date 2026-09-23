@@ -27,12 +27,12 @@ export default function Contact() {
             <div className="md:mr-[50%]">
                 <p className="mt-10 text-sm md:text-base text-neutral-700 dark:text-white/80">Have a project in mind or just want to chat? Feel free to reach out. I&apos;m always open to discussing new opportunities, collaborations, or answering questions.</p>
                 <section id="contact-form"></section>
-                <p className="!text-xl md:!text-2xl !font-bold mt-12 md:mt-20" style={{ color: "var(--foreground)" }}><span><MdOutlineMail className="inline-block text-red-500 mr-2"/></span>Send a message</p>
+                <h2 className="!text-xl md:!text-2xl !font-bold mt-12 md:mt-20" style={{ color: "var(--foreground)" }}><span><MdOutlineMail className="inline-block text-red-500 mr-2"/></span>Send a message</h2>
             </div>
 
             <ContactForm />
 
-            <p className="!text-xl md:!text-2xl !font-bold mt-12 md:mt-20" style={{ color: "var(--foreground)" }}><span><FiUserPlus className="inline-block text-red-500 mr-2"/></span>Let&apos;s Connect!</p>
+            <h2 className="!text-xl md:!text-2xl !font-bold mt-12 md:mt-20" style={{ color: "var(--foreground)" }}><span><FiUserPlus className="inline-block text-red-500 mr-2"/></span>Let&apos;s Connect!</h2>
 
             <section id="social-media"></section>
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:mr-[30%] mb-70">
@@ -44,7 +44,7 @@ export default function Contact() {
                         <FiMail className="text-accent text-xl md:text-2xl mt-1 flex-shrink-0" />
                         <div>
                             <p className="text-neutral-500 dark:text-[#a3a3a3] text-xs md:text-sm font-semibold mb-1">Email</p>
-                            <p className="text-neutral-900 dark:text-white text-sm md:text-lg">drydenbryson@dryd3n.ca</p>
+                            <a href="mailto:drydenbryson@dryd3n.ca" className="text-neutral-900 dark:text-white text-sm md:text-lg hover:text-accent-strong transition-colors">drydenbryson@dryd3n.ca</a>
                         </div>
                     </div>
 

@@ -36,12 +36,12 @@ export default function DesktopHomePage() {
           <div className="absolute bottom-0 right-2 flex flex-row gap-2">
             
             <div className="h-[60] w-[60] overflow-hidden mt-3">
-              <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Dryd33n" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <TiltedCard imageSrc="icons/github.svg" color="var(--icon)" />
               </a>
             </div>
             <div className="h-[60] w-[60] overflow-hidden mt-3">
-              <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/drydenbryson/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <TiltedCard imageSrc="icons/linkedin.svg" color="var(--icon)" />
               </a>
             </div>
@@ -70,7 +70,7 @@ export default function DesktopHomePage() {
             </div>
           )}
 
-          <div className="inset-0 flex flex-col items-center justify-center h-full">
+          <div aria-hidden="true" className="inset-0 flex flex-col items-center justify-center h-full">
             <FuzzyText
               baseIntensity={0.00}
               hoverIntensity={0.1}
