@@ -61,6 +61,44 @@ const useIsDesktop = () => useSyncExternalStore(
 const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/');
 const cdnUrl = (repo: string, path: string) => `https://cdn.jsdelivr.net/gh/Dryd33n/${repo}/${encodePath(path)}`;
 
+// Screenshots with labelled thumbnails that switch the large image.
+function ScreenGallery({ screens }: { screens: NonNullable<SchoolProject['screens']> }) {
+  const [index, setIndex] = useState(0);
+  const screen = screens[index];
+  return (
+    <figure className="space-y-3">
+      <div className="flex items-center justify-center rounded-md border border-neutral-700 bg-neutral-950 p-2">
+        <Image
+          key={screen.src}
+          src={screen.src}
+          alt={screen.alt}
+          width={screen.width}
+          height={screen.height}
+          sizes="(min-width: 768px) 768px, 100vw"
+          // Full width up to the screenshot's own size, so the box keeps its shape while loading.
+          style={{ maxWidth: screen.width }}
+          className="h-auto max-h-[480px] w-full rounded-sm object-contain"
+        />
+      </div>
+      <div role="group" aria-label="Choose a screenshot" className="flex flex-wrap gap-2">
+        {screens.map((s, i) => (
+          <button
+            key={s.src}
+            type="button"
+            onClick={() => setIndex(i)}
+            aria-pressed={i === index}
+            className={`flex items-center gap-2 rounded-sm border p-1 pr-3 text-xs uppercase tracking-[0.2em] focus-visible:outline-2 focus-visible:outline-accent ${i === index ? 'border-accent text-accent' : 'border-neutral-600 text-neutral-300 hover:border-white hover:text-white'}`}
+          >
+            <Image src={s.src} alt="" width={64} height={Math.round((64 * s.height) / s.width)} className="h-9 w-auto rounded-[2px]" />
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <figcaption className="text-xs text-neutral-500">Screenshots of the PyQt6 desktop app.</figcaption>
+    </figure>
+  );
+}
+
 const linkClass = "group flex items-center gap-1 uppercase tracking-[0.2em] text-neutral-400 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent rounded-sm px-1";
 const OutwardIcon = () => <MdArrowOutward className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />;
 
@@ -276,7 +314,9 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
           {tab === 'overview' && (
             <div className="flex-1 overflow-auto">
               <div className="viewer-prose max-w-3xl mx-auto px-4 md:px-10 py-6 md:py-10 space-y-8">
-                {project.interactiveHero === 'lcd' ? (
+                {project.screens ? (
+                  <ScreenGallery screens={project.screens} />
+                ) : project.interactiveHero === 'lcd' ? (
                   <LcdPreview />
                 ) : project.interactiveHero ? (
                   <BenchmarkExplorer kind={project.interactiveHero} fallback={heroFigure} />

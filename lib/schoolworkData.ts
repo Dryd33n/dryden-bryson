@@ -38,6 +38,8 @@ export interface SchoolProject {
   findings?: string[];
   // src is a path under public/ or an image URL (see repoAsset).
   hero?: { src: string; alt: string; width: number; height: number; caption?: string };
+  // Several screenshots shown as a switchable gallery in place of the hero.
+  screens?: { src: string; alt: string; width: number; height: number; label: string }[];
   // Interactive content shown in place of the hero image (which becomes its fallback).
   interactiveHero?: 'hash-tables' | 'shortest-paths' | 'lcd';
   demos?: ProjectDemo[];
@@ -206,6 +208,11 @@ export const clinicManager: SchoolProject = {
   highlight: 'Grew from classes to a desktop app',
   summary:
     'A patient and notes system for a medical clinic, built up over three assignments: first as tested Python classes, then with saved data, and finally as a desktop app with a login screen.',
+  screens: [
+    { src: '/schoolwork/clinic-main.jpg', label: 'Main window', width: 1600, height: 1000, alt: 'Clinic Manager main window: a searchable patient list on the left, the selected patient’s details and contact information, and their record notes with the current note open' },
+    { src: '/schoolwork/clinic-create-patient.jpg', label: 'Create patient', width: 1600, height: 1000, alt: 'Create Patient dialog over the main window, with fields for PHN, name, date of birth, email, phone number and home address' },
+    { src: '/schoolwork/clinic-login.png', label: 'Login', width: 534, height: 513, alt: 'Clinic login window with username and password fields' },
+  ],
   sections: [
     { title: 'Core model', body: 'Patient, record and note classes supporting create, search, update and delete, covered by unittest tests.' },
     { title: 'Saved data', body: 'Patients stored as JSON and notes with pickle behind data-access classes, with custom exceptions and autosave.' },
