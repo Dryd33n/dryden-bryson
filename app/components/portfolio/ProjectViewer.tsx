@@ -4,6 +4,7 @@ import { type KeyboardEvent as ReactKeyboardEvent, type ReactNode, useEffect, us
 import Image from 'next/image';
 import { MdArrowBack, MdArrowOutward, MdClose } from 'react-icons/md';
 import BenchmarkExplorer from './BenchmarkExplorer';
+import LcdSimulator, { LcdPreview } from './LcdSimulator';
 import { type SchoolProject, githubUrl, isPdf, resolveFile } from '@/lib/schoolworkData';
 
 interface ProjectViewerProps {
@@ -275,8 +276,10 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
           {tab === 'overview' && (
             <div className="flex-1 overflow-auto">
               <div className="viewer-prose max-w-3xl mx-auto px-4 md:px-10 py-6 md:py-10 space-y-8">
-                {project.explorer ? (
-                  <BenchmarkExplorer kind={project.explorer} fallback={heroFigure} />
+                {project.interactiveHero === 'lcd' ? (
+                  <LcdPreview />
+                ) : project.interactiveHero ? (
+                  <BenchmarkExplorer kind={project.interactiveHero} fallback={heroFigure} />
                 ) : heroFigure}
 
                 <div className="space-y-4">
@@ -339,12 +342,13 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
 
           {tab === 'demo' && demos[activeDemo] && (
             <div className="flex flex-col flex-1 min-h-0">
+              {(demos.length > 1 || demos[activeDemo].note || demos[activeDemo].src) && (
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2 border-b border-neutral-800 text-xs">
                 {demos.length > 1 && (
                   <div role="group" aria-label="Choose a scene" className="flex flex-wrap gap-2">
                     {demos.map((d, i) => (
                       <button
-                        key={d.src}
+                        key={d.label}
                         type="button"
                         onClick={() => setActiveDemo(i)}
                         aria-pressed={i === activeDemo}
@@ -356,17 +360,26 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
                   </div>
                 )}
                 {demos[activeDemo].note && <span className="viewer-mono text-neutral-400">{demos[activeDemo].note}</span>}
-                <a href={demos[activeDemo].src} target="_blank" rel="noopener noreferrer" className={`ml-auto shrink-0 ${linkClass}`}>
-                  <OutwardIcon /> Full screen
-                </a>
+                {demos[activeDemo].src && (
+                  <a href={demos[activeDemo].src} target="_blank" rel="noopener noreferrer" className={`ml-auto shrink-0 ${linkClass}`}>
+                    <OutwardIcon /> Full screen
+                  </a>
+                )}
               </div>
-              {/* The scene only runs while this tab is open. */}
-              <iframe
-                key={demos[activeDemo].src}
-                src={demos[activeDemo].src}
-                title={`${project.title}: ${demos[activeDemo].label}`}
-                className="flex-1 w-full border-0 bg-neutral-950"
-              />
+              )}
+              {/* Demos only run while this tab is open. */}
+              {demos[activeDemo].kind === 'lcd' ? (
+                <div className="flex-1 overflow-auto">
+                  <LcdSimulator onViewSource={(file) => { setActiveSource(file); setTab('source'); }} />
+                </div>
+              ) : (
+                <iframe
+                  key={demos[activeDemo].src}
+                  src={demos[activeDemo].src}
+                  title={`${project.title}: ${demos[activeDemo].label}`}
+                  className="flex-1 w-full border-0 bg-neutral-950"
+                />
+              )}
             </div>
           )}
 

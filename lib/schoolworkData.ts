@@ -4,10 +4,11 @@ import type { CardActionIcon } from '@/app/components/portfolio/ContentCard';
 // write-up collections spanning several courses give the repo explicitly.
 export type ProjectFile = string | { repo: string; path: string };
 
-// A live demo page under public/, shown in the viewer's Demo tab.
+// A live demo in the viewer's Demo tab: a page under public/ (src) or a built-in component (kind).
 export interface ProjectDemo {
   label: string;
-  src: string;
+  src?: string;
+  kind?: 'lcd';
   note?: string;
 }
 
@@ -37,8 +38,8 @@ export interface SchoolProject {
   findings?: string[];
   // src is a path under public/ or an image URL (see repoAsset).
   hero?: { src: string; alt: string; width: number; height: number; caption?: string };
-  // An interactive results chart shown in place of the hero (which becomes its fallback).
-  explorer?: 'hash-tables' | 'shortest-paths';
+  // Interactive content shown in place of the hero image (which becomes its fallback).
+  interactiveHero?: 'hash-tables' | 'shortest-paths' | 'lcd';
   demos?: ProjectDemo[];
   // Viewer files: display path -> file. Code shows under Source, PDFs under Write-ups.
   files: Record<string, ProjectFile>;
@@ -152,7 +153,7 @@ export const shortestPathBenchmark: SchoolProject = {
     'The denser the graph, the earlier the crossover.',
     'Its simple triple loop suits the compiler and cache better than rebuilding a heap for every source.',
   ],
-  explorer: 'shortest-paths',
+  interactiveHero: 'shortest-paths',
   hero: { src: repoAsset('uvic-csc-226', 'assignments/a2/plot_crossover.png'), alt: 'Line chart of the k/n ratio at which Floyd-Warshall-Roy becomes faster than Dijkstra, for four graph densities', width: 2668, height: 1767 },
   files: {
     'report.pdf': 'assignments/a2/a2.pdf',
@@ -184,7 +185,7 @@ export const hashTableBenchmark: SchoolProject = {
     'The gap comes from memory locality: probing reads neighbouring slots in one array, while chaining follows linked-list nodes scattered across memory.',
     'Chaining slows down much more steeply as the table fills up.',
   ],
-  explorer: 'hash-tables',
+  interactiveHero: 'hash-tables',
   hero: { src: repoAsset('uvic-csc-226', 'assignments/a1/surface_comparison.png'), alt: '3D surface plots of operation time against load factor and table size, for linear probing and chaining', width: 4704, height: 1801 },
   files: {
     'report.pdf': 'assignments/a1/a1.pdf',
@@ -230,6 +231,8 @@ export const avrLcdDisplay: SchoolProject = {
   highlight: 'Timers and interrupts in assembly',
   summary:
     'Low-level programs for an AVR microcontroller board. They drive a character LCD, scroll messages across it under timer control and respond to the board’s buttons, then rebuild the same ideas in C as a stopwatch.',
+  interactiveHero: 'lcd',
+  demos: [{ label: 'LCD simulator', kind: 'lcd' }],
   sections: [
     { title: 'Registers and bits', body: '16-bit addition using two 8-bit registers, two’s complement conversion and bit manipulation, all in assembly.' },
     { title: 'I/O ports', body: 'Driving LEDs through I/O ports, table lookups with pointers, and subroutines with explicit stack use.' },
@@ -246,6 +249,7 @@ export const avrLcdDisplay: SchoolProject = {
     'lcd/display_partD.asm': 'assignments/assignment 3/assignment 3/display_partD.asm',
     'stopwatch/main.c': 'assignments/assignment 4/Assignment4/main.c',
   },
+  shortcuts: [{ label: 'Run Demo', icon: 'play', tab: 'demo' }],
 };
 
 export const surveyProcessor: SchoolProject = {
