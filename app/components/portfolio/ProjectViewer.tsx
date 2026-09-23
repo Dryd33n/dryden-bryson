@@ -3,6 +3,7 @@
 import { type KeyboardEvent as ReactKeyboardEvent, type ReactNode, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import { MdArrowBack, MdArrowOutward, MdClose } from 'react-icons/md';
+import BenchmarkExplorer from './BenchmarkExplorer';
 import { type SchoolProject, githubUrl, isPdf, resolveFile } from '@/lib/schoolworkData';
 
 interface ProjectViewerProps {
@@ -195,6 +196,22 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
     return next;
   });
 
+  const heroFigure = project.hero && (
+    <figure>
+      <Image
+        src={project.hero.src}
+        alt={project.hero.alt}
+        width={project.hero.width}
+        height={project.hero.height}
+        sizes="(min-width: 768px) 768px, 100vw"
+        className="w-full h-auto rounded-md border border-neutral-700 bg-neutral-800"
+      />
+      {project.hero.caption && (
+        <figcaption className="mt-2 text-xs text-neutral-500">{project.hero.caption}</figcaption>
+      )}
+    </figure>
+  );
+
   const source = activeSource ? resolveFile(project, activeSource) : undefined;
   const pdf = activePdf ? resolveFile(project, activePdf) : undefined;
   const content = activeSource ? loaded[activeSource] : undefined;
@@ -258,21 +275,9 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
           {tab === 'overview' && (
             <div className="flex-1 overflow-auto">
               <div className="viewer-prose max-w-3xl mx-auto px-4 md:px-10 py-6 md:py-10 space-y-8">
-                {project.hero && (
-                  <figure>
-                    <Image
-                      src={project.hero.src}
-                      alt={project.hero.alt}
-                      width={project.hero.width}
-                      height={project.hero.height}
-                      sizes="(min-width: 768px) 768px, 100vw"
-                      className="w-full h-auto rounded-md border border-neutral-700 bg-neutral-800"
-                    />
-                    {project.hero.caption && (
-                      <figcaption className="mt-2 text-xs text-neutral-500">{project.hero.caption}</figcaption>
-                    )}
-                  </figure>
-                )}
+                {project.explorer ? (
+                  <BenchmarkExplorer kind={project.explorer} fallback={heroFigure} />
+                ) : heroFigure}
 
                 <div className="space-y-4">
                   <div className="text-[15px] leading-relaxed text-neutral-200">{project.summary}</div>

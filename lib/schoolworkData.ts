@@ -35,8 +35,10 @@ export interface SchoolProject {
   summary: string;
   sections: ProjectSection[];
   findings?: string[];
-  // src is a path under public/ or an image URL (see repoImage).
+  // src is a path under public/ or an image URL (see repoAsset).
   hero?: { src: string; alt: string; width: number; height: number; caption?: string };
+  // An interactive results chart shown in place of the hero (which becomes its fallback).
+  explorer?: 'hash-tables' | 'shortest-paths';
   demos?: ProjectDemo[];
   // Viewer files: display path -> file. Code shows under Source, PDFs under Write-ups.
   files: Record<string, ProjectFile>;
@@ -51,8 +53,8 @@ export const resolveFile = (project: SchoolProject, file: string) => {
   return typeof entry === 'string' ? { repo: project.repo!, path: entry } : entry;
 };
 
-// An image committed to one of the course repos, served through jsDelivr.
-export const repoImage = (repo: string, path: string) =>
+// A file committed to one of the course repos (image, CSV...), served through jsDelivr.
+export const repoAsset = (repo: string, path: string) =>
   `https://cdn.jsdelivr.net/gh/Dryd33n/${repo}/${path.split('/').map(encodeURIComponent).join('/')}`;
 
 export const isPdf = (file: string) => file.toLowerCase().endsWith('.pdf');
@@ -150,7 +152,8 @@ export const shortestPathBenchmark: SchoolProject = {
     'The denser the graph, the earlier the crossover.',
     'Its simple triple loop suits the compiler and cache better than rebuilding a heap for every source.',
   ],
-  hero: { src: repoImage('uvic-csc-226', 'assignments/a2/plot_crossover.png'), alt: 'Line chart of the k/n ratio at which Floyd-Warshall-Roy becomes faster than Dijkstra, for four graph densities', width: 2668, height: 1767 },
+  explorer: 'shortest-paths',
+  hero: { src: repoAsset('uvic-csc-226', 'assignments/a2/plot_crossover.png'), alt: 'Line chart of the k/n ratio at which Floyd-Warshall-Roy becomes faster than Dijkstra, for four graph densities', width: 2668, height: 1767 },
   files: {
     'report.pdf': 'assignments/a2/a2.pdf',
     'dijkstra.c': 'assignments/a2/C-Implementation/dijkstra.c',
@@ -170,7 +173,7 @@ export const hashTableBenchmark: SchoolProject = {
   badges: ['C', 'Python', 'Matplotlib'],
   highlight: 'Linear probing beats chaining',
   summary:
-    'An experiment comparing two ways a hash table can handle collisions: separate chaining and linear probing. Both were written in C and timed across load factors from 0.5 to 0.95 and table sizes from 32 to 16.7 million slots.',
+    'An experiment comparing two ways a hash table can handle collisions: separate chaining and linear probing. Both were written in C and timed across load factors from 0.05 to 0.95 and table sizes from 32 to 16.7 million slots.',
   sections: [
     { title: 'Implementation', body: 'Both tables written in C with the same hash function and a fixed random seed, so every run is reproducible.' },
     { title: 'Workload', body: 'A realistic mix of operations: 50% inserts, 40% searches and 10% deletes.' },
@@ -181,7 +184,8 @@ export const hashTableBenchmark: SchoolProject = {
     'The gap comes from memory locality: probing reads neighbouring slots in one array, while chaining follows linked-list nodes scattered across memory.',
     'Chaining slows down much more steeply as the table fills up.',
   ],
-  hero: { src: repoImage('uvic-csc-226', 'assignments/a1/surface_comparison.png'), alt: '3D surface plots of operation time against load factor and table size, for linear probing and chaining', width: 4704, height: 1801 },
+  explorer: 'hash-tables',
+  hero: { src: repoAsset('uvic-csc-226', 'assignments/a1/surface_comparison.png'), alt: '3D surface plots of operation time against load factor and table size, for linear probing and chaining', width: 4704, height: 1801 },
   files: {
     'report.pdf': 'assignments/a1/a1.pdf',
     'linear_probing.c': 'assignments/a1/C implementation/linear_probing.c',
