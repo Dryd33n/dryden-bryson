@@ -332,6 +332,6 @@ export const latexWriteups: SchoolProject = {
 };
 
 export const schoolProjects = [
-  rayTracer, webglScenes, shortestPathBenchmark, hashTableBenchmark, clinicManager,
-  avrLcdDisplay, surveyProcessor, oddlyEqualArrays, latexWriteups,
+  rayTracer, webglScenes, avrLcdDisplay, clinicManager, shortestPathBenchmark,
+  hashTableBenchmark, oddlyEqualArrays, surveyProcessor, latexWriteups,
 ];

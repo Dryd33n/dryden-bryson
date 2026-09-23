@@ -17,7 +17,7 @@ export const metadata = {
 };
 
 export default function Portfolio() {
-  const softwareProjects = [spotimasher, sudoku, ludumDare46, musicMap, portfolio];
+  const softwareProjects = [portfolio, spotimasher, ludumDare46, sudoku, musicMap];
 
   return (
     <>
@@ -30,7 +30,17 @@ export default function Portfolio() {
       </div>
 
       <div className='px-4 md:px-10 lg:px-40'>
-        <h2 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h2>
+        <h2 id="schoolwork" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><MdSchool className="text-red-500" />SCHOOLWORK</h2>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Projects from University of Victoria Courses:</p>
+
+        <ScrollingContainer>
+          {schoolProjects.map((project) => (
+            <SchoolProjectCard key={project.slug} project={project} />
+          ))}
+        </ScrollingContainer>
+
+        <div className="h-40"></div>
+        <h2 id="code" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Software Development Projects:</p>
 
         <ScrollingContainer>
@@ -46,7 +56,7 @@ export default function Portfolio() {
         </ScrollingContainer>
 
         <div className="h-40"></div>
-        <h2 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><TbCube3dSphere className="text-red-500" />3D DESIGN</h2>
+        <h2 id="rendering" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><TbCube3dSphere className="text-red-500" />3D DESIGN</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured 3D Models:</p>
 
         <ScrollingContainer>
@@ -66,19 +76,6 @@ export default function Portfolio() {
             ]}
           />
           <ModelCard
-            name="Griffin-Bowl"
-            modelPath="/3D Models/GriffinBowl.glb"
-            environment={{ file: "/3D Models/hdri/skate_park.hdr" }}
-            subtitle="Griffin Bowl skatepark"
-            previewImage="/3D Models/griffinbowl-preview.webp"
-            techBadges={["Blender", "Substance Painter"]}
-            modelStats={[
-              { label: "Format", value: "GLB" },
-              { label: "Triangles", value: "17K" },
-              { label: "Textures", value: "4K PBR" },
-            ]}
-          />
-          <ModelCard
             name="Backyard-Pool"
             modelPath="/3D Models/BackyardPool.glb"
             environment={{ file: "/3D Models/hdri/tiergarten.hdr", intensity: 1.3 }}
@@ -88,6 +85,19 @@ export default function Portfolio() {
             modelStats={[
               { label: "Format", value: "GLB" },
               { label: "Triangles", value: "117K" },
+              { label: "Textures", value: "4K PBR" },
+            ]}
+          />
+          <ModelCard
+            name="Griffin-Bowl"
+            modelPath="/3D Models/GriffinBowl.glb"
+            environment={{ file: "/3D Models/hdri/skate_park.hdr" }}
+            subtitle="Griffin Bowl skatepark"
+            previewImage="/3D Models/griffinbowl-preview.webp"
+            techBadges={["Blender", "Substance Painter"]}
+            modelStats={[
+              { label: "Format", value: "GLB" },
+              { label: "Triangles", value: "17K" },
               { label: "Textures", value: "4K PBR" },
             ]}
           />
@@ -104,16 +114,6 @@ export default function Portfolio() {
               { label: "Textures", value: "1K PBR" },
             ]}
           />
-        </ScrollingContainer>
-
-        <div className="h-10"></div>
-        <h2 className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100"><MdSchool className="text-red-500" />SCHOOLWORK</h2>
-        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Projects from University of Victoria Courses:</p>
-
-        <ScrollingContainer>
-          {schoolProjects.map((project) => (
-            <SchoolProjectCard key={project.slug} project={project} />
-          ))}
         </ScrollingContainer>
 
         <div className="h-40"></div>
