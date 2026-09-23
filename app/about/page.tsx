@@ -39,7 +39,7 @@ export default function About() {
 
         {/* HEADER */}
         <div className="relative">
-            <div className="absolute top-6 left-6 z-10">
+            <div className="relative z-10 px-6 pt-6 lg:absolute lg:top-6 lg:left-6 lg:p-0">
                 <Navbar menuItemArrays={[home, portfolioItems, aboutItems, contactItems]} layout="horizontal" />
             </div>
             <PageHeader title="ABOUT" />
