@@ -5,6 +5,17 @@ export interface ProjectData {
   links: { href: string; label: string }[];
 }
 
+export const d2lScraper: ProjectData = {
+  name: 'D2L-Scraper',
+  techBadges: ['Python', 'Playwright', 'httpx', 'REST API', 'CLI'],
+  codeStats: [
+    { language: 'Python', percentage: '100%' }
+  ],
+  links: [
+    { href: 'https://github.com/Dryd33n/d2l-scraper', label: 'View Code' }
+  ]
+};
+
 export const spotimasher: ProjectData = {
   name: 'Spotimasher',
   techBadges: ['OAuth 2.0', 'SPOTIFY API', 'HTML / CSS', 'JavaScript'],

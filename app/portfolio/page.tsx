@@ -8,7 +8,7 @@ import ScrollingContainer from '../components/portfolio/ScrollingContainer';
 import ProjectCard from '../components/portfolio/ProjectCard';
 import ModelCard from '../components/portfolio/ModelCard';
 import SchoolProjectCard from '../components/portfolio/SchoolProjectCard';
-import { spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
+import { d2lScraper, spotimasher, sudoku, musicMap, portfolio, ludumDare46 } from '@/lib/projectsData';
 import { schoolProjects } from '@/lib/schoolworkData';
 
 export const metadata = {
@@ -17,7 +17,7 @@ export const metadata = {
 };
 
 export default function Portfolio() {
-  const softwareProjects = [portfolio, spotimasher, ludumDare46, sudoku, musicMap];
+  const softwareProjects = [d2lScraper, portfolio, spotimasher, ludumDare46, sudoku, musicMap];
 
   return (
     <>
