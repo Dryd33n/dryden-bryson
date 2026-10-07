@@ -3,7 +3,24 @@ export interface ProjectData {
   techBadges: string[];
   codeStats: { language: string; percentage: string }[];
   links: { href: string; label: string }[];
+  // Obsidian community plugin id; the card shows its live download count.
+  obsidianPluginId?: string;
 }
+
+export const batchPdfExport: ProjectData = {
+  name: 'Batch-PDF-Export',
+  techBadges: ['TypeScript', 'Obsidian API', 'esbuild', 'PDF'],
+  codeStats: [
+    { language: 'TypeScript', percentage: '97.1%' },
+    { language: 'Javascript', percentage: '2.0%' },
+    { language: 'CSS', percentage: '0.8%' }
+  ],
+  links: [
+    { href: 'https://community.obsidian.md/plugins/batch-pdf-export', label: 'View Plugin' },
+    { href: 'https://github.com/Dryd33n/obsidian-batch-pdf-export', label: 'View Code' }
+  ],
+  obsidianPluginId: 'batch-pdf-export'
+};
 
 export const d2lScraper: ProjectData = {
   name: 'D2L-Scraper',
@@ -27,29 +44,6 @@ export const spotimasher: ProjectData = {
   links: [
     { href: 'https://spotimasher.web.app', label: 'View Live Demo' },
     { href: 'https://github.com/Dryd33n/Spotimasher', label: 'View Code' }
-  ]
-};
-
-export const sudoku: ProjectData = {
-  name: 'Sudoku',
-  techBadges: ['Java', 'JavaFX', 'Backtracking', 'OOP'],
-  codeStats: [
-    { language: 'Java', percentage: '82.1%' },
-    { language: 'CSS', percentage: '17.9%' }
-  ],
-  links: [
-    { href: 'https://github.com/Dryd33n/sudoku', label: 'View Code' }
-  ]
-};
-
-export const musicMap: ProjectData = {
-  name: 'Music-Map',
-  techBadges: ['Python', 'Spotify API', 'Pandas', 'Numpy'],
-  codeStats: [
-    { language: 'Python', percentage: '100%' }
-  ],
-  links: [
-    { href: 'https://github.com/Dryd33n/spotifyDataView', label: 'View Code' }
   ]
 };
 

@@ -4,7 +4,7 @@ import TechBadge from './TechBadge';
 
 export interface CardStat {
   label: string;
-  value: string;
+  value: ReactNode;
 }
 
 // Each action icon carries its own hover motion.

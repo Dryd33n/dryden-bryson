@@ -1,4 +1,5 @@
 import ContentCard from './ContentCard';
+import ObsidianDownloads from './ObsidianDownloads';
 
 interface CodeStat {
   language: string;
@@ -15,14 +16,19 @@ interface ProjectCardProps {
   techBadges: string[];
   codeStats: CodeStat[];
   links: Link[];
+  obsidianPluginId?: string;
 }
 
-export default function ProjectCard({ name, techBadges, codeStats, links }: ProjectCardProps) {
+export default function ProjectCard({ name, techBadges, codeStats, links, obsidianPluginId }: ProjectCardProps) {
+  const stats = codeStats.map((stat) => ({ label: stat.language, value: stat.percentage }));
+
   return (
     <ContentCard
       name={name}
       badges={techBadges}
-      stats={codeStats.map((stat) => ({ label: stat.language, value: stat.percentage }))}
+      stats={obsidianPluginId
+        ? [{ label: 'Obsidian Downloads', value: <ObsidianDownloads pluginId={obsidianPluginId} /> }, ...stats]
+        : stats}
       actions={links.map((link) => ({ label: link.label, href: link.href }))}
     />
   );
