@@ -6,12 +6,12 @@ export const portfolioItems: MenuItem[] = [
     href: "/portfolio"
   },
   {
-    title: "├─ SCHOOLWORK",
-    href: "/portfolio#schoolwork"
+    title: "├─ SOFTWARE",
+    href: "/portfolio#software"
   },
   {
-    title: "├─ CODE",
-    href: "/portfolio#code"
+    title: "├─ SCHOOLWORK",
+    href: "/portfolio#schoolwork"
   },
   {
     title: "├─ RENDERING",

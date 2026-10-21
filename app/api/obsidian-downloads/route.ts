@@ -12,8 +12,8 @@ const STATS_URL = 'https://raw.githubusercontent.com/obsidianmd/obsidian-release
 
 const plugins = new Map(
   Object.values(projects)
-    .filter((p): p is projects.ProjectData => typeof p === 'object' && !!p.obsidianPluginId)
-    .map((p) => [p.obsidianPluginId!, p.links.find((l) => l.href.startsWith('https://github.com/'))?.href])
+    .flatMap((p) => (typeof p === 'object' && p.obsidianPlugins) || [])
+    .map((p) => [p.id, p.links.find((l) => /^https:\/\/github\.com\/[^/]+\/[^/]+$/.test(l.href))?.href])
 );
 
 async function fromObsidian(pluginId: string): Promise<number | undefined> {

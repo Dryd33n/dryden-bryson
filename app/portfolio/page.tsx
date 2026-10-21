@@ -8,7 +8,8 @@ import ScrollingContainer from '../components/portfolio/ScrollingContainer';
 import ProjectCard from '../components/portfolio/ProjectCard';
 import ModelCard from '../components/portfolio/ModelCard';
 import SchoolProjectCard from '../components/portfolio/SchoolProjectCard';
-import { batchPdfExport, d2lScraper, spotimasher, portfolio, ludumDare46 } from '@/lib/projectsData';
+import ObsidianPluginsCard from '../components/portfolio/ObsidianPluginsCard';
+import { qlaudified, obsidianPlugins, d2lScraper, spotimasher, portfolio, ludumDare46 } from '@/lib/projectsData';
 import { schoolProjects } from '@/lib/schoolworkData';
 
 export const metadata = {
@@ -17,7 +18,7 @@ export const metadata = {
 };
 
 export default function Portfolio() {
-  const softwareProjects = [batchPdfExport, d2lScraper, portfolio, spotimasher, ludumDare46];
+  const softwareProjects = [qlaudified, obsidianPlugins, d2lScraper, portfolio, spotimasher, ludumDare46];
 
   return (
     <>
@@ -30,29 +31,30 @@ export default function Portfolio() {
       </div>
 
       <div className='px-4 md:px-10 lg:px-40'>
+        <h2 id="software" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h2>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Software Development Projects:</p>
+
+        <ScrollingContainer>
+          {softwareProjects.map((project) => project.obsidianPlugins ? (
+            <ObsidianPluginsCard key={project.name} project={project} plugins={project.obsidianPlugins} />
+          ) : (
+            <ProjectCard
+              key={project.name}
+              name={project.name}
+              techBadges={project.techBadges}
+              codeStats={project.codeStats}
+              links={project.links}
+            />
+          ))}
+        </ScrollingContainer>
+
+        <div className="h-40"></div>
         <h2 id="schoolwork" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><MdSchool className="text-red-500" />SCHOOLWORK</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Projects from University of Victoria Courses:</p>
 
         <ScrollingContainer>
           {schoolProjects.map((project) => (
             <SchoolProjectCard key={project.slug} project={project} />
-          ))}
-        </ScrollingContainer>
-
-        <div className="h-40"></div>
-        <h2 id="code" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><FaCodeBranch className="text-red-500" />SOFTWARE DEVELOPMENT</h2>
-        <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Software Development Projects:</p>
-
-        <ScrollingContainer>
-          {softwareProjects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              name={project.name}
-              techBadges={project.techBadges}
-              codeStats={project.codeStats}
-              links={project.links}
-              obsidianPluginId={project.obsidianPluginId}
-            />
           ))}
         </ScrollingContainer>
 

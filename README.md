@@ -56,7 +56,9 @@ These are the projects shown on the [portfolio page](https://dryd3n.ca/portfolio
 
 | Project | What it's built with | Links |
 |---|---|---|
+| **qlaudified** (Claude Code plugin) | Python, Claude Code hooks | [Evaluation](https://github.com/Dryd33n/qlaudified/blob/master/eval/README.md#pre-registered-comparison-oct-21-2026) &nbsp; [Code](https://github.com/Dryd33n/qlaudified) |
 | **Batch PDF Export** (Obsidian plugin) | TypeScript, Obsidian API, esbuild | [Plugin](https://community.obsidian.md/plugins/batch-pdf-export) &nbsp; [Code](https://github.com/Dryd33n/obsidian-batch-pdf-export) |
+| **Tagging Folder** (Obsidian plugin) | TypeScript, Obsidian API, esbuild | [Release](https://github.com/Dryd33n/obsidian-tagging-folder/releases/latest) &nbsp; [Code](https://github.com/Dryd33n/obsidian-tagging-folder) |
 | **D2L Scraper** | Python, Playwright, httpx | [Code](https://github.com/Dryd33n/d2l-scraper) |
 | **Spotimasher** | JavaScript, Spotify Web API, OAuth 2.0 | [Live demo](https://spotimasher.web.app) &nbsp; [Code](https://github.com/Dryd33n/Spotimasher) |
 | **Protectors of the Core** (Ludum Dare 46) | Unity, C#, 3D modelling | [Play](https://drydenexe.itch.io/protectorsofthecore) &nbsp; [Results](https://ldjam.com/events/ludum-dare/46/protectors-of-the-core) &nbsp; [Code](https://github.com/Dryd33n/Ludum-Dare-46) |

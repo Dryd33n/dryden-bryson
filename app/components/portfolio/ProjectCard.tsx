@@ -1,34 +1,19 @@
 import ContentCard from './ContentCard';
-import ObsidianDownloads from './ObsidianDownloads';
-
-interface CodeStat {
-  language: string;
-  percentage: string;
-}
-
-interface Link {
-  href: string;
-  label: string;
-}
+import type { CodeStat, ProjectLink } from '@/lib/projectsData';
 
 interface ProjectCardProps {
   name: string;
   techBadges: string[];
   codeStats: CodeStat[];
-  links: Link[];
-  obsidianPluginId?: string;
+  links: ProjectLink[];
 }
 
-export default function ProjectCard({ name, techBadges, codeStats, links, obsidianPluginId }: ProjectCardProps) {
-  const stats = codeStats.map((stat) => ({ label: stat.language, value: stat.percentage }));
-
+export default function ProjectCard({ name, techBadges, codeStats, links }: ProjectCardProps) {
   return (
     <ContentCard
       name={name}
       badges={techBadges}
-      stats={obsidianPluginId
-        ? [{ label: 'Obsidian Downloads', value: <ObsidianDownloads pluginId={obsidianPluginId} /> }, ...stats]
-        : stats}
+      stats={codeStats.map((stat) => ({ label: stat.language, value: stat.percentage }))}
       actions={links.map((link) => ({ label: link.label, href: link.href }))}
     />
   );
