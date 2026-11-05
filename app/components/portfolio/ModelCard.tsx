@@ -17,6 +17,7 @@ interface ModelStat {
 
 interface ModelCardProps {
   name: string;
+  description: string;
   subtitle?: string;
   modelPath: string;
   previewImage?: string;
@@ -29,6 +30,7 @@ interface ModelCardProps {
 
 export default function ModelCard({
   name,
+  description,
   subtitle,
   modelPath,
   previewImage,
@@ -45,6 +47,7 @@ export default function ModelCard({
     <>
       <ContentCard
         name={name}
+        description={description}
         badges={techBadges}
         stats={modelStats}
         preview={previewImage ? (

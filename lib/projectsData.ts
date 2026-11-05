@@ -23,6 +23,7 @@ export interface ObsidianPlugin {
 
 export interface ProjectData {
   name: string;
+  description: string;
   techBadges: string[];
   codeStats: CodeStat[];
   links: ProjectLink[];
@@ -30,13 +31,29 @@ export interface ProjectData {
   obsidianPlugins?: ObsidianPlugin[];
 }
 
+export const ephget: ProjectData = {
+  name: 'ephget',
+  description: 'A simple lightweight ephemeral portable app manager for Windows written in Go.',
+  techBadges: ['Go', 'Windows', 'CLI', 'PowerShell'],
+  codeStats: [
+    { language: 'Go', percentage: '75.4%' },
+    { language: 'Python', percentage: '18.6%' },
+    { language: 'HTML', percentage: '4.0%' },
+    { language: 'PowerShell', percentage: '1.9%' }
+  ],
+  links: [
+    { href: 'https://ephget.dryd3n.ca/', label: 'View Catalog' },
+    { href: 'https://github.com/Dryd33n/ephget', label: 'View Code' }
+  ]
+};
+
 export const qlaudified: ProjectData = {
   name: 'qlaudified',
+  description: 'A Claude Code plugin that tracks each fact’s source and caveats.',
   techBadges: ['Python', 'Claude Code', 'Hooks', 'LLM Evaluation'],
   codeStats: [
     { language: 'Python', percentage: '99.8%' },
-    { language: 'Shell', percentage: '0.1%' },
-    { language: 'Go Template', percentage: '0.1%' }
+    { language: 'Shell', percentage: '0.1%' }
   ],
   links: [
     { href: 'https://github.com/Dryd33n/qlaudified/blob/master/eval/README.md#pre-registered-comparison-oct-21-2026', label: 'View Evaluation' },
@@ -46,6 +63,7 @@ export const qlaudified: ProjectData = {
 
 export const obsidianPlugins: ProjectData = {
   name: 'Obsidian-Plugins',
+  description: 'Two Obsidian plugins: batch export of notes to PDF, and automatic tagging by folder.',
   techBadges: ['TypeScript', 'Obsidian API', 'esbuild'],
   // Combined across both repos, by GitHub's byte counts.
   codeStats: [
@@ -106,6 +124,7 @@ export const obsidianPlugins: ProjectData = {
 
 export const d2lScraper: ProjectData = {
   name: 'D2L-Scraper',
+  description: 'Archives your D2L Brightspace courses for offline use and builds study packs from them.',
   techBadges: ['Python', 'Playwright', 'httpx', 'REST API', 'CLI'],
   codeStats: [
     { language: 'Python', percentage: '100%' }
@@ -117,6 +136,7 @@ export const d2lScraper: ProjectData = {
 
 export const spotimasher: ProjectData = {
   name: 'Spotimasher',
+  description: 'Blends two Spotify playlists into a new one on your account.',
   techBadges: ['OAuth 2.0', 'SPOTIFY API', 'HTML / CSS', 'JavaScript'],
   codeStats: [
     { language: 'Javascript', percentage: '65.0%' },
@@ -131,6 +151,7 @@ export const spotimasher: ProjectData = {
 
 export const portfolio: ProjectData = {
   name: 'Portfolio',
+  description: 'This site: a portfolio designed like a filesystem.',
   techBadges: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
   codeStats: [
     { language: 'TypeScript', percentage: '96.4%' },
@@ -144,6 +165,7 @@ export const portfolio: ProjectData = {
 
 export const ludumDare46: ProjectData = {
   name: 'Ludum-Dare-46',
+  description: 'A Unity game jam entry where you shield a decaying spaceship’s core from debris.',
   techBadges: ['Unity', 'C#', '3D Modelling', 'Game Jam'],
   codeStats: [
     { language: 'C#', percentage: '100%' }

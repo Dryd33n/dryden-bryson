@@ -56,6 +56,7 @@ These are the projects shown on the [portfolio page](https://dryd3n.ca/portfolio
 
 | Project | What it's built with | Links |
 |---|---|---|
+| **ephget** (portable app manager for Windows) | Go, PowerShell | [Catalog](https://ephget.dryd3n.ca/) &nbsp; [Code](https://github.com/Dryd33n/ephget) |
 | **qlaudified** (Claude Code plugin) | Python, Claude Code hooks | [Evaluation](https://github.com/Dryd33n/qlaudified/blob/master/eval/README.md#pre-registered-comparison-oct-21-2026) &nbsp; [Code](https://github.com/Dryd33n/qlaudified) |
 | **Batch PDF Export** (Obsidian plugin) | TypeScript, Obsidian API, esbuild | [Plugin](https://community.obsidian.md/plugins/batch-pdf-export) &nbsp; [Code](https://github.com/Dryd33n/obsidian-batch-pdf-export) |
 | **Tagging Folder** (Obsidian plugin) | TypeScript, Obsidian API, esbuild | [Release](https://github.com/Dryd33n/obsidian-tagging-folder/releases/latest) &nbsp; [Code](https://github.com/Dryd33n/obsidian-tagging-folder) |

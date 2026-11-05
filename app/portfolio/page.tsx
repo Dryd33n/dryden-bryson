@@ -9,7 +9,7 @@ import ProjectCard from '../components/portfolio/ProjectCard';
 import ModelCard from '../components/portfolio/ModelCard';
 import SchoolProjectCard from '../components/portfolio/SchoolProjectCard';
 import ObsidianPluginsCard from '../components/portfolio/ObsidianPluginsCard';
-import { qlaudified, obsidianPlugins, d2lScraper, spotimasher, portfolio, ludumDare46 } from '@/lib/projectsData';
+import { ephget, qlaudified, obsidianPlugins, d2lScraper, spotimasher, portfolio, ludumDare46 } from '@/lib/projectsData';
 import { schoolProjects } from '@/lib/schoolworkData';
 
 export const metadata = {
@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 export default function Portfolio() {
-  const softwareProjects = [qlaudified, obsidianPlugins, d2lScraper, portfolio, spotimasher, ludumDare46];
+  const softwareProjects = [ephget, qlaudified, obsidianPlugins, d2lScraper, portfolio, spotimasher, ludumDare46];
 
   return (
     <>
@@ -41,6 +41,7 @@ export default function Portfolio() {
             <ProjectCard
               key={project.name}
               name={project.name}
+              description={project.description}
               techBadges={project.techBadges}
               codeStats={project.codeStats}
               links={project.links}
@@ -65,6 +66,7 @@ export default function Portfolio() {
         <ScrollingContainer>
           <ModelCard
             name="Seylynn"
+            description="A 3D model of the Seylynn Bowl skatepark, textured with 4K PBR materials."
             modelPath="/3D Models/Seylynn.glb"
             subtitle="Seylynn Bowl skatepark"
             cameraDirection={[1, 2, 1]}
@@ -80,6 +82,7 @@ export default function Portfolio() {
           />
           <ModelCard
             name="Backyard-Pool"
+            description="A 3D model of a backyard pool skatepark, textured with 4K PBR materials."
             modelPath="/3D Models/BackyardPool.glb"
             environment={{ file: "/3D Models/hdri/tiergarten.hdr", intensity: 1.3 }}
             subtitle="Backyard pool skatepark"
@@ -93,6 +96,7 @@ export default function Portfolio() {
           />
           <ModelCard
             name="Griffin-Bowl"
+            description="A 3D model of the Griffin Bowl skatepark, textured with 4K PBR materials."
             modelPath="/3D Models/GriffinBowl.glb"
             environment={{ file: "/3D Models/hdri/skate_park.hdr" }}
             subtitle="Griffin Bowl skatepark"
@@ -106,6 +110,7 @@ export default function Portfolio() {
           />
           <ModelCard
             name="VX1000"
+            description="A 3D model of the Sony VX1000, the camcorder behind countless skate videos."
             modelPath="/3D Models/VX1000.glb"
             environment={{ file: "/3D Models/hdri/studio_small_08.hdr" }}
             subtitle="Sony VX1000 camcorder"

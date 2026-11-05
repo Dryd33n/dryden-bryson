@@ -25,6 +25,7 @@ export default function SchoolProjectCard({ project }: { project: SchoolProject 
     <>
       <ContentCard
         name={project.title}
+        description={project.description}
         badges={project.badges}
         stats={[
           { label: 'Course', value: project.course },

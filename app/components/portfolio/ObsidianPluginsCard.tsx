@@ -23,6 +23,7 @@ export default function ObsidianPluginsCard({ project, plugins }: { project: Pro
     <>
       <ContentCard
         name={project.name}
+        description={project.description}
         badges={project.techBadges}
         stats={[
           { label: 'Total Downloads', value: <ObsidianDownloads pluginIds={pluginIds} counts={counts} /> },

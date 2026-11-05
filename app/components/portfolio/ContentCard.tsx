@@ -26,6 +26,7 @@ export type CardAction = { label: string; icon?: CardActionIcon } & (
 
 interface ContentCardProps {
   name: string;
+  description: string;
   badges: string[];
   stats?: CardStat[];
   preview?: ReactNode;
@@ -35,18 +36,21 @@ interface ContentCardProps {
 const actionClass = "group flex items-center rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-accent hover:text-accent-strong hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent cursor-pointer w-full dark:border-white dark:text-white";
 
 /*
-  Shared shell for every card in the portfolio: a left rule, a /title, tech badges,
+  Shared shell for every card in the portfolio: a left rule, a /title, a one-line description, tech badges,
   an optional preview, label/value stats and full-width action buttons.
   ProjectCard, ModelCard and course cards are thin wrappers around it.
 */
-export default function ContentCard({ name, badges, stats = [], preview, actions = [] }: ContentCardProps) {
+export default function ContentCard({ name, description, badges, stats = [], preview, actions = [] }: ContentCardProps) {
   return (
     <div className="flex flex-row gap-4 w-[330px]">
       <div className="w-0.5 h-full bg-neutral-300 dark:bg-neutral-700"></div>
       <div className="pt-1 pb-4 flex flex-col h-full flex-1 min-w-0">
-        <h3 className={`text-2xl cursor-default break-words text-neutral-900 dark:text-neutral-100 ${preview ? 'mb-6' : 'mb-10'}`}>
+        <h3 className={`text-2xl cursor-default break-words text-neutral-900 dark:text-neutral-100 mb-2`}>
           <span className="inline text-red-500 text-xl">/</span>{name}
         </h3>
+
+        {/* A span, since the global p rule overrides text-* classes. Reserves three lines so badges line up across a row of cards. */}
+        <span className="block text-xs min-h-[3lh] mb-4 text-neutral-600 dark:text-neutral-400">{description}</span>
 
         <div className="flex flex-wrap gap-2 mb-4">
           {badges.map((badge) => (

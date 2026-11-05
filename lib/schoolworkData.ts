@@ -28,6 +28,7 @@ export interface ProjectSection {
 export interface SchoolProject {
   slug: string;
   title: string;
+  description: string;
   course: string;
   courseName: string;
   repo?: string;
@@ -68,6 +69,7 @@ const numbered = (display: string, repo: string, path: (n: number) => string, co
 export const rayTracer: SchoolProject = {
   slug: 'ray-tracer',
   title: 'Ray-Tracer',
+  description: 'A from-scratch Python ray tracer with Phong shading, shadows and reflections.',
   course: 'CSC 305',
   courseName: 'Computer Graphics',
   repo: 'uvic-csc-305',
@@ -99,6 +101,7 @@ export const rayTracer: SchoolProject = {
 export const webglScenes: SchoolProject = {
   slug: 'webgl-scenes',
   title: 'WebGL-Scenes',
+  description: 'Two interactive 3D scenes built on raw WebGL, with no 3D engine.',
   course: 'CSC 305',
   courseName: 'Computer Graphics',
   repo: 'uvic-csc-305',
@@ -137,6 +140,7 @@ export const webglScenes: SchoolProject = {
 export const shortestPathBenchmark: SchoolProject = {
   slug: 'shortest-path-benchmark',
   title: 'Shortest-Path-Benchmark',
+  description: 'Times Dijkstra against Floyd-Warshall-Roy in C to find when each one is faster.',
   course: 'CSC 226',
   courseName: 'Algorithms & Data Structures II',
   repo: 'uvic-csc-226',
@@ -170,6 +174,7 @@ export const shortestPathBenchmark: SchoolProject = {
 export const hashTableBenchmark: SchoolProject = {
   slug: 'hash-table-benchmark',
   title: 'Hash-Table-Benchmark',
+  description: 'Times chaining against linear probing in C across load factors.',
   course: 'CSC 226',
   courseName: 'Algorithms & Data Structures II',
   repo: 'uvic-csc-226',
@@ -201,6 +206,7 @@ export const hashTableBenchmark: SchoolProject = {
 export const clinicManager: SchoolProject = {
   slug: 'clinic-manager',
   title: 'Clinic-Manager',
+  description: 'A patient and notes system for a medical clinic, finished as a desktop app.',
   course: 'SENG 265',
   courseName: 'Software Development Methods',
   repo: 'uvic-seng-265',
@@ -231,6 +237,7 @@ export const clinicManager: SchoolProject = {
 export const avrLcdDisplay: SchoolProject = {
   slug: 'avr-lcd-display',
   title: 'AVR-LCD-Display',
+  description: 'Drives an LCD from an AVR microcontroller, with scrolling text and buttons.',
   course: 'CSC 230',
   courseName: 'Computer Architecture',
   repo: 'uvic-csc-230',
@@ -262,6 +269,7 @@ export const avrLcdDisplay: SchoolProject = {
 export const surveyProcessor: SchoolProject = {
   slug: 'survey-processor',
   title: 'Survey-Processor',
+  description: 'A C command-line tool that analyses student survey responses.',
   course: 'SENG 265',
   courseName: 'Software Development Methods',
   repo: 'uvic-seng-265',
@@ -285,6 +293,7 @@ export const surveyProcessor: SchoolProject = {
 export const oddlyEqualArrays: SchoolProject = {
   slug: 'oddly-equal-arrays',
   title: 'Oddly-Equal-Arrays',
+  description: 'A recursive, sub-quadratic test for whether two arrays are “oddly equal”.',
   course: 'CSC 225',
   courseName: 'Algorithms & Data Structures I',
   repo: 'uvic-csc-225',
@@ -305,6 +314,7 @@ export const oddlyEqualArrays: SchoolProject = {
 export const latexWriteups: SchoolProject = {
   slug: 'latex-write-ups',
   title: 'LaTeX-Write-ups',
+  description: 'Math and theory assignments from six courses, all typeset in LaTeX.',
   course: '6 courses',
   courseName: 'Mathematics, statistics and algorithms',
   badges: ['LaTeX', 'Proofs', 'Statistics'],
