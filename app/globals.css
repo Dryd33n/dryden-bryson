@@ -17,7 +17,6 @@
   --accent: #f76855;      /* icons, borders, large type */
   --accent-strong: #f76855; /* small accent text */
   --success: #00ff00;
-  font-family: "Arame-Mono", monospace;
 }
 
 :root.light {
@@ -39,7 +38,8 @@
   --color-accent-strong: var(--accent-strong);
   --color-success: var(--success);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-heading: "Arame-Mono", monospace;
 }
 
 /* Theme switch crossfade (see DarkModeToggle) */
@@ -52,7 +52,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Arame-Mono", monospace;
+  /* Running text is JetBrains Mono. Arame Mono has no lowercase, so it is kept for headings and nav. */
+  font-family: var(--font-jetbrains-mono), monospace;
 }
 
 .text-gradient-1{
@@ -80,13 +81,9 @@ body {
     font-family: "Arame-Mono", monospace;
   }
   p {
-    font-family: "Arame-Mono", monospace;
     font-size: 13pt;
     color: var(--text-body);
   }
-  span {
-    font-family: "Arame-Mono", monospace;
-}
 
   /* Keep dark inputs when browser autofills fields */
   input:-webkit-autofill,
@@ -126,14 +123,13 @@ body {
 }
 /*
   Project viewer (ProjectViewer.tsx). Always dark, like the 3D model viewer.
-  Code and overview text use Geist Mono: Arame Mono has no lowercase, which makes
-  long text and source code hard to read. These selectors are more specific than
-  the global p/span rules above, so they win over them.
+  Code and overview text use JetBrains Mono, set explicitly so it holds inside
+  rendered markdown and highlighted source.
 */
 .viewer-mono,
 .viewer-code span,
 .viewer-md span {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-jetbrains-mono), monospace;
 }
 
 .viewer-code pre {
@@ -144,7 +140,7 @@ body {
   line-height: 1.6;
 }
 .viewer-code code {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-jetbrains-mono), monospace;
   counter-reset: line;
 }
 .viewer-code .line::before {
@@ -158,7 +154,7 @@ body {
   user-select: none;
 }
 
-/* Overview text: Geist Mono for readability; headings keep Arame Mono via the h rule above. */
+/* Overview text: JetBrains Mono; headings keep Arame Mono via the h rule above. */
 .viewer-prose {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-jetbrains-mono), monospace;
 }

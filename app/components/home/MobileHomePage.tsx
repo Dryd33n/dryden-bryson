@@ -5,6 +5,8 @@ import FuzzyText from "@/app/components/typography/FuzzyText/FuzzyText";
 import Navbar from "@/app/components/global/navigation/Navbar";
 import TiltedCard from "@/app/components/global/TiltedIcon";
 import LetterGlitch from "@/app/components/backgrounds/letterGlitch";
+import TerminalRain from "@/app/components/backgrounds/TerminalRain";
+import { useKonamiCode } from "@/app/hooks/useKonamiCode";
 import DarkModeToggle from "../global/DarkModeToggle";
 import { portfolioItems, aboutItems, contactItems } from "@/lib/menuItems";
 import { useColorScheme } from "@/lib/colorScheme";
@@ -12,6 +14,7 @@ import { useColorScheme } from "@/lib/colorScheme";
 export default function MobileHomePage() {
   const [mounted, setMounted] = useState(false);
   const colorScheme = useColorScheme();
+  const konami = useKonamiCode();
 
   useEffect(() => {
     setMounted(true);
@@ -49,7 +52,11 @@ export default function MobileHomePage() {
           </div>
 
           {/* GLITCHTEXT BACKGROUND */}
-          {mounted && (
+          {konami ? (
+            <div className="w-full h-full absolute inset-0 -z-50">
+              <TerminalRain trailColor={colorScheme.rain.trail} headColor={colorScheme.rain.head} glow={colorScheme.rain.glow} />
+            </div>
+          ) : mounted && (
             <div className="w-full h-full absolute inset-0 -z-50 opacity-[12%]">
               <LetterGlitch
                 glitchSpeed={50}
@@ -69,7 +76,7 @@ export default function MobileHomePage() {
               hoverIntensity={0.1}
               enableHover={true}
               fontSize={"2.5rem"}
-              color={colorScheme.title.name}
+              color={konami ? colorScheme.rain.name : colorScheme.title.name}
             >
               Dryden Bryson
             </FuzzyText>

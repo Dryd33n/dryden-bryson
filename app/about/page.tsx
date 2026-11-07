@@ -1,3 +1,4 @@
+import BlinkingSquares from '../components/backgrounds/BlinkingSquares';
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/navigation/Navbar';
 import SkillsGallery from '@/app/components/skills/SkillsGallery';
@@ -35,7 +36,8 @@ export default function About() {
     ];
 
 
-    return (<>
+    return (<div className="relative">
+        <BlinkingSquares />
 
         {/* HEADER */}
         <div className="relative">
@@ -97,7 +99,7 @@ export default function About() {
             <div className="h-40"></div>
         </div>
 
-    </>)
+    </div>)
 
 
 }

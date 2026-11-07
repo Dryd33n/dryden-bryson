@@ -70,7 +70,7 @@ These are the projects shown on the [portfolio page](https://dryd3n.ca/portfolio
 | Area | Tools |
 |---|---|
 | Framework | [Next.js 15](https://nextjs.org) (App Router, Turbopack), [React 19](https://react.dev), TypeScript |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com), CSS custom properties, Arame Mono (self-hosted) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com), CSS custom properties, Arame Mono (self-hosted), JetBrains Mono |
 | Theming | [next-themes](https://github.com/pacocoursey/next-themes), View Transitions API |
 | Animation | [React Spring](https://www.react-spring.dev), [Framer Motion](https://motion.dev), HTML canvas |
 | 3D | [three.js](https://threejs.org), [React Three Fiber](https://r3f.docs.pmnd.rs), [drei](https://drei.docs.pmnd.rs) |
@@ -119,6 +119,7 @@ Everything except the contact form works without any setup. To send email from t
 
 ```bash
 RESEND_API_KEY=your_resend_api_key
+MOD_IO_API_KEY=your_modio_api_key
 ```
 
 The sender and recipient addresses are set in `app/hooks/sendEmail.ts`. The sender's domain has to be verified in your Resend account.
@@ -139,7 +140,7 @@ The sender and recipient addresses are set in `app/hooks/sendEmail.ts`. The send
 
 ## Deployment
 
-The site deploys to [Vercel](https://vercel.com) from this repository. Add `RESEND_API_KEY` to the project's environment variables so the contact form works in production.
+The site deploys to [Vercel](https://vercel.com) from this repository. Add `RESEND_API_KEY` and `MOD_IO_API_KEY` to the project's environment variables so the contact form works in production.
 
 ## Credits
 

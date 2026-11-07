@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/navigation/Navbar';
 import { aboutItems, contactItems, home, portfolioItems } from '@/lib/menuItems';
+import BlinkingSquares from '../components/backgrounds/BlinkingSquares';
 import ContactForm from './ContactForm';
 import { MdOutlineMail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
@@ -13,7 +14,8 @@ export const metadata = {
 };
 
 export default function Contact() {
-    return (<>
+    return (<div className="relative">
+        <BlinkingSquares />
 
         {/* HEADER */}
         <div className="relative">
@@ -23,9 +25,9 @@ export default function Contact() {
             <PageHeader title="CONTACT" />
         </div>
 
-        <div className='py-12 md:py-30 px-4 md:px-10 lg:px-40'>
-            <div className="md:mr-[50%]">
-                <p className="mt-10 text-sm md:text-base text-neutral-700 dark:text-white/80">Have a project in mind or just want to chat? Feel free to reach out. I&apos;m always open to discussing new opportunities, collaborations, or answering questions.</p>
+        <div className='pb-12 md:pb-30 px-4 md:px-10 lg:px-40'>
+            <div className="md:mr-[40%]">
+                <p className="text-sm md:text-base text-neutral-700 dark:text-white/80">Have a project in mind or just want to chat? Feel free to reach out. I&apos;m always open to discussing new opportunities, collaborations, or answering questions.</p>
                 <section id="contact-form"></section>
                 <h2 className="!text-xl md:!text-2xl !font-bold mt-12 md:mt-20" style={{ color: "var(--foreground)" }}><span><MdOutlineMail className="inline-block text-red-500 mr-2"/></span>Send a message</h2>
             </div>
@@ -35,7 +37,7 @@ export default function Contact() {
             <h2 className="!text-xl md:!text-2xl !font-bold mt-12 md:mt-20" style={{ color: "var(--foreground)" }}><span><FiUserPlus className="inline-block text-red-500 mr-2"/></span>Let&apos;s Connect!</h2>
 
             <section id="social-media"></section>
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:mr-[30%] mb-70">
+            <div className="mt-12 grid grid-cols-1 xl:grid-cols-2 gap-8 md:mr-[40%] mb-70">
                 {/* Contact Information */}
                 <div>
                     <h3 className="text-xl md:text-2xl font-bold mb-8" style={{ color: "var(--foreground)" }}>Contact Information</h3>
@@ -95,7 +97,7 @@ export default function Contact() {
         </div>
 
 
-    </>)
+    </div>)
 
 
 }

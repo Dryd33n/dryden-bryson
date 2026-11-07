@@ -8,10 +8,7 @@ interface SkillsGalleryProps {
 
 export default function SkillsGallery({ images, alternateDirection }: SkillsGalleryProps) {
     return (
-        <div className="relative mr-0 md:mr-[20%] opacity-90 select-none">
-            {/* Right Solid Bar for clipping */}
-            <div className="absolute w-5 h-full z-20 -right-2 bg-[var(--background)]"></div>
-            
+        <div className="relative mr-0 md:mr-[40%] opacity-90 select-none">
             {/* Left Glowing Bar */}
             <div className="absolute -left-[3px] top-0 h-full w-[5px] z-20
             bg-[#ff0000]
@@ -24,7 +21,7 @@ export default function SkillsGallery({ images, alternateDirection }: SkillsGall
             </div>
 
             {/* Image galleries */}
-            <div className="relative overflow-hidden">
+            <div className="infinite-scroll-fade relative overflow-hidden">
                 {images.map((imageArray, index) => {
                     const direction = alternateDirection
                         ? (index % 2 === 0 ? "right" : "left")

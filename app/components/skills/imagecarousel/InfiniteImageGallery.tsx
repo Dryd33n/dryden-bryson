@@ -9,9 +9,12 @@ interface InfiniteScrollGalleryProps {
   imageHeight?: number; // New property for image height
 }
 
+// Narrowest an icon and its margins can be; used to make sure one half of a row always fills the container.
+const MIN_IMAGE_SPACE = 55;
+const SECONDS_PER_IMAGE = 5;
+
 const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: InfiniteScrollGalleryProps) => {
-  const [images, setImages] = useState<string[]>([]);
-  const [imageWidth] = useState(25); // Default width for images
+  const [sets, setSets] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,32 +24,35 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
     const resizeObserver = new ResizeObserver(() => {
       const containerWidth = container.offsetWidth;
       if (containerWidth) {
-        // Calculate the number of images that fit in the container based on image size
-        const imagesToDisplay = Math.ceil(containerWidth / imageWidth);
-        setImages(Array(imagesToDisplay * 2).fill(imageHrefs).flat()); // Double the list and adjust for full width
+        setSets(Math.ceil(containerWidth / (imageHrefs.length * MIN_IMAGE_SPACE)));
       }
     });
 
     resizeObserver.observe(container);
     return () => resizeObserver.disconnect();
-  }, [imageHrefs, imageWidth]);
+  }, [imageHrefs]);
+
+  // Two identical halves: the row moves by exactly one half, so the loop is seamless.
+  const half: string[] = Array(sets).fill(imageHrefs).flat();
+  const images = [...half, ...half];
 
   return (
     <div className="infinite-scroll-container" ref={containerRef}>
-      <div className={direction === "left" ? `scrolling-row-left` : `scrolling-row-right`}>
-        <div className='flex flex-row -translate-x-[100vw]'>
-          {images.map((href, index) => (
-            <Image
-              key={index}
-              src={href}
-              alt={`Image ${index}`}
-              width={imageWidth}
-              height={imageHeight}
-              className="scrolling-image pointer-events-none invert dark:invert-0 drop-shadow-[0_0_5px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.25)]"
-              style={{ height: `${imageHeight}px`, width: 'auto' }}
-            />
-          ))}
-        </div>
+      <div
+        className={direction === "left" ? `scrolling-row-left` : `scrolling-row-right`}
+        style={{ animationDuration: `${half.length * SECONDS_PER_IMAGE}s` }}
+      >
+        {images.map((href, index) => (
+          <Image
+            key={index}
+            src={href}
+            alt={`Image ${index}`}
+            width={25}
+            height={imageHeight}
+            className="scrolling-image pointer-events-none invert dark:invert-0 drop-shadow-[0_0_5px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.25)]"
+            style={{ height: `${imageHeight}px`, width: 'auto' }}
+          />
+        ))}
       </div>
     </div>
   );
