@@ -1,6 +1,7 @@
 'use server'
 
 import { Resend } from 'resend';
+import { validateContactForm, type ContactFormData } from '@/lib/contactForm';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -14,14 +15,27 @@ function escapeHtml(value: string) {
         .replace(/'/g, '&#39;');
 }
 
-export async function sendContactEmail(formData: {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-}) {
+// Server actions can be called directly, so the input can't be assumed to be what the form sends.
+const clean = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+
+export async function sendContactEmail(submission: ContactFormData & { fax?: string }) {
+    // The spam trap was filled in. Report success so bots have no reason to adapt.
+    if (submission.fax) return;
+
+    const formData: ContactFormData = {
+        name: clean(submission.name),
+        email: clean(submission.email),
+        subject: clean(submission.subject),
+        message: clean(submission.message),
+    };
+
+    if (Object.keys(validateContactForm(formData)).length > 0) {
+        throw new Error('Invalid contact form submission');
+    }
+
     try {
-        const response = await resend.emails.send({
+        // Resend returns API failures (bad key, unverified domain, rate limit) instead of throwing them.
+        const { error } = await resend.emails.send({
             from: 'no-reply@dryd3n.ca',
             to: 'owner@dryd3n.ca',
             replyTo: formData.email,
@@ -79,7 +93,7 @@ export async function sendContactEmail(formData: {
             `
         });
 
-        return response;
+        if (error) throw new Error(`Resend rejected the email: ${error.message}`);
     } catch (error) {
         console.error('Failed to send email:', error);
         throw error;
