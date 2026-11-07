@@ -81,9 +81,9 @@ export default function ModelViewer({ name, subtitle, modelPath, cameraDirection
             type="button"
             onClick={onClose}
             aria-label="Close model viewer"
-            className="ml-auto shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent"
+            className="relative after:absolute after:-inset-2 ml-auto shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent"
           >
-            <MdClose className="h-5 w-5" />
+            <MdClose className="h-6 w-6 lg:h-5 lg:w-5" />
           </button>
         </div>
 
@@ -124,8 +124,8 @@ export default function ModelViewer({ name, subtitle, modelPath, cameraDirection
 
         {/* Controls legend */}
         <div className="px-4 py-2 border-t border-neutral-700 text-[11px] uppercase tracking-[0.2em] text-neutral-500 cursor-default">
-          <span className="pointer-coarse:hidden">Drag rotate · Right-drag pan · Scroll zoom · Double-click reset</span>
-          <span className="hidden pointer-coarse:inline">Drag rotate · Pinch zoom · Two fingers pan</span>
+          <span className="[@media(pointer:coarse)]:hidden">Drag rotate · Right-drag pan · Scroll zoom · Double-click reset</span>
+          <span className="hidden [@media(pointer:coarse)]:inline">Drag rotate · Pinch zoom · Two fingers pan</span>
         </div>
       </div>
     </div>,

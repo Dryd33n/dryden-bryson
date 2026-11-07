@@ -264,9 +264,9 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
             type="button"
             onClick={onClose}
             aria-label="Close project"
-            className={`${project.repo ? '' : 'ml-auto'} shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent`}
+            className={`${project.repo ? '' : 'ml-auto'} relative after:absolute after:-inset-2 shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent`}
           >
-            <MdClose className="h-5 w-5" />
+            <MdClose className="h-6 w-6 lg:h-5 lg:w-5" />
           </button>
         </div>
 

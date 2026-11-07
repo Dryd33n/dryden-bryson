@@ -105,6 +105,8 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
       const interactiveRight = interactiveLeft + textBoundingWidth;
       const interactiveBottom = interactiveTop + tightHeight;
 
+      // Draws one still frame for visitors who prefer reduced motion.
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let isHovering = false;
       const fuzzRange = 30;
 
@@ -131,7 +133,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
             1
           );
         }
-        animationFrameId = window.requestAnimationFrame(run);
+        if (!reducedMotion) animationFrameId = window.requestAnimationFrame(run);
       };
 
       run();

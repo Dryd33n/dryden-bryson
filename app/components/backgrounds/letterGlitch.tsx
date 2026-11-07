@@ -206,9 +206,12 @@ const LetterGlitch = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // resizeCanvas draws a frame, which is all that visitors who prefer reduced motion get.
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     context.current = canvas.getContext('2d');
     resizeCanvas();
-    animate();
+    if (!reducedMotion) animate();
 
     let resizeTimeout: NodeJS.Timeout;
 
@@ -219,7 +222,7 @@ const LetterGlitch = ({
           cancelAnimationFrame(animationRef.current); // Stop animation loop during resize
         }
         resizeCanvas();
-        animate(); // Restart after resizing
+        if (!reducedMotion) animate(); // Restart after resizing
       }, 100);
     };
 

@@ -14,7 +14,7 @@ interface ObsidianPluginsModalProps {
   onClose: () => void;
 }
 
-const linkClass = "group flex items-center gap-2 rounded-sm border border-white/60 px-2 py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+const linkClass = "group relative after:absolute after:-inset-x-1 after:-inset-y-2 flex items-center gap-2 rounded-sm border border-white/60 px-2 py-1.5 lg:py-1 text-xs uppercase tracking-[0.2em] text-white transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 // Side-by-side details for each plugin on the combined Obsidian card, styled like ProjectViewer.
 export default function ObsidianPluginsModal({ title, plugins, counts, onClose }: ObsidianPluginsModalProps) {
@@ -49,9 +49,9 @@ export default function ObsidianPluginsModal({ title, plugins, counts, onClose }
             type="button"
             onClick={onClose}
             aria-label="Close plugins"
-            className="ml-auto shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent"
+            className="relative after:absolute after:-inset-2 ml-auto shrink-0 text-white hover:text-accent transition-colors bg-black/50 rounded-full p-2 focus-visible:outline-2 focus-visible:outline-accent"
           >
-            <MdClose className="h-5 w-5" />
+            <MdClose className="h-6 w-6 lg:h-5 lg:w-5" />
           </button>
         </div>
 

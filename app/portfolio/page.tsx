@@ -24,7 +24,7 @@ export default function Portfolio() {
 
   return (
     <div className="relative">
-      <BlinkingSquares />
+      <BlinkingSquares showFrom="lg" />
 
       {/* HEADER */}
       <div className="relative">

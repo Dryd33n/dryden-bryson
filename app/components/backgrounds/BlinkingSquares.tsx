@@ -75,7 +75,7 @@ interface Square {
   and only as much width as the squares need. Decorative, so it's hidden from assistive tech
   and small screens, and holds still for visitors who prefer reduced motion.
 */
-export default function BlinkingSquares() {
+export default function BlinkingSquares({ showFrom = 'md' }: { showFrom?: 'md' | 'lg' }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const clock = useRef(0); // survives restarts so the twinkle doesn't jump
   const { resolvedTheme } = useTheme();
@@ -181,7 +181,7 @@ export default function BlinkingSquares() {
       ref={canvasRef}
       aria-hidden="true"
       style={{ width: `${(1 - SETTINGS[theme].fadeStart) * 100}%` }}
-      className="hidden md:block absolute top-0 right-0 h-full -z-50 pointer-events-none"
+      className={`hidden ${showFrom === 'lg' ? 'lg:block' : 'md:block'} absolute top-0 right-0 h-full -z-50 pointer-events-none`}
     />
   );
 }
