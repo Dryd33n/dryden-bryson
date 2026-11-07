@@ -26,11 +26,9 @@ export default function NotFound() {
 
     <div className="pb-12 md:pb-30 px-4 md:px-10 lg:px-40">
       <div className="md:mr-[40%]">
-        <p className="text-sm md:text-base mb-8">This page doesn&apos;t exist. It may have moved, or the link may be out of date.</p>
-        <div className="flex flex-wrap gap-x-8 gap-y-4">
-          <Link href="/portfolio" className={linkClass}>View my portfolio</Link>
-          <Link href="/contact" className={linkClass}>Get in touch</Link>
-        </div>
+        <p className="text-sm md:text-base">
+          Hi there, looks like you got lost. <Link href="/" className={linkClass}>Take me home</Link>
+        </p>
       </div>
     </div>
   </div>);
