@@ -127,18 +127,18 @@ export default function ScrollingContainer({ children }: ScrollingContainerProps
 
   return (
     <div className="">
-      {/* Hide the native scrollbar */}
+      {/* Hide the native scrollbar. From md up, cards fade out before the dense BlinkingSquares field. The clip-path stops the fully faded area taking clicks, the right padding lets the last card scroll clear of the fade, and scroll-pr brings keyboard-focused cards into view. */}
       <div
         ref={scrollRef}
-        className="overflow-x-auto pb-2 -mx-4 px-6 md:-mx-10 md:px-12 lg:-mx-40 lg:px-44 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="overflow-x-auto pb-2 -mx-4 px-6 md:-mx-10 md:pl-12 md:pr-[50vw] lg:-mx-40 lg:pl-44 md:[mask-image:linear-gradient(to_right,black_50%,transparent_70%)] md:[clip-path:inset(0_30%_0_0)] md:scroll-pr-[50vw] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         <div className="flex flex-row gap-30 w-max py-5">
           {children}
         </div>
       </div>
 
-      {/* Custom centered scrollbar with arrows */}
-      <div className="flex items-center justify-center gap-4 mt-4">
+      {/* Custom scrollbar with arrows: centered on small screens, in the text column from md up */}
+      <div className="flex items-center justify-center gap-4 mt-4 md:mr-[40%]">
         <button
           onMouseDown={handleLeftMouseDown}
           onMouseUp={handleMouseUp}
@@ -149,7 +149,7 @@ export default function ScrollingContainer({ children }: ScrollingContainerProps
           <MdChevronLeft size={24} />
         </button>
         
-        <div ref={trackRef} className="relative h-3 w-[60vw] rounded-xs bg-transparent cursor-pointer">
+        <div ref={trackRef} className="relative h-3 w-[60vw] md:w-auto md:flex-1 rounded-xs bg-transparent cursor-pointer">
           <div
             ref={thumbRef}
             className="absolute top-0 left-0 h-full bg-gradient-to-r rounded-xs border-1 border-[#ff6b3d] transition-all duration-75 cursor-grab active:cursor-grabbing hover:drop-shadow-[0_0_12px_rgba(247,104,85,0.8)]"

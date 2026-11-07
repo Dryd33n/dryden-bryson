@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { MdArrowOutward, MdClose } from 'react-icons/md';
 import ObsidianDownloads, { type DownloadCounts } from './ObsidianDownloads';
 import type { ObsidianPlugin } from '@/lib/projectsData';
@@ -23,7 +24,7 @@ export default function ObsidianPluginsModal({ title, plugins, counts, onClose }
 
   const pluginIds = plugins.map((p) => p.id);
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div
         ref={dialogRef}
@@ -109,6 +110,7 @@ export default function ObsidianPluginsModal({ title, plugins, counts, onClose }
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

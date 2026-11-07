@@ -1,6 +1,7 @@
 'use client';
 
 import { Component, type ReactNode, useCallback, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { MdClose, MdOutlineCenterFocusStrong, MdOutline360, MdGridOn } from 'react-icons/md';
 import ThreeDViewer, { type EnvironmentSettings, type ModelStats } from './3DViewer';
 import { useDialog } from '@/app/hooks/useDialog';
@@ -57,7 +58,7 @@ export default function ModelViewer({ name, subtitle, modelPath, cameraDirection
 
   useDialog(dialogRef, closeRef, onClose);
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div
         ref={dialogRef}
@@ -127,6 +128,7 @@ export default function ModelViewer({ name, subtitle, modelPath, cameraDirection
           <span className="hidden pointer-coarse:inline">Drag rotate · Pinch zoom · Two fingers pan</span>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

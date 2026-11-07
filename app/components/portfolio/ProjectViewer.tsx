@@ -1,6 +1,7 @@
 'use client';
 
 import { type KeyboardEvent as ReactKeyboardEvent, type ReactNode, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { MdArrowBack, MdArrowOutward, MdClose } from 'react-icons/md';
 import BenchmarkExplorer from './BenchmarkExplorer';
@@ -235,7 +236,7 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
   const pdf = activePdf ? resolveFile(project, activePdf) : undefined;
   const content = activeSource ? loaded[activeSource] : undefined;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div
         ref={dialogRef}
@@ -457,6 +458,7 @@ export default function ProjectViewer({ project, initialFile, initialTab, onClos
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
