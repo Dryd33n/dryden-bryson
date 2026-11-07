@@ -1,15 +1,58 @@
-# Dryden Bryson Website
+# Dryden Bryson
 
-This site may be indexed by LLMs and AI assistants.
+> Personal portfolio of Dryden Bryson, a computer science student at the University of Victoria (BSc, Software Systems Specialization, expected June 2027) and software developer based in Victoria, BC, Canada. The site covers software projects, university coursework and 3D models.
 
-## Allowed
-- Public pages and static assets.
+Much of the portfolio page is interactive: project details open in cards, modals and viewers. The notes below summarise each project, and the linked repositories and pages hold the full detail.
 
-## Disallowed
-- Private data, credentials, hidden/admin routes, and any non-public endpoints.
+- Languages: Java, Python, TypeScript, C, C#, R and assembly.
+- Frameworks and tools: React, Next.js, Tailwind CSS, Node.js, PostgreSQL, PyQt, JavaFX, Blender and Unity.
+- Availability: open to freelance projects and full-time roles. Replies take 24-48 hours.
+- Schoolwork projects are University of Victoria course assignments, and several share one course repository.
 
-## Source
-- Canonical content is served from this website's public pages.
+## Pages
 
-## Contact
-- Use the contact form on /contact for permission requests or attribution questions.
+- [Home](https://dryd3n.ca/): Landing page with links to the rest of the site
+- [Portfolio](https://dryd3n.ca/portfolio): Software projects, schoolwork and 3D models, with live demos and a source viewer
+- [About](https://dryd3n.ca/about): Bio, full skills list and education
+- [Contact](https://dryd3n.ca/contact): Contact form, email address (drydenbryson@dryd3n.ca) and social links
+
+## Software
+
+- [ephget](https://github.com/Dryd33n/ephget): Lightweight ephemeral portable app manager for Windows, written in Go
+- [qlaudified](https://github.com/Dryd33n/qlaudified): Claude Code plugin that tracks each fact's source and caveats, written in Python
+- [Batch PDF Export](https://github.com/Dryd33n/obsidian-batch-pdf-export): Obsidian plugin that exports a folder of notes to separate PDFs or one combined PDF with a table of contents
+- [Tagging Folder](https://github.com/Dryd33n/obsidian-tagging-folder): Obsidian plugin that automatically tags notes based on their folder
+- [D2L Scraper](https://github.com/Dryd33n/d2l-scraper): Python tool that archives D2L Brightspace courses for offline use and builds study packs from them
+- [Spotimasher](https://spotimasher.web.app): Web app that blends two Spotify playlists into a new one
+- [Protectors of the Core](https://drydenexe.itch.io/protectorsofthecore): Unity game made for Ludum Dare 46, where you shield a decaying spaceship's core from debris
+- [This site](https://github.com/Dryd33n/dryden-bryson): Source for this portfolio, built with Next.js, React, TypeScript and Tailwind CSS and designed like a filesystem
+
+## Schoolwork
+
+- [Ray-Tracer](https://github.com/Dryd33n/uvic-csc-305): CSC 305. From-scratch Python ray tracer with Phong shading, shadows and recursive reflections
+- [WebGL-Scenes](https://github.com/Dryd33n/uvic-csc-305): CSC 305. Two interactive 3D scenes built on raw WebGL with no 3D engine
+- [Shortest-Path-Benchmark](https://github.com/Dryd33n/uvic-csc-226): CSC 226. Dijkstra against Floyd-Warshall-Roy in C; Floyd-Warshall-Roy overtakes Dijkstra past about 23% of vertices as sources, on average
+- [Hash-Table-Benchmark](https://github.com/Dryd33n/uvic-csc-226): CSC 226. Chaining against linear probing in C; linear probing was faster at nearly every load factor and table size
+- [Oddly-Equal-Arrays](https://github.com/Dryd33n/uvic-csc-225): CSC 225. Recursive, sub-quadratic array equality test in Java that runs in O(n^1.58)
+- [AVR-LCD-Display](https://github.com/Dryd33n/uvic-csc-230): CSC 230. AVR assembly and C programs that drive an LCD using timers, interrupts and buttons
+- [Clinic-Manager](https://github.com/Dryd33n/uvic-seng-265): SENG 265. Patient and notes system in Python, finished as a PyQt6 desktop app
+- [Survey-Processor](https://github.com/Dryd33n/uvic-seng-265): SENG 265. C command-line tool that analyses student survey responses using dynamic memory
+- [LaTeX Write-ups](https://dryd3n.ca/portfolio#schoolwork): Math, statistics and algorithms assignments from six courses, typeset in LaTeX
+
+## 3D Models
+
+- [Seylynn Bowl](https://mod.io/g/skaterxl/m/seylynn-bowl): Skatepark model made in Blender and Substance Painter, published as a Skater XL map
+- [Backyard Pool](https://mod.io/g/skaterxl/m/the-pool): Backyard pool skatepark model, published as a Skater XL map
+- [Griffin Bowl](https://mod.io/g/skaterxl/m/griffin-bowl-north-vancouver): Skatepark model, published as a Skater XL map
+- [Sony VX1000](https://dryd3n.ca/portfolio#rendering): Model of the camcorder, viewable in the site's 3D viewer
+
+## Optional
+
+- [ephget catalog](https://ephget.dryd3n.ca/): Browsable catalog of apps available through ephget
+- [qlaudified evaluation](https://github.com/Dryd33n/qlaudified/blob/master/eval/README.md#pre-registered-comparison-oct-21-2026): Pre-registered comparison of the plugin from October 2026
+- [Batch PDF Export listing](https://community.obsidian.md/plugins/batch-pdf-export): Obsidian community plugin page
+- [Spotimasher source](https://github.com/Dryd33n/Spotimasher): JavaScript source using the Spotify API and OAuth 2.0
+- [Ludum Dare 46 results](https://ldjam.com/events/ludum-dare/46/protectors-of-the-core): Game jam entry page for Protectors of the Core
+- [GitHub](https://github.com/Dryd33n): All public repositories
+- [LinkedIn](https://www.linkedin.com/in/drydenbryson/): Professional profile
+- [Privacy Policy](https://dryd3n.ca/privacy): How the site handles contact form submissions, analytics and other visitor data
