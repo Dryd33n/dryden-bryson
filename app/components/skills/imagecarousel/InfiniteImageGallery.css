@@ -36,6 +36,14 @@
     margin-bottom: 7px;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .scrolling-row-left,
+    .scrolling-row-right {
+      animation: none;
+      will-change: auto;
+    }
+  }
+
   @keyframes scrollLeft {
     from {
       transform: translateX(0);

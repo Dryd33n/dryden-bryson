@@ -119,8 +119,14 @@ export default function DecryptedText({
       }
     }
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     const startAnimation = () => {
       setIsVisible(true)
+      if (reducedMotion) {
+        setDisplayText(text)
+        return
+      }
       setIsScrambling(true)
       interval = setInterval(() => {
         setRevealedIndices((prevRevealed) => {
@@ -151,7 +157,7 @@ export default function DecryptedText({
     }
 
     if (isHovering) {
-      timeout = setTimeout(startAnimation, delay)
+      timeout = setTimeout(startAnimation, reducedMotion ? 0 : delay)
     } else {
       setDisplayText(text)
       setRevealedIndices(new Set())

@@ -3,11 +3,13 @@ import BlinkingSquares from '../components/backgrounds/BlinkingSquares';
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/navigation/Navbar';
 import { aboutItems, contactItems, home, portfolioItems } from '@/lib/menuItems';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: "Privacy Policy",
+export const metadata = pageMetadata({
+  title: "Privacy Policy | Dryden Bryson",
   description: "How dryd3n.ca handles contact form submissions, analytics, and other visitor data.",
-};
+  path: "/privacy",
+});
 
 const CONTACT_EMAIL = "drydenbryson@dryd3n.ca";
 
@@ -91,6 +93,10 @@ export default function Privacy() {
           <p>
             The site saves your light or dark theme choice in your browser&apos;s local storage so it&apos;s remembered between visits.
             That setting stays on your device, and you can remove it by clearing your browser&apos;s site data.
+          </p>
+          <p>
+            While you write a message, the contact form keeps a draft in your browser&apos;s session storage so it isn&apos;t lost if you visit another page.
+            The draft stays on your device until you send the message or close the tab.
           </p>
         </Section>
 

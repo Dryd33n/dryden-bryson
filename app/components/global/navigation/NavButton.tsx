@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSprings, animated, useSpringRef } from "@react-spring/web";
+import { FiChevronDown } from "react-icons/fi";
 import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 import DecryptedText from "@/app/components/typography/DecryptedText/DecryptedText";
 import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
@@ -33,6 +34,9 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
     const [inView, setInView] = useState(false);
     const onExpandedChangeRef = useRef(onExpandedChange);
     const containerRef = useRef<HTMLDivElement>(null);
+    const toggleRef = useRef<HTMLButtonElement>(null);
+    const subMenuRef = useRef<HTMLDivElement>(null);
+    const subMenuId = useId();
     const animatedCount = useRef(0);
     const hasStarted = useRef(false);
     const springRef = useSpringRef();
@@ -49,9 +53,13 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
     const isMobile = width <= DESKTOP_MOBILE_BREAKPOINT;
     const hasSubMenu = subMenuItems.length > 0;
     const letters = mainMenuItem.title.split('');
+    // The chevron animates as one more character, straight after the last letter.
+    const animatedItemCount = letters.length + (hasSubMenu ? 1 : 0);
+    const isCurrentPage = pathname === mainMenuItem.href;
+    const isOpen = hasSubMenu && (isExpanded || (!isMobile && hovered && animationComplete));
 
     const [springs] = useSprings(
-        letters.length,
+        animatedItemCount,
         () => ({
             ref: springRef,
             from: letterAnimationFrom,
@@ -94,20 +102,22 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
         if (!inView || hasStarted.current) return;
         hasStarted.current = true;
         animatedCount.current = 0;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         springRef.start((i: number) => ({
             to: async (next: any) => {
-                await next({ filter: 'blur(5px)', opacity: 0.5, transform: 'translate3d(0,-5px,0)' });
-                await next({ filter: 'blur(0px)', opacity: 1, transform: 'translate3d(0,0,0)' });
+                if (!reducedMotion) await next({ filter: 'blur(5px)', opacity: 0.5, transform: 'translate3d(0,-5px,0)' });
+                await next({ filter: 'blur(0px)', opacity: 1, transform: 'translate3d(0,0,0)', immediate: reducedMotion });
                 animatedCount.current += 1;
-                if (animatedCount.current === letters.length) {
+                if (animatedCount.current === animatedItemCount) {
                     springRef.set({ filter: 'none', transform: 'none', opacity: 1 });
                     setAnimationComplete(true);
                 }
             },
-            delay: i * 20,
+            delay: reducedMotion ? 0 : i * 20,
         }));
     }, [inView]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    // Below the breakpoint, the first tap on a parent link opens its menu and the second navigates.
     const handleMainButtonClick = (e: React.MouseEvent) => {
         if (!isMobile || !hasSubMenu) return;
         e.preventDefault();
@@ -118,42 +128,94 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
         }
     };
 
+    const closeMenu = () => {
+        setHovered(false);
+        onExpandedChangeRef.current?.(false);
+    };
+
+    // Escape also dismisses a menu opened by hover, wherever focus happens to be.
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key !== 'Escape') return;
+            const focusWasInSubMenu = subMenuRef.current?.contains(document.activeElement);
+            closeMenu();
+            if (focusWasInSubMenu) toggleRef.current?.focus();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen]);
+
+    // Only keyboard focus arriving from outside opens the menu, so Escape returning focus to the toggle doesn't reopen it.
+    const handleFocus = (e: React.FocusEvent) => {
+        if (!hasSubMenu || containerRef.current?.contains(e.relatedTarget)) return;
+        if (e.target.matches(':focus-visible')) onExpandedChange?.(true);
+    };
+
+    const handleBlur = (e: React.FocusEvent) => {
+        if (hasSubMenu && !containerRef.current?.contains(e.relatedTarget)) onExpandedChange?.(false);
+    };
+
     return (
         <div
             ref={containerRef}
             className="relative cursor-pointer"
-            onMouseEnter={() => !isMobile && animationComplete && setHovered(true)}
-            onMouseLeave={() => !isMobile && setHovered(false)}
+            // Pointer events, because touch fires emulated mouse events that would open the menu just before a tap toggled it.
+            onPointerEnter={(e) => e.pointerType === 'mouse' && !isMobile && animationComplete && setHovered(true)}
+            onPointerLeave={(e) => e.pointerType === 'mouse' && !isMobile && setHovered(false)}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
         >
-            <Link
-                href={mainMenuItem.href}
-                aria-label={linkLabel(mainMenuItem.title)}
-                onClick={handleMainButtonClick}
-                className={[
-                    'text-lg transition-transform duration-300 ease-out inline-flex',
-                    animationComplete ? '' : 'pointer-events-none',
-                    hovered && !isMobile && animationComplete ? 'scale-[1.05] text-gradient-1' : '',
-                    isMobile && isExpanded && animationComplete ? 'text-gradient-1' : '',
-                ].join(' ')}
-                style={{ color: "var(--text-nav)" }}
-            >
-                {springs.map((props, i) => (
-                    <animated.span key={i} style={props}>
-                        <span className="inline-block">
-                            {letters[i] === ' ' ? '\u00A0' : letters[i]}
-                        </span>
-                    </animated.span>
-                ))}
-            </Link>
+            <div className="inline-flex items-center">
+                <Link
+                    href={mainMenuItem.href}
+                    aria-label={linkLabel(mainMenuItem.title)}
+                    aria-current={isCurrentPage ? 'page' : undefined}
+                    onClick={handleMainButtonClick}
+                    className={[
+                        'relative text-lg transition-transform duration-300 ease-out inline-flex',
+                        animationComplete ? '' : 'pointer-events-none',
+                        hovered && !isMobile && animationComplete ? 'scale-[1.05] text-gradient-1' : '',
+                        isExpanded && animationComplete ? 'text-gradient-1' : '',
+                        isCurrentPage ? 'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent' : '',
+                    ].join(' ')}
+                    style={{ color: isCurrentPage ? "var(--accent-strong)" : "var(--text-nav)" }}
+                >
+                    {springs.slice(0, letters.length).map((props, i) => (
+                        <animated.span key={i} style={props}>
+                            <span className="inline-block">
+                                {letters[i] === ' ' ? '\u00A0' : letters[i]}
+                            </span>
+                        </animated.span>
+                    ))}
+                </Link>
+
+                {hasSubMenu && (
+                    <button
+                        ref={toggleRef}
+                        type="button"
+                        aria-label={`${linkLabel(mainMenuItem.title)} sections`}
+                        aria-expanded={isOpen}
+                        aria-controls={isOpen ? subMenuId : undefined}
+                        onClick={() => isOpen ? closeMenu() : onExpandedChange?.(true)}
+                        className="relative ml-0.5 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm after:absolute after:-inset-1 hover:text-accent-strong focus-visible:outline-2 focus-visible:outline-accent"
+                        style={{ color: "var(--text-nav)" }}
+                    >
+                        <animated.span style={springs[letters.length]} className="inline-flex">
+                            <FiChevronDown aria-hidden="true" className={`motion-safe:transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                        </animated.span>
+                    </button>
+                )}
+            </div>
 
             {/* Submenu */}
-            {hasSubMenu && (isMobile ? isExpanded : hovered && animationComplete) && (
-                <div className={isMobile
+            {isOpen && (
+                <div ref={subMenuRef} id={subMenuId} className={isMobile
                     ? 'flex flex-col rounded mt-2'
                     : 'absolute left-0 top-full flex flex-col rounded'
                 }>
                     {subMenuItems.map((item, index) => (
-                        <Link key={index} href={item.href} aria-label={linkLabel(item.title)} className="whitespace-nowrap">
+                        <Link key={index} href={item.href} aria-label={linkLabel(item.title)} onClick={closeMenu} className="whitespace-nowrap">
                             <DecryptedText
                                 text={item.title}
                                 animateOn="view"

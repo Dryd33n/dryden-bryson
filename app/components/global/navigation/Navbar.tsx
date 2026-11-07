@@ -22,7 +22,6 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
     : 'flex flex-row gap-10';
 
   useEffect(() => {
-    if (!isMobile) return;
     const handlePointerDown = (e: PointerEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
         setExpandedMenuIndex(null);
@@ -30,7 +29,7 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
     };
     document.addEventListener('pointerdown', handlePointerDown);
     return () => document.removeEventListener('pointerdown', handlePointerDown);
-  }, [isMobile]);
+  }, []);
 
   return (
     <nav ref={navRef} className={`${containerClass} select-none font-heading`}>
@@ -39,7 +38,7 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
           key={index}
           menuItems={menuItems}
           isExpanded={expandedMenuIndex === index}
-          onExpandedChange={(isExpanded) => setExpandedMenuIndex(isExpanded ? index : null)}
+          onExpandedChange={(isExpanded) => setExpandedMenuIndex((current) => isExpanded ? index : (current === index ? null : current))}
         />
       ))}
     </nav>

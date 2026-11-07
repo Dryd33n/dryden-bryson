@@ -3,6 +3,7 @@ import { ScreenWidthProvider } from "./hooks/ScreenWidthProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import ThemeProvider from "./components/global/ThemeProvider";
+import { OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,16 +25,9 @@ export const metadata = {
   description: "Creative technology portfolio by Dryden Bryson",
   openGraph: {
     title: "Dryden Bryson",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    images: [OG_IMAGE],
     description:
       "Computer science student and software developer building performant systems and modern web applications.",
-    url: "https://dryd3n.ca",
     siteName: "Dryden Bryson",
     type: "website",
   },
@@ -42,7 +36,7 @@ export const metadata = {
     title: "Dryden Bryson",
     description:
       "Computer science student and software developer building performant systems and modern web applications.",
-    images: ["/og-image.jpg"],
+    images: [OG_IMAGE],
   },
   robots: {
     index: true,
@@ -66,6 +60,16 @@ export default function RootLayout({
         image: "https://dryd3n.ca/og-image.jpg",
         jobTitle: "Computer Science Student & Software Developer",
         description: "Computer science student and software developer building performant systems and modern web applications.",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Victoria",
+          addressRegion: "BC",
+          addressCountry: "CA"
+        },
+        affiliation: {
+          "@type": "CollegeOrUniversity",
+          name: "University of Victoria"
+        },
         sameAs: [
           "https://github.com/Dryd33n",
           "https://www.linkedin.com/in/drydenbryson/"
@@ -93,19 +97,6 @@ export default function RootLayout({
           "@id": "https://dryd3n.ca/#person"
         },
         inLanguage: "en-US"
-      },
-      {
-        "@type": "ProfilePage",
-        "@id": "https://dryd3n.ca/#profilepage",
-        url: "https://dryd3n.ca",
-        name: "Dryden Bryson - Portfolio",
-        isPartOf: {
-          "@id": "https://dryd3n.ca/#website"
-        },
-        about: {
-          "@id": "https://dryd3n.ca/#person"
-        },
-        description: "Computer science student and software developer building performant systems and modern web applications."
       }
     ]
   };
