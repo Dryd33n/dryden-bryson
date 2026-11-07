@@ -1,3 +1,4 @@
+import BlinkingSquares from '../components/backgrounds/BlinkingSquares';
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/navigation/Navbar';
 import { home, aboutItems, contactItems, portfolioItems } from '@/lib/menuItems';
@@ -22,7 +23,9 @@ export default function Portfolio() {
   const softwareProjects = [ephget, qlaudified, obsidianPlugins, d2lScraper, portfolio, spotimasher, ludumDare46];
 
   return (
-    <>
+    <div className="relative">
+      <BlinkingSquares showFrom="lg" />
+
       {/* HEADER */}
       <div className="relative">
         <div className="relative z-10 px-6 pt-6 lg:absolute lg:top-6 lg:left-6 lg:p-0">
@@ -50,7 +53,7 @@ export default function Portfolio() {
           ))}
         </ScrollingContainer>
 
-        <div className="h-40"></div>
+        <div className="h-14"></div>
         <h2 id="schoolwork" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><MdSchool className="text-red-500" />SCHOOLWORK</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Projects from University of Victoria Courses:</p>
 
@@ -60,7 +63,7 @@ export default function Portfolio() {
           ))}
         </ScrollingContainer>
 
-        <div className="h-40"></div>
+        <div className="h-14"></div>
         <h2 id="rendering" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><TbCube3dSphere className="text-red-500" />3D DESIGN</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured 3D Models:</p>
 
@@ -131,6 +134,6 @@ export default function Portfolio() {
         <div className="h-40"></div>
       </div>
       
-    </>
+    </div>
   );
 }

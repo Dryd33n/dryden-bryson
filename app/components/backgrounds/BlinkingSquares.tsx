@@ -51,7 +51,6 @@ const SETTINGS: Record<'dark' | 'light', SquareSettings> = {
 };
 
 const FRAME_MS = 1000 / 20; // the twinkle is slow enough that more frames wouldn't show
-const SCROLL_PAUSE_MS = 150; // hold still while scrolling so the browser only has to move the finished canvas
 const ALPHA_LEVELS = 16; // brightness steps; grouping squares by step avoids changing canvas state per square
 const SEED = Math.random() * 1000;
 
@@ -76,7 +75,7 @@ interface Square {
   and only as much width as the squares need. Decorative, so it's hidden from assistive tech
   and small screens, and holds still for visitors who prefer reduced motion.
 */
-export default function BlinkingSquares() {
+export default function BlinkingSquares({ showFrom = 'md' }: { showFrom?: 'md' | 'lg' }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const clock = useRef(0); // survives restarts so the twinkle doesn't jump
   const { resolvedTheme } = useTheme();
@@ -93,7 +92,6 @@ export default function BlinkingSquares() {
     let squares: Square[] = [];
     let frame = 0;
     let last = 0;
-    let lastScroll = 0;
     const colors = [base, accent];
     const buckets: Square[][] = Array.from({ length: colors.length * ALPHA_LEVELS }, () => []);
 
@@ -155,10 +153,6 @@ export default function BlinkingSquares() {
     const loop = (time: number) => {
       frame = requestAnimationFrame(loop);
       if (last && time - last < FRAME_MS) return;
-      if (time - lastScroll < SCROLL_PAUSE_MS) {
-        last = time; // doesn't count as elapsed, so the twinkle resumes where it stopped
-        return;
-      }
       // Capped so returning to a background tab doesn't jump the twinkle.
       clock.current += Math.min(last ? time - last : 0, 100) * speed;
       last = time;
@@ -173,16 +167,10 @@ export default function BlinkingSquares() {
       if (!reducedMotion) frame = requestAnimationFrame(loop);
     };
 
-    const onScroll = () => {
-      lastScroll = performance.now();
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-
     const observer = new ResizeObserver(start);
     observer.observe(canvas);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
       observer.disconnect();
       cancelAnimationFrame(frame);
     };
@@ -193,7 +181,7 @@ export default function BlinkingSquares() {
       ref={canvasRef}
       aria-hidden="true"
       style={{ width: `${(1 - SETTINGS[theme].fadeStart) * 100}%` }}
-      className="hidden md:block absolute top-0 right-0 h-full -z-50 pointer-events-none"
+      className={`hidden ${showFrom === 'lg' ? 'lg:block' : 'md:block'} absolute top-0 right-0 h-full -z-50 pointer-events-none`}
     />
   );
 }

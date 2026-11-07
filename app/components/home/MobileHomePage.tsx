@@ -10,11 +10,15 @@ import { useKonamiCode } from "@/app/hooks/useKonamiCode";
 import DarkModeToggle from "../global/DarkModeToggle";
 import { portfolioItems, aboutItems, contactItems } from "@/lib/menuItems";
 import { useColorScheme } from "@/lib/colorScheme";
+import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
 
 export default function MobileHomePage() {
   const [mounted, setMounted] = useState(false);
   const colorScheme = useColorScheme();
   const konami = useKonamiCode();
+  const screenWidth = useScreenWidth();
+  // Full size down to about 364px wide, then scaled so the name stays inside the border. 0 means not measured yet.
+  const titleScale = screenWidth ? Math.min(1, (screenWidth * 0.11) / 40) : 1;
 
   useEffect(() => {
     setMounted(true);
@@ -22,7 +26,7 @@ export default function MobileHomePage() {
 
   return (
     <>
-      <div className="w-full h-screen p-2">
+      <div className="w-full h-dvh p-2 pb-6">
         {/* overflow-hidden: FuzzyText pads its canvas past the glyphs, which pushed the page wider than a phone screen. */}
         <div className="w-full h-full border relative overflow-hidden">
           <div className="absolute top-3 left-3">
@@ -75,7 +79,7 @@ export default function MobileHomePage() {
               baseIntensity={0.00}
               hoverIntensity={0.1}
               enableHover={true}
-              fontSize={"2.5rem"}
+              fontSize={40 * titleScale}
               color={konami ? colorScheme.rain.name : colorScheme.title.name}
             >
               Dryden Bryson
@@ -85,7 +89,7 @@ export default function MobileHomePage() {
               baseIntensity={0.00}
               hoverIntensity={0.05}
               enableHover={true}
-              fontSize={"1.5rem"}
+              fontSize={24 * titleScale}
               color={colorScheme.title.tagline}
             >
               Student & Developer

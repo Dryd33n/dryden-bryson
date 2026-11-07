@@ -33,7 +33,7 @@ interface ContentCardProps {
   actions?: CardAction[];
 }
 
-const actionClass = "group flex items-center rounded-sm border border-neutral-300 px-2 py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-accent hover:text-accent-strong hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent cursor-pointer w-full dark:border-white dark:text-white";
+const actionClass = "group relative after:absolute after:-inset-x-2 after:-inset-y-1.5 flex items-center rounded-sm border border-neutral-300 px-2 py-1.5 lg:py-1 text-xs uppercase tracking-[0.2em] text-neutral-800 transition-all hover:border-accent hover:text-accent-strong hover:shadow-[0_0_12px_rgba(247,104,85,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent cursor-pointer w-full dark:border-white dark:text-white";
 
 /*
   Shared shell for every card in the portfolio: a left rule, a /title, a one-line description, tech badges,
@@ -42,7 +42,7 @@ const actionClass = "group flex items-center rounded-sm border border-neutral-30
 */
 export default function ContentCard({ name, description, badges, stats = [], preview, actions = [] }: ContentCardProps) {
   return (
-    <div className="flex flex-row gap-4 w-[330px]">
+    <div className="flex flex-row gap-4 w-[min(310px,calc(100vw-72px))] lg:w-[330px]">
       <div className="w-0.5 h-full bg-neutral-300 dark:bg-neutral-700"></div>
       <div className="pt-1 pb-4 flex flex-col h-full flex-1 min-w-0">
         <h3 className={`text-2xl cursor-default break-words text-neutral-900 dark:text-neutral-100 mb-2`}>

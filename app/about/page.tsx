@@ -60,7 +60,7 @@ export default function About() {
                 </p>
             </div>
 
-            <div className="h-40"></div>
+            <div className="h-14"></div>
 
             {/* SKILLS */}
             <section id="skills"></section>
@@ -71,7 +71,7 @@ export default function About() {
                 alternateDirection={true}
             />
 
-            <div className="h-40"></div>
+            <div className="h-14"></div>
             <section id="education"></section>
             <h2 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><MdOutlineSchool  className="text-red-500" />EDUCATION</h2>
             <div className="flex flex-col gap-10 md:mr-[40%] cursor-default">

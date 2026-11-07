@@ -10,7 +10,7 @@ export default function SkillsGallery({ images, alternateDirection }: SkillsGall
     return (
         <div className="relative mr-0 md:mr-[40%] opacity-90 select-none">
             {/* Left Glowing Bar */}
-            <div className="absolute -left-[3px] top-0 h-full w-[5px] z-20
+            <div className="absolute left-0 top-0 h-full w-[5px] z-20
             bg-[#ff0000]
             shadow-[0_0_12px_#ff0000,0_0_24px_#ff0000,0_0_48px_#ff0000]
             pointer-events-none brightness-150 saturate-200"></div>

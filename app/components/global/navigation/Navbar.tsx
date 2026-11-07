@@ -18,7 +18,7 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
 
   const isVertical = layout === 'vertical' || isMobile;
   const containerClass = isVertical
-    ? 'flex flex-col gap-3'
+    ? 'flex flex-col gap-1.5'
     : 'flex flex-row gap-10';
 
   useEffect(() => {

@@ -4,6 +4,16 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Form values are visitor input, so they must not be able to add markup to the email.
+function escapeHtml(value: string) {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 export async function sendContactEmail(formData: {
     name: string;
     email: string;
@@ -43,20 +53,20 @@ export async function sendContactEmail(formData: {
                         <div class="content">
                             <div class="field">
                                 <div class="field-label">From</div>
-                                <div class="field-value">${formData.name}</div>
+                                <div class="field-value">${escapeHtml(formData.name)}</div>
                             </div>
                             <div class="field">
                                 <div class="field-label">Email</div>
-                                <div class="field-value"><a href="mailto:${formData.email}" style="color: #f76855; text-decoration: none;">${formData.email}</a></div>
+                                <div class="field-value"><a href="mailto:${escapeHtml(formData.email)}" style="color: #f76855; text-decoration: none;">${escapeHtml(formData.email)}</a></div>
                             </div>
                             <div class="field">
                                 <div class="field-label">Subject</div>
-                                <div class="field-value">${formData.subject}</div>
+                                <div class="field-value">${escapeHtml(formData.subject)}</div>
                             </div>
                             <div class="field">
                                 <div class="field-label">Message</div>
                                 <div class="message-field">
-                                    <p>${formData.message.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}</p>
+                                    <p>${escapeHtml(formData.message).replace(/\n/g, '<br/>')}</p>
                                 </div>
                             </div>
                             <div class="footer">

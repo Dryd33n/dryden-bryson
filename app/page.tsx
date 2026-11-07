@@ -1,5 +1,5 @@
-import DesktopHomePage from './components/home/DesktopHomePage';
-import MobileHomePage from './components/home/MobileHomePage';
+import HomeLayouts from './components/home/HomeLayouts';
+import HomeFooter from './components/home/HomeFooter';
 
 export const metadata = {
   title: "Home | Dryden Bryson",
@@ -7,14 +7,10 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <>
+  return <div className="relative">
       {/* Both layouts draw the name and tagline on canvases, so the page carries one real heading for crawlers and screen readers. */}
       <h1 className="sr-only">Dryden Bryson, Student &amp; Developer</h1>
-      <div className="hidden md:block">
-        <DesktopHomePage />
-      </div>
-      <div className="block md:hidden">
-        <MobileHomePage />
-      </div>
-  </>
+      <HomeLayouts />
+      <HomeFooter />
+  </div>
 }

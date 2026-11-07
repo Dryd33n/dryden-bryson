@@ -46,7 +46,7 @@ export default function Contact() {
                         <FiMail className="text-accent text-xl md:text-2xl mt-1 flex-shrink-0" />
                         <div>
                             <p className="text-neutral-500 dark:text-[#a3a3a3] text-xs md:text-sm font-semibold mb-1">Email</p>
-                            <a href="mailto:drydenbryson@dryd3n.ca" className="text-neutral-900 dark:text-white text-sm md:text-lg hover:text-accent-strong transition-colors">drydenbryson@dryd3n.ca</a>
+                            <a href="mailto:drydenbryson@dryd3n.ca" className="relative after:absolute after:-inset-3 text-neutral-900 dark:text-white text-sm md:text-lg hover:text-accent-strong transition-colors">drydenbryson@dryd3n.ca</a>
                         </div>
                     </div>
 
