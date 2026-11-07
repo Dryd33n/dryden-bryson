@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import PageHeader from '../components/global/PageHeader';
 import Navbar from '../components/global/navigation/Navbar';
 import { aboutItems, contactItems, home, portfolioItems } from '@/lib/menuItems';
+import BlinkingSquares from '../components/backgrounds/BlinkingSquares';
 import ContactForm from './ContactForm';
 import { MdOutlineMail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
@@ -13,7 +14,8 @@ export const metadata = {
 };
 
 export default function Contact() {
-    return (<>
+    return (<div className="relative">
+        <BlinkingSquares />
 
         {/* HEADER */}
         <div className="relative">
@@ -95,7 +97,7 @@ export default function Contact() {
         </div>
 
 
-    </>)
+    </div>)
 
 
 }
