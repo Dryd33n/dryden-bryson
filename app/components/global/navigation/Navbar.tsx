@@ -2,8 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import NavButton from "@/app/components/global/navigation/NavButton";
 import { MenuItem } from "@/app/components/global/navigation/NavButton";
-import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
-import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 
 interface NavbarProps {
   menuItemArrays: MenuItem[][];
@@ -13,13 +11,11 @@ interface NavbarProps {
 export default function Navbar({ menuItemArrays, layout = 'horizontal' }: NavbarProps) {
   const [expandedMenuIndex, setExpandedMenuIndex] = useState<number | null>(null);
   const navRef = useRef<HTMLElement>(null);
-  const screenWidth = useScreenWidth();
-  const isMobile = screenWidth > 0 && screenWidth < DESKTOP_MOBILE_BREAKPOINT;
 
-  const isVertical = layout === 'vertical' || isMobile;
-  const containerClass = isVertical
+  // In CSS, so the first paint already has the right layout. lg matches DESKTOP_MOBILE_BREAKPOINT.
+  const containerClass = layout === 'vertical'
     ? 'flex flex-col gap-1.5'
-    : 'flex flex-row gap-10';
+    : 'flex flex-col gap-1.5 lg:flex-row lg:gap-10';
 
   useEffect(() => {
     const handlePointerDown = (e: PointerEvent) => {

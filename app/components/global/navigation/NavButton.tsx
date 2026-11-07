@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useSprings, animated, useSpringRef } from "@react-spring/web";
 import { FiChevronDown } from "react-icons/fi";
 import { DESKTOP_MOBILE_BREAKPOINT } from "@/lib/breakpoints";
 import DecryptedText from "@/app/components/typography/DecryptedText/DecryptedText";
-import { useScreenWidth } from "@/app/hooks/ScreenWidthProvider";
 
 export interface MenuItem {
     title: string;
@@ -20,27 +17,35 @@ interface NavButtonProps {
     onExpandedChange?: (isExpanded: boolean) => void;
 }
 
-const letterAnimationFrom = { filter: 'blur(10px)', opacity: 0, transform: 'translate3d(0,10px,0)' };
+const LETTER_STAGGER_MS = 20;
 
-// Titles render letter by letter (or scrambled), so links carry a readable name: "/ABOUT-ME" -> "About me".
+// Survives moving between pages and resets on a full page load, so the nav only animates in on the load itself.
+let hasAnimatedIn = false;
+
+// Sub-menu names: "├─ SOFTWARE" -> "Software", "/ABOUT-ME" -> "About me".
 const linkLabel = (title: string) => {
     const words = title.replace(/^[/├─\s]+/, '').replace(/-/g, ' ').toLowerCase();
     return words.charAt(0).toUpperCase() + words.slice(1);
 };
 
+// Same width as Tailwind's lg, which sets the nav's layout. Read at the moment of use so it never affects rendering.
+const isNarrowScreen = () => window.innerWidth < DESKTOP_MOBILE_BREAKPOINT;
+
+const animateInProps = (index: number) => ({
+    className: 'nav-letter-in',
+    style: { animationDelay: `${index * LETTER_STAGGER_MS}ms` },
+});
+
 export default function NavButton({ menuItems, isExpanded = false, onExpandedChange }: NavButtonProps) {
-    const [animationComplete, setAnimationComplete] = useState(false);
+    // Kept in state so this nav finishes its animation after the flag above flips.
+    const [animateIn] = useState(() => !hasAnimatedIn);
+    const [animationComplete, setAnimationComplete] = useState(!animateIn);
     const [hovered, setHovered] = useState(false);
-    const [inView, setInView] = useState(false);
     const onExpandedChangeRef = useRef(onExpandedChange);
     const containerRef = useRef<HTMLDivElement>(null);
     const toggleRef = useRef<HTMLButtonElement>(null);
     const subMenuRef = useRef<HTMLDivElement>(null);
     const subMenuId = useId();
-    const animatedCount = useRef(0);
-    const hasStarted = useRef(false);
-    const springRef = useSpringRef();
-    const width = useScreenWidth();
     const pathname = usePathname();
     const router = useRouter();
 
@@ -50,21 +55,26 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
 
     const mainMenuItem = menuItems[0];
     const subMenuItems = menuItems.slice(1);
-    const isMobile = width <= DESKTOP_MOBILE_BREAKPOINT;
     const hasSubMenu = subMenuItems.length > 0;
     const letters = mainMenuItem.title.split('');
-    // The chevron animates as one more character, straight after the last letter.
-    const animatedItemCount = letters.length + (hasSubMenu ? 1 : 0);
     const isCurrentPage = pathname === mainMenuItem.href;
-    const isOpen = hasSubMenu && (isExpanded || (!isMobile && hovered && animationComplete));
+    const isOpen = hasSubMenu && (isExpanded || hovered);
 
-    const [springs] = useSprings(
-        animatedItemCount,
-        () => ({
-            ref: springRef,
-            from: letterAnimationFrom,
-        })
-    );
+    useEffect(() => {
+        hasAnimatedIn = true;
+    }, []);
+
+    // The hover gradient has to wait: background-clip: text can't reach letters that are mid-animation (LESSONS.md #2).
+    // This also covers an animation that ended before hydration, or never ran under reduced motion.
+    useEffect(() => {
+        if (!animateIn) return;
+        let mounted = true;
+        const animations = containerRef.current?.getAnimations({ subtree: true }) ?? [];
+        Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
+            if (mounted) setAnimationComplete(true);
+        });
+        return () => { mounted = false; };
+    }, [animateIn]);
 
     useEffect(() => {
         onExpandedChangeRef.current = onExpandedChange;
@@ -84,42 +94,9 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
         return () => window.removeEventListener("pageshow", handlePageShow);
     }, []);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setInView(true);
-                    if (containerRef.current) observer.unobserve(containerRef.current);
-                }
-            },
-            { threshold: 0.1 }
-        );
-        if (containerRef.current) observer.observe(containerRef.current);
-        return () => observer.disconnect();
-    }, []);
-
-    useEffect(() => {
-        if (!inView || hasStarted.current) return;
-        hasStarted.current = true;
-        animatedCount.current = 0;
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        springRef.start((i: number) => ({
-            to: async (next: any) => {
-                if (!reducedMotion) await next({ filter: 'blur(5px)', opacity: 0.5, transform: 'translate3d(0,-5px,0)' });
-                await next({ filter: 'blur(0px)', opacity: 1, transform: 'translate3d(0,0,0)', immediate: reducedMotion });
-                animatedCount.current += 1;
-                if (animatedCount.current === animatedItemCount) {
-                    springRef.set({ filter: 'none', transform: 'none', opacity: 1 });
-                    setAnimationComplete(true);
-                }
-            },
-            delay: reducedMotion ? 0 : i * 20,
-        }));
-    }, [inView]); // eslint-disable-line react-hooks/exhaustive-deps
-
     // Below the breakpoint, the first tap on a parent link opens its menu and the second navigates.
     const handleMainButtonClick = (e: React.MouseEvent) => {
-        if (!isMobile || !hasSubMenu) return;
+        if (!hasSubMenu || !isNarrowScreen()) return;
         e.preventDefault();
         if (!isExpanded) {
             onExpandedChange?.(true);
@@ -161,33 +138,38 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
             ref={containerRef}
             className="relative cursor-pointer"
             // Pointer events, because touch fires emulated mouse events that would open the menu just before a tap toggled it.
-            onPointerEnter={(e) => e.pointerType === 'mouse' && !isMobile && animationComplete && setHovered(true)}
-            onPointerLeave={(e) => e.pointerType === 'mouse' && !isMobile && setHovered(false)}
+            onPointerEnter={(e) => e.pointerType === 'mouse' && !isNarrowScreen() && setHovered(true)}
+            onPointerLeave={(e) => e.pointerType === 'mouse' && setHovered(false)}
             onFocus={handleFocus}
             onBlur={handleBlur}
         >
             <div className="inline-flex items-center">
                 <Link
                     href={mainMenuItem.href}
-                    aria-label={linkLabel(mainMenuItem.title)}
                     aria-current={isCurrentPage ? 'page' : undefined}
                     onClick={handleMainButtonClick}
                     className={[
                         'relative text-lg transition-transform duration-300 ease-out inline-flex',
-                        animationComplete ? '' : 'pointer-events-none',
-                        hovered && !isMobile && animationComplete ? 'scale-[1.05] text-gradient-1' : '',
-                        isExpanded && animationComplete ? 'text-gradient-1' : '',
+                        hovered && animationComplete ? 'scale-[1.05]' : '',
                         isCurrentPage ? 'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-accent' : '',
                     ].join(' ')}
                     style={{ color: isCurrentPage ? "var(--accent-strong)" : "var(--text-nav)" }}
                 >
-                    {springs.slice(0, letters.length).map((props, i) => (
-                        <animated.span key={i} style={props}>
-                            <span className="inline-block">
-                                {letters[i] === ' ' ? '\u00A0' : letters[i]}
-                            </span>
-                        </animated.span>
-                    ))}
+                    <span className="sr-only">{mainMenuItem.title}</span>
+                    {/* The gradient goes here, not on the link: background-clip: text also paints sr-only text, which would double the word. */}
+                    <span aria-hidden="true" className={`inline-flex ${(hovered || isExpanded) && animationComplete ? 'text-gradient-1' : ''}`}>
+                        {letters.map((letter, i) => {
+                            const animation = animateIn ? animateInProps(i) : undefined;
+                            return (
+                                <span
+                                    key={i}
+                                    data-letter={letter === ' ' ? ' ' : letter}
+                                    className={`nav-letter ${animation?.className ?? ''}`}
+                                    style={animation?.style}
+                                />
+                            );
+                        })}
+                    </span>
                 </Link>
 
                 {hasSubMenu && (
@@ -201,19 +183,17 @@ export default function NavButton({ menuItems, isExpanded = false, onExpandedCha
                         className="relative ml-0.5 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm after:absolute after:-inset-1 hover:text-accent-strong focus-visible:outline-2 focus-visible:outline-accent"
                         style={{ color: "var(--text-nav)" }}
                     >
-                        <animated.span style={springs[letters.length]} className="inline-flex">
+                        {/* Animates as one more character, straight after the last letter. */}
+                        <span className={`inline-flex ${animateIn ? animateInProps(letters.length).className : ''}`} style={animateIn ? animateInProps(letters.length).style : undefined}>
                             <FiChevronDown aria-hidden="true" className={`motion-safe:transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-                        </animated.span>
+                        </span>
                     </button>
                 )}
             </div>
 
             {/* Submenu */}
             {isOpen && (
-                <div ref={subMenuRef} id={subMenuId} className={isMobile
-                    ? 'flex flex-col rounded mt-2'
-                    : 'absolute left-0 top-full flex flex-col rounded'
-                }>
+                <div ref={subMenuRef} id={subMenuId} className="flex flex-col rounded mt-2 lg:mt-0 lg:absolute lg:left-0 lg:top-full">
                     {subMenuItems.map((item, index) => (
                         <Link key={index} href={item.href} aria-label={linkLabel(item.title)} onClick={closeMenu} className="whitespace-nowrap">
                             <DecryptedText

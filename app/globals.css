@@ -42,6 +42,46 @@
   --font-heading: "Arame-Mono", monospace;
 }
 
+/*
+  Nav letters fading in (see NavButton). Each letter makes two 705ms moves, one after the other.
+  The easing is a spring (tension 170, friction 26, mass 1) sampled into linear(), so it settles the way a spring does.
+  It's written out twice because Chromium ignores var() for a timing function inside @keyframes.
+*/
+.nav-letter-in {
+  animation: nav-letter-in 1410ms backwards;
+}
+
+@keyframes nav-letter-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 10px, 0);
+    animation-timing-function: linear(0, 0.0437, 0.1415, 0.2597, 0.3792, 0.4896, 0.5872, 0.6703, 0.7393, 0.7956, 0.8407, 0.8767, 0.9051, 0.9273, 0.9445, 0.9578, 0.968, 0.9758, 0.9818, 0.9863, 0.9897, 0.9923, 0.9942, 0.9957, 0.9968, 0.9976, 0.9982, 0.9987, 1);
+  }
+  50% {
+    opacity: 0.5;
+    filter: blur(5px);
+    transform: translate3d(0, -5px, 0);
+    animation-timing-function: linear(0, 0.0437, 0.1415, 0.2597, 0.3792, 0.4896, 0.5872, 0.6703, 0.7393, 0.7956, 0.8407, 0.8767, 0.9051, 0.9273, 0.9445, 0.9578, 0.968, 0.9758, 0.9818, 0.9863, 0.9897, 0.9923, 0.9942, 0.9957, 0.9968, 0.9976, 0.9982, 0.9987, 1);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-letter-in {
+    animation: none;
+  }
+}
+
+/* Letters are drawn from an attribute, so crawlers and copy-paste only see the link's one real word. */
+.nav-letter::before {
+  content: attr(data-letter);
+}
+
 /* Theme switch crossfade (see DarkModeToggle) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
