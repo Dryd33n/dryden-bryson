@@ -11,6 +11,7 @@ import SchoolProjectCard from '../components/portfolio/SchoolProjectCard';
 import ObsidianPluginsCard from '../components/portfolio/ObsidianPluginsCard';
 import { ephget, qlaudified, obsidianPlugins, d2lScraper, spotimasher, portfolio, ludumDare46 } from '@/lib/projectsData';
 import { schoolProjects } from '@/lib/schoolworkData';
+import { griffinBowlMod, seylynnBowlMod, thePoolMod } from '@/lib/modio';
 
 export const metadata = {
   title: "Portfolio",
@@ -73,6 +74,7 @@ export default function Portfolio() {
             focusMaterials={["Bowl", "Grass", "Seylynn_Sign", "Seylynn_Sign_Shiny"]}
             environment={{ file: "/3D Models/hdri/misty_pines.hdr" }}
             previewImage="/3D Models/seylynn-preview.webp"
+            mod={seylynnBowlMod}
             techBadges={["Blender", "Substance Painter"]}
             modelStats={[
               { label: "Format", value: "GLB" },
@@ -87,6 +89,7 @@ export default function Portfolio() {
             environment={{ file: "/3D Models/hdri/tiergarten.hdr", intensity: 1.3 }}
             subtitle="Backyard pool skatepark"
             previewImage="/3D Models/backyardpool-preview.webp"
+            mod={thePoolMod}
             techBadges={["Blender", "Substance Painter"]}
             modelStats={[
               { label: "Format", value: "GLB" },
@@ -101,6 +104,7 @@ export default function Portfolio() {
             environment={{ file: "/3D Models/hdri/skate_park.hdr" }}
             subtitle="Griffin Bowl skatepark"
             previewImage="/3D Models/griffinbowl-preview.webp"
+            mod={griffinBowlMod}
             techBadges={["Blender", "Substance Painter"]}
             modelStats={[
               { label: "Format", value: "GLB" },

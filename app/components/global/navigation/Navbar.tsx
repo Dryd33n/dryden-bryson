@@ -33,7 +33,7 @@ export default function Navbar({ menuItemArrays, layout = 'horizontal' }: Navbar
   }, [isMobile]);
 
   return (
-    <nav ref={navRef} className={`${containerClass} select-none`}>
+    <nav ref={navRef} className={`${containerClass} select-none font-heading`}>
       {menuItemArrays.map((menuItems, index) => (
         <NavButton
           key={index}

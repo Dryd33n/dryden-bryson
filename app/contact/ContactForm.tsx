@@ -53,7 +53,7 @@ export default function ContactForm() {
         formData.message.trim();
 
     return (
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6 md:mr-[30%]">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6 md:mr-[40%]">
             {/* Name and Email Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>

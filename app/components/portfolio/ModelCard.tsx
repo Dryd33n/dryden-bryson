@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { MdViewInAr } from "react-icons/md";
 import ContentCard from './ContentCard';
+import ModDownloads from './ModDownloads';
+import type { ModIoMod } from '@/lib/modio';
 import type { EnvironmentSettings } from './3DViewer';
 
 // three.js only loads once a visitor opens the viewer.
@@ -26,6 +28,7 @@ interface ModelCardProps {
   cameraDirection?: [number, number, number];
   environment?: EnvironmentSettings;
   focusMaterials?: string[];
+  mod?: ModIoMod;
 }
 
 export default function ModelCard({
@@ -39,6 +42,7 @@ export default function ModelCard({
   cameraDirection,
   environment,
   focusMaterials,
+  mod,
 }: ModelCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const close = useCallback(() => setIsOpen(false), []);
@@ -49,7 +53,7 @@ export default function ModelCard({
         name={name}
         description={description}
         badges={techBadges}
-        stats={modelStats}
+        stats={mod ? [...modelStats, { label: 'Downloads', value: <ModDownloads modId={mod.id} /> }] : modelStats}
         preview={previewImage ? (
           <button type="button" onClick={() => setIsOpen(true)} aria-label={`Open the ${name} 3D model`} className="group relative w-full h-full cursor-pointer">
             <Image src={previewImage} alt="" fill sizes="330px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -57,7 +61,10 @@ export default function ModelCard({
         ) : (
           <MdViewInAr className="w-20 h-20 text-neutral-400 dark:text-neutral-600" />
         )}
-        actions={[{ label: 'View 3D Model', icon: 'model', onClick: () => setIsOpen(true) }]}
+        actions={[
+          { label: 'View 3D Model', icon: 'model', onClick: () => setIsOpen(true) },
+          ...(mod ? [{ label: 'View on mod.io', href: mod.url }] : []),
+        ]}
       />
 
       {isOpen && (
