@@ -22,7 +22,7 @@ export default function MobileHomePage() {
 
   return (
     <>
-      <div className="w-full h-screen p-2">
+      <div className="w-full h-dvh p-2 pb-6">
         {/* overflow-hidden: FuzzyText pads its canvas past the glyphs, which pushed the page wider than a phone screen. */}
         <div className="w-full h-full border relative overflow-hidden">
           <div className="absolute top-3 left-3">
