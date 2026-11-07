@@ -53,7 +53,7 @@ export default function Portfolio() {
           ))}
         </ScrollingContainer>
 
-        <div className="h-40"></div>
+        <div className="h-14"></div>
         <h2 id="schoolwork" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><MdSchool className="text-red-500" />SCHOOLWORK</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured Projects from University of Victoria Courses:</p>
 
@@ -63,7 +63,7 @@ export default function Portfolio() {
           ))}
         </ScrollingContainer>
 
-        <div className="h-40"></div>
+        <div className="h-14"></div>
         <h2 id="rendering" className="text-4xl font-bold mb-2 flex items-center gap-2 cursor-default text-neutral-900 dark:text-neutral-100 scroll-mt-8"><TbCube3dSphere className="text-red-500" />3D DESIGN</h2>
         <p className="mb-4 text-neutral-600 dark:text-neutral-400">Featured 3D Models:</p>
 
