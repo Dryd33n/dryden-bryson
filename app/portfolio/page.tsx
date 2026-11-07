@@ -13,11 +13,13 @@ import ObsidianPluginsCard from '../components/portfolio/ObsidianPluginsCard';
 import { ephget, qlaudified, obsidianPlugins, d2lScraper, spotimasher, portfolio, ludumDare46 } from '@/lib/projectsData';
 import { schoolProjects } from '@/lib/schoolworkData';
 import { griffinBowlMod, seylynnBowlMod, thePoolMod } from '@/lib/modio';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: "Portfolio",
-  description: "Explore the portfolio of Dryden Bryson, showcasing his software development projects, 3D design work, and school assignments. Discover his skills and creativity in various domains.",
-};
+export const metadata = pageMetadata({
+  title: "Software, Graphics & 3D Projects | Dryden Bryson",
+  description: "Developer tools, Obsidian plugins, graphics coursework and 3D skatepark models by Dryden Bryson, with source code, write-ups and live demos.",
+  path: "/portfolio",
+});
 
 export default function Portfolio() {
   const softwareProjects = [ephget, qlaudified, obsidianPlugins, d2lScraper, portfolio, spotimasher, ludumDare46];

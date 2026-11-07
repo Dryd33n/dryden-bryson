@@ -1,10 +1,11 @@
 'use client'
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import type { Skill } from '@/lib/skills';
 import './InfiniteImageGallery.css';
 
 interface InfiniteScrollGalleryProps {
-  imageHrefs: string[];
+  skills: Skill[];
   direction: "left" | "right";
   imageHeight?: number; // New property for image height
 }
@@ -13,7 +14,7 @@ interface InfiniteScrollGalleryProps {
 const MIN_IMAGE_SPACE = 55;
 const SECONDS_PER_IMAGE = 5;
 
-const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: InfiniteScrollGalleryProps) => {
+const InfiniteImageGallery = ({ skills, direction, imageHeight = 100 }: InfiniteScrollGalleryProps) => {
   const [sets, setSets] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,16 +25,16 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
     const resizeObserver = new ResizeObserver(() => {
       const containerWidth = container.offsetWidth;
       if (containerWidth) {
-        setSets(Math.ceil(containerWidth / (imageHrefs.length * MIN_IMAGE_SPACE)));
+        setSets(Math.ceil(containerWidth / (skills.length * MIN_IMAGE_SPACE)));
       }
     });
 
     resizeObserver.observe(container);
     return () => resizeObserver.disconnect();
-  }, [imageHrefs]);
+  }, [skills]);
 
   // Two identical halves: the row moves by exactly one half, so the loop is seamless.
-  const half: string[] = Array(sets).fill(imageHrefs).flat();
+  const half: Skill[] = Array(sets).fill(skills).flat();
   const images = [...half, ...half];
 
   return (
@@ -42,14 +43,16 @@ const InfiniteImageGallery = ({ imageHrefs, direction, imageHeight = 100 }: Infi
         className={direction === "left" ? `scrolling-row-left` : `scrolling-row-right`}
         style={{ animationDuration: `${half.length * SECONDS_PER_IMAGE}s` }}
       >
-        {images.map((href, index) => (
+        {images.map((skill, index) => (
           <Image
             key={index}
-            src={href}
-            alt={`Image ${index}`}
+            src={skill.icon}
+            alt=""
+            data-skill={skill.name}
+            draggable={false}
             width={25}
             height={imageHeight}
-            className="scrolling-image pointer-events-none invert dark:invert-0 drop-shadow-[0_0_5px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.25)]"
+            className="scrolling-image invert dark:invert-0 drop-shadow-[0_0_5px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.25)]"
             style={{ height: `${imageHeight}px`, width: 'auto' }}
           />
         ))}

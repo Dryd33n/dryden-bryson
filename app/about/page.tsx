@@ -5,19 +5,29 @@ import SkillsGallery from '@/app/components/skills/SkillsGallery';
 import { IoMdCode } from "react-icons/io";
 import { SiSuperuser } from "react-icons/si";
 import { MdOutlineSchool } from "react-icons/md";
+import JsonLd from '../components/global/JsonLd';
 import { home, aboutItems, portfolioItems, contactItems } from '@/lib/menuItems';
+import { skillGroups } from '@/lib/skills';
+import { PAGE_LAST_MODIFIED, pageMetadata, SITE_URL } from '@/lib/seo';
 
-export const metadata = {
-  title: "About",
+export const metadata = pageMetadata({
+  title: "About Dryden Bryson: UVic Computer Science Student",
   description: "Learn more about Dryden Bryson, a computer science student and programmer based in Canada. Explore his bio, skills, and education background.",
+  path: "/about",
+});
+
+const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/about#profilepage`,
+  url: `${SITE_URL}/about`,
+  name: "About Dryden Bryson",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  mainEntity: { "@id": `${SITE_URL}/#person` },
+  dateModified: PAGE_LAST_MODIFIED["/about"],
 };
 
 export default function About() {
-    const languageImages = ["icons/java.svg", "icons/python.svg", "icons/typescript.svg", "icons/c.svg", "icons/c-sharp.svg", "icons/r.svg", "icons/assembly.svg"];
-    const socialImages = ["icons/html.svg", "icons/css.svg", "icons/tailwind.svg", "icons/react.svg", "icons/next.svg", "icons/scenebuilder.svg", "icons/pyqt.svg", "icons/javafx.svg", "icons/unity.svg"];
-    const backendImages = ["icons/postgresql.svg", "icons/neon.svg", "icons/drizzle.svg", "icons/nodejs.svg", "icons/github.svg"];
-    const designImages = ["icons/illustrator.svg", "icons/photoshop.svg", "icons/premiere.svg", "icons/blender.svg", "icons/latex.svg", "icons/vscode.svg", "icons/jetbrains.svg"];
-
     const education: { school: string; credential: string; dates: string; location: string; detail?: string }[] = [
         {
             school: "University of Victoria",
@@ -37,6 +47,7 @@ export default function About() {
 
 
     return (<div className="relative">
+        <JsonLd data={profilePageJsonLd} />
         <BlinkingSquares />
 
         {/* HEADER */}
@@ -66,10 +77,24 @@ export default function About() {
             <section id="skills"></section>
             <h2 className="text-4xl font-bold mb-8 flex items-center gap-2 cursor-default"><IoMdCode className="text-red-500" />SKILLS</h2>
             <p className="mb-4 md:mr-[40%] cursor-default">The languages, frameworks and tools I use to take projects from idea to finished product: front end, back end and design.</p>
-            <SkillsGallery 
-                images={[languageImages, socialImages, backendImages, designImages]}
+            <SkillsGallery
+                groups={skillGroups}
                 alternateDirection={true}
             />
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 md:mr-[40%] cursor-default">
+                {skillGroups.map((group) => (
+                    <div key={group.title}>
+                        <h3 className="text-base md:text-lg mb-2 text-neutral-900 dark:text-neutral-100">
+                            <span className="text-accent">/</span>{group.title}
+                        </h3>
+                        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                            {group.skills.map((skill) => (
+                                <li key={skill.name}>{skill.name}</li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
 
             <div className="h-14"></div>
             <section id="education"></section>

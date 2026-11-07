@@ -7,14 +7,29 @@ import BlinkingSquares from '../components/backgrounds/BlinkingSquares';
 import ContactForm from './ContactForm';
 import { MdOutlineMail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
+import JsonLd from '../components/global/JsonLd';
+import { PAGE_LAST_MODIFIED, pageMetadata, SITE_URL } from '@/lib/seo';
 
-export const metadata = {
-  title: "Contact",
-  description: "Get in touch with Dryden Bryson, a computer science student and programmer based in Canada. Reach out via email or connect on social media to discuss projects, collaborations, or just to say hi.",
+export const metadata = pageMetadata({
+  title: "Contact Dryden Bryson: Freelance & Full-Time Work",
+  description: "Contact Dryden Bryson about freelance projects or full-time software roles. Based in Victoria, BC; replies within 24-48 hours.",
+  path: "/contact",
+});
+
+const contactPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": `${SITE_URL}/contact#contactpage`,
+  url: `${SITE_URL}/contact`,
+  name: "Contact Dryden Bryson",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  mainEntity: { "@id": `${SITE_URL}/#person` },
+  dateModified: PAGE_LAST_MODIFIED["/contact"],
 };
 
 export default function Contact() {
     return (<div className="relative">
+        <JsonLd data={contactPageJsonLd} />
         <BlinkingSquares />
 
         {/* HEADER */}
